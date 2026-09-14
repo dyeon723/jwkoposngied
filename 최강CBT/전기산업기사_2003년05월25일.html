@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           전기기기 기출문제 HTML 템플릿  —  AI 작업 필수 지침               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  ★ 작업 전 이 주석을 반드시 끝까지 읽을 것 ★                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [1] 수식 렌더링 (KaTeX)                                                     ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 모든 수식은 KaTeX LaTeX 문법으로 작성할 것                               ║
+║  · 절대 ², √, · 같은 유니코드 문자로 대체하지 말 것                         ║
+║                                                                              ║
+║  JS 백틱(`) 문자열 안 수식 작성법:                                           ║
+║    인라인 → \\( 수식 \\)                                                     ║
+║    블록   → \\[ 수식 \\]                                                     ║
+║                                                                              ║
+║  ⚠️  백슬래시와 괄호 사이 공백 절대 금지 — 렌더링 실패                      ║
+║    올바름: \\( E = IR \\)                                                    ║
+║    틀림:   \\ ( E = IR \\ )                                                  ║
+║                                                                              ║
+║  여러 줄 수식(= 기준 정렬)은 반드시 aligned 환경 사용:                       ║
+║    \\[ \\begin{aligned}                                                      ║
+║      E &= V + IR \\\\                                                        ║
+║        &= 100 + 20 \\\\                                                      ║
+║        &= 120                                                                ║
+║    \\end{aligned} \\]                                                        ║
+║    → & 는 = 앞에 붙이는 정렬 기준, \\\\ 는 줄바꿈                           ║
+║                                                                              ║
+║  분수: \\( \\dfrac{분자}{분모} \\)                                           ║
+║  루트: \\( \\sqrt{3} \\)                                                     ║
+║  단위: \\( [\\text{V}] \\)                                                   ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [2] 이미지 / 그래프 / 회로도                                                ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 그림·그래프·회로도가 필요하면 절대 직접 그리지 말 것                     ║
+║  · 반드시 사용자에게 이미지 파일을 요청할 것                                ║
+║  · 이미지 파일이 오면 → <img src="파일명.jpg" style="max-width:100%">       ║
+║  · 이미지 없이 진행할 경우 해당 문제 작업 중단 후 요청                      ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [3] 불명확한 내용 처리                                                      ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 글자, 숫자, 수식이 불분명하면 작업 전에 반드시 사용자에게 질문할 것      ║
+║  · 추측으로 채우거나 임의로 생략하지 말 것                                  ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [4] 해설 작성 규칙                                                          ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  e 필드 (기본 해설):                                                         ║
+║    · 책에 있는 내용을 빠짐없이 전부 입력할 것                               ║
+║    · 표·수식·단계별 풀이 모두 포함                                           ║
+║    · 마음대로 요약하거나 단어 바꾸지 말 것                                  ║
+║                                                                              ║
+║  ae 필드 (AI 추가 해설):                                                     ║
+║    · AI가 작성하는 보충 설명 (기본 해설과 별도 영역에 표시됨)               ║
+║    · 암기 팁, 직관적 설명, 오답 분석 포함                                   ║
+║    · 수식은 동일한 KaTeX 규칙 적용                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [5] 해설 HTML 요소 사용법                                                   ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  수식 박스:                                                                  ║
+║    <div class="fb0">\\[ 수식 \\]</div>                                       ║
+║                                                                              ║
+║  표 (모바일 스크롤 지원):                                                    ║
+║    <div class="tbl-wrap">                                                    ║
+║      <table class="ctbl">                                                    ║
+║        <tr><th>구분</th><th>중권</th><th>파권</th></tr>                      ║
+║        <tr><td>병렬회로수</td><td>P</td><td>2</td></tr>                      ║
+║      </table>                                                                ║
+║    </div>                                                                    ║
+║                                                                              ║
+║  강조:  <strong>강조할 텍스트</strong>                                       ║
+║  팁박스: <div class="tip">암기 팁 내용</div>                                 ║
+║  줄바꿈: <br>                                                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6] 문제 데이터 형식 (QS 배열에 추가)                                       ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  {                                                                           ║
+║    n   : 문제번호 (숫자),       ← 작업 전 반드시 기존 n값 목록 확인 후 결정 ║
+║    q   : '문제 본문' (KaTeX 수식 사용 가능),                                 ║
+║    o   : ['보기①', '보기②', '보기③', '보기④'],  ← 책 원본 순서 그대로     ║
+║    ans : 정답 번호 1~4 (o 배열 기준, 1=첫번째 보기),                         ║
+║    e   : `책 해설 HTML`,          ← 절대 줄이지 말 것                        ║
+║    ae  : `AI 추가해설 HTML`,      ← 아래 ae 작성 기준 참고                   ║
+║    formula : `공식모음 HTML`,     ← 공식이 없는 문제는 이 필드 생략          ║
+║  }                                                                           ║
+║                                                                              ║
+║  ※ n번호 안내                                                                ║
+║    작업 시작 전 "현재 QS 배열의 n값만 나열해줘" 라고 먼저 요청할 것         ║
+║    → AI가 파일 재스캔 없이 중복 없는 번호 바로 결정 가능                    ║
+║    번호는 반드시 연속일 필요 없음 (띄엄띄엄 가능)                           ║
+║                                                                              ║
+║  ※ ae 필드 작성 기준                                                         ║
+║    · 분량: 3~6줄 이상, 충분히 상세하게                                       ║
+║    · 필수 포함: 직관적 설명 or 암기 팁 or 오답 분석 중 2가지 이상           ║
+║    · 책 해설과 내용이 겹치지 않게 보충 관점으로 작성                         ║
+║    · tip 박스 적극 활용: <div class="tip">핵심 암기 내용</div>               ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6-1] 자주 쓰는 HTML 스니펫 (복붙용)                                        ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  인라인 수식:   \\( 수식 \\)                                                 ║
+║  블록 수식:     \\[ 수식 \\]                                                  ║
+║                                                                              ║
+║  수식 박스:                                                                  ║
+║  `<div class="fb0">\\[ 수식 \\]</div>`                                       ║
+║                                                                              ║
+║  여러줄 수식:                                                                ║
+║  `<div class="fb0">                                                          ║
+║  \\[ \\begin{aligned}                                                        ║
+║    E &= V + IR \\\\                                                          ║
+║      &= 100                                                                  ║
+║  \\end{aligned} \\]</div>`                                                   ║
+║                                                                              ║
+║  표:                                                                         ║
+║  `<div class="tbl-wrap"><table class="ctbl">                                 ║
+║  <tr><th>구분</th><th>A</th><th>B</th></tr>                                  ║
+║  <tr><td>항목</td><td>값</td><td>값</td></tr>                                ║
+║  </table></div>`                                                             ║
+║                                                                              ║
+║  팁 박스:  `<div class="tip">내용</div>`                                     ║
+║  강조:     `<strong>내용</strong>`                                           ║
+║  줄바꿈:   `<br>`                                                            ║
+║                                                                              ║
+║  formula 필드:                                                               ║
+║  `<div class="fb0">\\[ 공식 \\]</div>변수 설명`                              ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [7] 주관식 데이터 형식 (SQS 배열에 추가)                                    ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  A형 (빈칸 채우기):                                                          ║
+║  {                                                                           ║
+║    type: 'fill',                                                             ║
+║    id: 'sqA1',        ← 고유 id, 순서대로 sqA1 sqA2 ...                     ║
+║    title: '제목',                                                            ║
+║    sub: '안내 문구',                                                         ║
+║    sent: `문장 <input class="sq-inp" data-ans="정답" placeholder="　"> 문장` ║
+║  }                                                                           ║
+║                                                                              ║
+║  B형 (공식 암기):                                                            ║
+║  {                                                                           ║
+║    type: 'formula',                                                          ║
+║    id: 'sqB1',        ← 고유 id, 순서대로 sqB1 sqB2 ...                     ║
+║    title: '제목',                                                            ║
+║    hint: 'E = ?',     ← 화면에 표시될 힌트                                  ║
+║    ans: `<div class="fb0">\\[ 수식 \\]</div> 변수 설명`                      ║
+║  }                                                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [8] 작업 순서                                                               ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  1) 제목 수정: <title> 태그와 .hd-title 텍스트 변경                         ║
+║  2) QS 배열의 /* 여기에 문제 추가 */ 위치에 문제 데이터 추가               ║
+║  3) 공식이 있는 문제에는 formula 필드 추가                                  ║
+║  4) 주관식이 있으면 SQS 배열에 추가                                         ║
+║  5) 예시 주석 블록은 건드리지 말 것 (/* ... */ 로 감싸져 있음)              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전기산업기사 2003년05월25일</title><!-- ★ 제목 수정 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#0d0f18; --sf:#161929; --sf2:#1d2035; --bd:#272b42;
+  --ac:#5b9cf6; --ac2:#f5c842; --ok:#3ecf8e; --ng:#f05a5a;
+  --tx:#e4e8f5; --tx2:#8e97be; --tx3:#5a6285;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+
+/* ── 헤더 (컴팩트) ── */
+.hd{
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac);
+  padding:8px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.hd-title{font-size:.95rem;font-weight:900;color:var(--ac);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hd-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
+/* 진도 칩 */
+.progress-chip{
+  font-size:.68rem;font-weight:700;
+  background:var(--sf2);border:1px solid var(--bd);
+  border-radius:20px;padding:3px 9px;
+  color:var(--tx2);white-space:nowrap;
+}
+.progress-chip span{color:var(--ac);}
+
+/* 통계/필터 버튼 */
+.stat-btn{
+  display:flex;align-items:center;gap:3px;
+  background:var(--sf2);border:1px solid var(--bd);border-radius:20px;
+  padding:3px 9px;font-size:.68rem;font-weight:700;
+  cursor:pointer;transition:all .2s;user-select:none;white-space:nowrap;
+  color:var(--tx2);
+}
+@media(hover:hover){.stat-btn:hover{filter:brightness(1.2);}}
+.stat-btn .lbl{font-weight:700;}
+#btnAll.on{border-color:var(--ac);background:rgba(91,156,246,.15);color:var(--ac);}#btnNg.on{border-color:var(--ng);background:rgba(240,90,90,.12);color:var(--ng);}
+#btnWeak.on{border-color:#f5963a;background:rgba(245,150,50,.12);color:#f5963a;}
+
+/* 자주 틀림 드롭다운 */
+.weak-wrap{position:relative;}
+.weak-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:5px 0;min-width:140px;z-index:50;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.weak-menu.open{display:block;}
+.weak-item{
+  padding:8px 14px;font-size:.76rem;color:var(--tx2);cursor:pointer;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.weak-item:hover{background:rgba(245,150,50,.1);color:#f5963a;}
+
+/* 버튼 */
+.fb{background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);padding:4px 11px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.fb.on{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fb:active{filter:brightness(1.25);}
+.fb.danger{color:var(--ng);border-color:rgba(240,90,90,.3);background:rgba(240,90,90,.08);}
+.fb.danger:active{filter:brightness(1.2);}
+
+/* ── 기능버튼 바 ── */
+.sb{padding:7px 18px;background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;}
+.sb-btns{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── 메인 ── */
+.main{max-width:860px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:11px;}
+
+/* ── 객관식 카드 ── */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:border-color .2s;}
+.card.answered-ok{border-color:rgba(62,207,142,.35);}
+.card.answered-ng{border-color:rgba(240,90,90,.35);}
+
+/* 문제 헤더 */
+.ch{display:flex;align-items:flex-start;gap:10px;padding:13px 15px 0;}
+.cn{background:var(--ac);color:#fff;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cn.ok{background:var(--ok);}
+.cn.ng{background:var(--ng);}
+.ct{flex:1;padding-bottom:11px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
+.tg{font-size:.64rem;padding:2px 7px;border-radius:9px;font-weight:500;}
+.tg-g{background:rgba(91,156,246,.14);color:var(--ac);border:1px solid rgba(91,156,246,.28);}
+.tg-s{background:rgba(245,200,66,.13);color:var(--ac2);border:1px solid rgba(245,200,66,.27);}
+
+.tg-at{font-size:.62rem;font-variant-numeric:tabular-nums;border:1px solid transparent;}
+.tg-at-none {background:rgba(255,255,255,.04);color:var(--tx3);border-color:transparent;}          /* 미시도 */
+.tg-at-zero {background:rgba(240,90,90,.12);color:var(--ng);border-color:rgba(240,90,90,.3);}      /* 0% */
+.tg-at-low  {background:rgba(245,150,50,.12);color:#f5963a;border-color:rgba(245,150,50,.3);}      /* 1~49% */
+.tg-at-mid  {background:rgba(245,200,66,.12);color:var(--ac2);border-color:rgba(245,200,66,.3);}   /* 50~99% */
+.tg-at-full {background:rgba(62,207,142,.12);color:var(--ok);border-color:rgba(62,207,142,.3);}    /* 100% */
+.qt{font-size:.9rem;line-height:1.65;color:var(--tx);font-weight:500;}
+
+/* 보기 — 항상 표시 */
+.opts{padding:0 15px 12px 57px;display:flex;flex-direction:column;gap:4px;}
+.opt{display:flex;align-items:flex-start;gap:7px;padding:7px 9px;border-radius:7px;border:1px solid transparent;font-size:.84rem;color:var(--tx2);line-height:1.5;cursor:pointer;transition:all .18s;}
+@media(hover:hover){.opt:hover:not(.lk){background:rgba(91,156,246,.07);border-color:rgba(91,156,246,.2);}}
+.on{font-size:.73rem;font-weight:700;min-width:17px;color:var(--tx3);padding-top:1px;flex-shrink:0;}
+.opt.cor{background:rgba(62,207,142,.09);border-color:rgba(62,207,142,.35);color:var(--ok)!important;}
+.opt.cor .on{color:var(--ok);}
+.opt.wrg{background:rgba(240,90,90,.09);border-color:rgba(240,90,90,.3);color:var(--ng)!important;}
+.opt.wrg .on{color:var(--ng);}
+
+/* 결과 바 (답 선택 전엔 숨김) */
+.res-bar{display:none;border-top:1px solid var(--bd);}
+.res-bar.show{display:block;}
+
+/* 정답 표시 줄 */
+.ansbar{display:flex;align-items:center;gap:9px;padding:8px 15px;background:rgba(62,207,142,.05);border-bottom:1px solid var(--bd);}
+.albl{font-size:.68rem;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.5px;}
+.aval{font-weight:900;font-size:.88rem;color:var(--ok);}
+.rtbtn{margin-left:auto;background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:4px 11px;border-radius:7px;font-size:.73rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.rtbtn:hover{color:var(--ac);border-color:var(--ac);}
+
+/* 해설 */
+.expl{padding:13px 15px 15px;font-size:.83rem;line-height:1.9;color:var(--tx2);word-break:keep-all;overflow-wrap:break-word;}
+.expl strong{color:var(--ac2);font-weight:700;}
+
+/* 추가해설 — expl과 동일 렌더링, 구분선으로만 분리 */
+.ae-expl{border-top:1px dashed var(--bd);margin-top:0;padding-top:11px;}
+.ae-label{font-size:.72rem;font-weight:700;color:var(--ac);margin-bottom:7px;}
+
+/* 수식 박스 */
+.fb0{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:6px;padding:11px 14px;margin:9px 0;line-height:2.2;overflow-x:auto;max-width:100%;word-break:break-word;}
+.fl{margin:3px 0;white-space:nowrap;}
+
+/* KaTeX — 긴 수식 줄바꿈 */
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0;max-width:100%;}
+.katex-display > .katex{max-width:100%;white-space:normal;}
+.katex-display > .katex > .katex-html{max-width:100%;overflow-x:auto;overflow-y:hidden;}
+.katex{font-size:1em;}
+
+/* aligned 환경 — = 기준 정렬 줄바꿈 */
+.katex .base{max-width:100%;}
+
+.tip{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:6px;padding:8px 12px;margin-top:8px;font-size:.8rem;color:var(--ac2);word-break:keep-all;}
+.tip::before{content:"💡 ";}
+
+/* 표 — 모바일 스크롤 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:9px 0;}
+.ctbl{width:100%;border-collapse:collapse;font-size:.79rem;min-width:280px;}
+.ctbl th,.ctbl td{border:1px solid var(--bd);padding:5px 9px;text-align:center;white-space:nowrap;}
+.ctbl th{background:var(--sf2);color:var(--ac);font-weight:700;}
+.ctbl td{color:var(--tx2);}
+.gw{margin:11px 0;text-align:center;overflow-x:auto;}
+
+/* ── 주관식 ── */
+.sq-wrap{max-width:860px;margin:0 auto;padding:0 14px 60px;display:flex;flex-direction:column;gap:11px;}
+.sq-divider{display:flex;align-items:center;gap:10px;padding:4px 0;}
+.sq-divider span{font-size:.75rem;font-weight:700;color:var(--ac2);white-space:nowrap;}
+.sq-divider::before,.sq-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+.sq-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.sq-hd{display:flex;align-items:center;gap:10px;padding:12px 15px;}
+.sq-num{background:var(--ac2);color:#111;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sq-title{font-size:.88rem;font-weight:700;color:var(--tx);}
+.sq-sub{font-size:.7rem;color:var(--tx3);margin-top:2px;}
+.sq-body{padding:13px 15px 15px;border-top:1px solid var(--bd);}
+.sq-sent{font-size:.87rem;line-height:2.6;color:var(--tx);word-break:keep-all;}
+.sq-inp{display:inline-block;min-width:64px;border:none;border-bottom:2px solid var(--ac);background:transparent;color:var(--tx);font-family:inherit;font-size:.87rem;text-align:center;padding:1px 6px;outline:none;transition:all .2s;vertical-align:middle;}
+.sq-inp:focus{border-color:var(--ac2);background:rgba(245,200,66,.05);}
+.sq-inp.cor{color:var(--ok);border-color:var(--ok);background:rgba(62,207,142,.06);}
+.sq-inp.wrg{color:var(--ng);border-color:var(--ng);background:rgba(240,90,90,.06);}
+.sq-btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px;}
+.sq-btn-check{background:var(--ac);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.sq-btn-check:hover{background:#4a87e8;}
+.sq-btn-sub{background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:6px 13px;border-radius:8px;font-size:.76rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.sq-btn-sub:hover{color:var(--ac);border-color:var(--ac);}
+.sq-score{margin-top:9px;font-size:.83rem;font-weight:700;min-height:1.4em;}
+.sq-score.ok{color:var(--ok);}
+.sq-score.ng{color:var(--ng);}
+.sq-formula-box{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac2);border-radius:8px;padding:16px 20px;margin:10px 0;text-align:center;font-size:.95rem;line-height:2.4;overflow-x:auto;}
+.sq-ans-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.25);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:.84rem;line-height:1.9;color:var(--tx2);display:none;}
+.sq-ans-box.show{display:block;}
+.sq-ans-box strong{color:var(--ok);}
+.sq-show-btn{background:rgba(62,207,142,.12);color:var(--ok);border:1px solid rgba(62,207,142,.3);padding:7px 18px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px;}
+.sq-show-btn:hover{background:rgba(62,207,142,.22);}
+
+/* ── 햄버거 버튼 ── */
+.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;justify-content:center;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s;}
+.hamburger:hover span{background:var(--ac);}
+
+/* ── 오버레이 ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(2px);}
+.menu-overlay.open{display:block;}
+
+/* ── 사이드 패널 ── */
+.menu-panel{position:fixed;top:0;left:-260px;width:240px;height:100%;background:var(--sf);border-right:1px solid var(--bd);z-index:201;display:flex;flex-direction:column;transition:left .25s cubic-bezier(.4,0,.2,1);}
+.menu-panel.open{left:0;}
+.menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);background:var(--sf2);}
+.menu-title{font-size:.9rem;font-weight:700;color:var(--ac);}
+.menu-close{background:none;border:none;color:var(--tx3);font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:5px;transition:color .2s;}
+.menu-close:hover{color:var(--tx);}
+.menu-body{flex:1;padding:10px 0;overflow-y:auto;}
+.menu-nav{display:flex;flex-direction:column;}
+.menu-item{display:block;padding:12px 20px;font-size:.88rem;color:var(--tx2);text-decoration:none;border-left:3px solid transparent;transition:all .18s;}
+.menu-item:hover{background:rgba(91,156,246,.08);color:var(--ac);border-left-color:var(--ac);}
+
+/* 북마크 아이콘 */
+.bm-icon{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;opacity:.2;}
+.bm-icon.on{opacity:1;}
+
+/* ── 공식모음 페이지 뷰 ── */
+.formula-page{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:var(--bg);overflow-y:auto;
+}
+.formula-page.open{display:block;}
+.fp-hd{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac2);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.fp-back{
+  background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);
+  padding:5px 12px;border-radius:20px;font-size:.78rem;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.fp-back:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fp-title{font-size:.95rem;font-weight:900;color:var(--ac2);}
+.fp-body{max-width:700px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:12px;}
+.fc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.fc-title{
+  padding:10px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);
+  font-size:.78rem;font-weight:700;color:var(--ac2);
+}
+.fc-body{padding:12px 14px;font-size:.84rem;line-height:1.9;color:var(--tx2);}
+.fc-body .fb0{margin:6px 0;}
+.fc-empty{text-align:center;color:var(--tx3);font-size:.84rem;padding:60px 0;line-height:2;}
+.top-btn{
+  position:fixed;bottom:28px;right:18px;z-index:150;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sf2);border:1px solid var(--bd);
+  color:var(--tx3);font-size:.85rem;
+  cursor:pointer;font-family:inherit;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,background .2s,color .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.top-btn.visible{opacity:1;pointer-events:auto;}
+.top-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+
+/* focus 잔상 제거 */
+button:focus,button:focus-visible,
+.stat-btn:focus,.stat-btn:focus-visible{outline:none;}
+.fb:active,.bm-icon:active,.stat-btn:active{filter:brightness(1.2);}
+
+@media(max-width:580px){
+  .qt{font-size:.86rem;}
+  .sq-sent{font-size:.84rem;}
+  .sq-inp{min-width:52px;font-size:.84rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════
+     헤더 — 제목 + 통계 + 버튼
+     ══════════════════════════ -->
+<div class="hd">
+  <button class="hamburger" onclick="toggleMenu()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="hd-title">전기산업기사 2003년05월25일</div><!-- ★ 단원명 수정 -->
+  <div class="hd-right">
+    <span class="progress-chip"><span id="st-done">0</span>/<span id="st-total">0</span></span>
+    <div class="stat-btn" id="btnAll" onclick="setView('all')">전체</div>
+    <div class="stat-btn" id="btnNg" onclick="setView('ng')">오답</div>
+    <div class="weak-wrap">
+      <div class="stat-btn" id="btnWeak" onclick="toggleWeakMenu()">
+        <span class="lbl">자주틀림</span><span style="color:#f5963a;">▾</span>
+      </div>
+      <div class="weak-menu" id="weakMenu">
+        <div class="weak-item" onclick="setView('weak',24)">정확률 24% 이하</div>
+        <div class="weak-item" onclick="setView('weak',49)">정확률 49% 이하</div>
+        <div class="weak-item" onclick="setView('weak',74)">정확률 74% 이하</div>
+      </div>
+    </div>
+    <button class="fb danger" onclick="resetAll()">↺</button>
+  </div>
+</div>
+
+<!-- 메뉴 오버레이 -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- 사이드 메뉴 패널 -->
+<div class="menu-panel" id="menuPanel">
+  <div class="menu-header">
+    <span class="menu-title">메뉴</span>
+    <button class="menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-nav">
+      <a class="menu-item" href="https://dyeon723.github.io/jungigigi/">⚡ 전기기기</a>
+      <a class="menu-item" href="https://dyeon723.github.io/junjagihak/">🔬 전자기학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsfurrhdgkr/">🔌 전력공학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsrlhoiro/">🔄 회로이론</a>
+      <a class="menu-item" href="https://dyeon723.github.io/rovPwkdcl/">🔧 개폐장치</a>
+    </nav>
+  </div>
+</div>
+
+<!-- 공식모음 페이지 뷰 (전체화면 전환) -->
+<div class="formula-page" id="formulaPage">
+  <div class="fp-hd">
+    <button class="fp-back" onclick="toggleFormulaSheet()">← 돌아가기</button>
+    <span class="fp-title">📐 공식모음</span>
+  </div>
+  <div class="fp-body" id="fsBody"></div>
+</div>
+
+<!-- 맨 위로 버튼 -->
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'instant'})" aria-label="맨 위로">↑</button>
+
+<!-- 기능 버튼 -->
+<div class="sb">
+  <div class="sb-btns">
+    <button class="fb" onclick="doRand()" ontouchstart="">🔀 순서섞기</button>
+    <button class="fb" onclick="doShuf()" ontouchstart="">🎲 보기섞기</button>
+    <button class="fb" id="btnBM" onclick="toggleBookmark(this)">⭐ 북마크</button>
+    <button class="fb" id="btnFormula" onclick="toggleFormulaSheet()">📐 공식모음</button>
+  </div>
+</div>
+
+<!-- 객관식 출력 영역 -->
+<div class="main" id="main"></div>
+
+
+<!-- ══════════════════════════════════
+     주관식 섹션 — SQS 배열로 자동 생성
+     ══════════════════════════════════ -->
+<div class="sq-wrap" id="sq-wrap"></div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ★★★  데이터만 이 아래에서 수정하세요  ★★★
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ══════════════════════════════════════════════════
+   객관식 문제 데이터  (QS 배열)
+   ──────────────────────────────────────────────────
+   필드 설명:
+     n   : 문제번호 (숫자)
+     q   : 문제 본문 (KaTeX 사용 가능)
+     o   : 보기 배열 ['①내용','②내용','③내용','④내용']
+     ans : 정답 번호 1~4
+     e   : 책 해설 HTML  ← 절대 줄이지 말 것
+     ae  : AI 추가해설 HTML (암기팁·직관적 설명·오답 분석 등 2줄이상 길고 정확하게 적을 것 )
+   ══════════════════════════════════════════════════ */
+let QS = [
+
+  {
+    n: 1,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>그림과 같이 자속밀도 100Wb/m 2 의 평등자계내에 한번이 10㎝인 점방형회로가 자계방향과 직각인 중심축 둘레로 매분 3600회 회전할 때 이 회로에 유도되는 기전력은 몇 V인가?`,
+    o: [
+      `60πsin(60πt)`,
+      `60πcos(60πt)`,
+      `120πsin(120πt)`,
+      `120πcos(120πt)`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 49%</div>`
+  },
+
+  {
+    n: 2,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>강자성체의 자화의 세기 J와 자화력 H 사이의 관계는?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhWgA+AHcAACH5BAAAAAAALAAAAABaAD4AgwAAAB0dHSsrKzk5OVVVVXJycoCAgI6Ojqqqqv///wAAAAAAAAAAAAAAAAAAAAAAAAj+ABMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHMmwAAACJFMmDACg5QGWAFTKPBjzQMuTM3MKjCngpgGdOWMOcAk06MCYRRMWCNARaQKnSQnaBFAgYwCUT49GLXhzI4GYLLVuTfCV6MauYqMOBTAgJVSgaxGofDuzLFOZdFMiWNt2Zt6RMAEc0Pk3JMwCcgnLNIC2aOGOCG4mdpzy5cnJlEVOZTs2a8ipATBHfXzx5uDOO0EeRp32bMu+rFN7XR279cW1Ampz1Vh2gOjapBtaFqzbYPCFZY93Vo5wKuziuynShm58ouW71GlKXIs1u/aHm72iK2S+lnnx4wi+XhW/MHj50+wTksYdn2FhAnHr20doEqf+/Qb1JMBv/3030GZVFQigQP1hp2B7A/WXIHQHnEbAhA/VZJp3A2AVwHMO3cSZeARg1aFEN2GY3VcXjghRY6wF1lIAgyUHgIMhXlXijjz26OOPQPZYAI9DElnAUiLeKBd+An344EFlEYAZAXdR+eRDA/QV1pUNFdDXkFyGKeaYZAYEADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhXABAAHcAACH5BAAAAAAALAAAAABcAEAAgwAAAB0dHSsrKzk5OVVVVXJycoCAgI6Ojqqqqv///wAAAAAAAAAAAAAAAAAAAAAAAAj+ABMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEMSRCCyZMUDAACYXLkwpcoEBFISYEnTIIIAAwS6fFlTIYEDHn/CdDlgZk+EKHN2BDoUQICjCgMAYMqRqkClUA2ifOrRagKuWQsOmMqxgECzBI2GHbi140sBBeGuHRjTgNsAAngKBDs3ZdcAagdiXTvWq0i+Yf3SHJxVMU29UFGipYm4JwKnRyH3TGnYZOXFAAI/zpq0cWPNoy2PZVwTdcm8n1PTLACA9eaaMQGQXOsapFO7fUHPHdjbLYDJwT3XHj4wNkeptsM61xhzOtTiGHMzL4jd4ljrpj+tSu0evuPq7QfJQ0SQFzl64hzHkn1vUH3DmAKA0+dOnfP+9Bl99x9C9iFUwFi7DVjfSSmBt1+BaaUUnYI6SUSbU51RCN9DBOQ131pqZZiQejtNeJtAojFk3QEEjIdAgsPxlGJLCclX24x9EfAihMsRZCOEIbUo2k48Emkkcz/qVuFeEY1n5JNQRinllFQqmYCMGk5kQEpybQhTlhMVkCJPIoJp5plopqnmmmx6FBAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhYAA+AHcAACH5BAAAAAAALAAAAABgAD4AgwAAAB0dHSsrKzk5OVVVVXJycoCAgI6OjqqqquHh4f///wAAAAAAAAAAAAAAAAAAAAj+ABUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuXMFUSGDCAAIABAQTQBMCT58YDABCcRFAAgdGeSHvWJMC06dIDFBE0haogAE+hHo0aHQDAalKeBUwm4EoAagEABKxitZggQQGmX5uuZRlAoAGwCtBe5Jp0gNa5LwfYTQtAQdGoCJCWjZmwLkHBFW3y9JuAsULIAwE/5DuAquWDBLA6HkhgItCbnxMm6IqAZsHCEc/CTp3wgFfAsx3K9kw7Ym6GiUf3lvh7oQC9wycWT2gTc3Lfurs+p7j8oNXK04k3xJtd+8LEYbvLe1eNWvx4hGdLm4eusCv29Q+rC1zNG/72y8Lt30d4t77+hfIJkN9/ACLElX8EJlSdTwk6tFxi6jXI0HJcSeigQWc5Z6GCBvGE4IavdTggiB0WBNSHJA70WwAjpkhQbvS52B5B12XHmwAWAYAdUBoOF2FeOQqUoXg/yrcdAqv9OF1aTRk5oVUtwmRTaEgKGcBMVuXIYG9fGaCAlypqiVZTZJZpJplefaXmmmyqKVh4AjmZIF88hSbkizLOx9R7d4aZ55+ABirooIQOFBAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhZwBDAHcAACH5BAAAAAAALAAAAABnAEMAhAAAABgYGB0dHSsrKy8vLzMzMzk5OUdHR1VVVV9fX3JycnZ2do2NjY6OjpiYmKWlpaqqqr6+vsfHx+Pj4+3t7ff39/v7+////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AC8IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqPCkBAYSVMBlKAADAQMybByEIoAkAAc6fAgfwpDkB6E8DBnj6NPoTANOYPAc6fQpzqkCrVFNixZr15NauKr+CRbnVAIKzaNMi2Gk27c6hcOPKnUs37tKLVsWOFTl1J0Guez2+BdDgb+CVgA+TTKyYb2Oyj71GNsl4csfKljdizpxxM2e8n0N6Dk1xNGmJpk9DTK3aIevWDF/DVih7NsLatg3izm2Yt8Xdvi8A9z2ct83gpZEnV45acQXIiimcPK7YwkEBhS/4xSggsvWChAVybr9IvfF3qQquFheu+ABNAgwiEBSwlGZnxQHgOpAKt3Pd/wAGCEB++ckVAAEExEXAdwB0J9x6jblHUwAMPHCBdT2px9xACQBAwAIFWSBAeg9uyFABJNpnokIJ7HeBAuWtiNB5MjJEY40K3YjjjDvaiFBAADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 55%</div>전계라면 쭉 비례하는 형태지만 자계는 자기포화 점 이상이 지나면 자기포화가 되어 일정해짐<br>[해설작성자 : 원마고 전기박사]`
+  },
+
+  {
+    n: 3,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>반지름이 a[m]이고 선간거리가 d[m](d≫a)인 평행전선의 단위길이가당 정전용량은 몇 F/m 인가?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhQQBAAHcAACH5BAAAAAAALAAAAABBAEAAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmYAZmZmtma2/5A6AJA6OpBmAJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP+2tv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKjEgCgMmTAS4IRNEAgIAOIxueUKCixAUUHAieMKAypsMQI1RsGGFzYAoJDHxGRAFBxYeeKk4UOBlBaUMSVTNAPXEAplWHWlVgqCqQq9evC08kCOqBgFEJVVNUQJsQ58qcA1kCSEm3r9+/gANn1HuysOHDiBMrNvxSsOPHkB+z5Bs5odqglRG2zZwQQ1LOeVsumACVM8uqGBqDVrFZBYkBmE03IOvhM2izAseudg1bBQoHpTtKJUvxddDLQz+GoEB8otkTCBKIsBDSQ/OJHgDA9qD6o/XdBb+SawYQITsA237FG0RhIbvby4DVFzTRwUNv+H/lG9QdlebKlou5dFZG+hGUAmkC1RZYgQPhdmBwdDEoEAluRbUWCAOi5VlCCrpGAHt/YWASegTxx1J34KWo4kR6MaBBhpWxlFRqMEbWGn6y0UZiZbiJdV1lxqnw4G5BIhdbjA90AJ101K2WHWwkoLjilFRWaaVDAQEAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhOAA+AHcAACH5BAAAAAAALAAAAAA4AD4AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmYAZmZmtma2/5A6AJA6OpBmAJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFkIHEiwoMGDCBMqXMiwocOHECNKnEixYsIVEgAAIGCxY8EVEy6wUNGAo0ePKApEEFgigMiTFlOuZNHyJcyTJQR4YKmxJwCXAkkC0HnzIEYGAlEoYGHiggoOBFEYsFnU4AekAkWQYLGBRNOBR6siLIGVoAoILEDYTNlzpliaJlN0GFhiZYa1B3a+Hah0YAi9LO6ywOAWRd69QRv4HLCVBYoEWz+YZIFx5YoKiBE+DQp1oFCgmUOLHk26tEWhPlOrXs26NWuipmPLnk07MejaBh83xl1QMu+DGMryFrog5O+RDVZigM3bN03Gv0nOvHrcsF7Cx0tAV+GA6kSZHbWrb9XdtaIICm4pWkeBIMEICx0/pKf4AQDjD8zpzz8uP2H9CPUBIFxm/R2kggX1caTbaAUadIIHH0C3oGgNAjdTX4m5plF+D1X4kXEsUMfgfnwdBpJ3iHlIUAkm6faXaMH5hxWLB8Ko0YADYYcch8f16GNFQjGgAWC4kYTUckTW5tyERSYnkIi8WSeQjryJRxmIVUoIWXlFPuABe+7B91t9jOWU5I9opqnmQwEBADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhRQAsAHcAACH5BAAAAAAALAAAAABFACwAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmYAZmZmtma2/5A6AJA6OpBmAJCQZpCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtu2ttv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3JjxRIMAGDiKTGgiwYiRKAt+IJCypcAMDFyK9AhgwYSQMjV6jJAigwAPOTWuFEhiwMmgF3cK/BAT6UUTB4D25OnUYtGTJxzgdGmiANWKV1OUHMHhaMoQFL5ShOrBBIIEIi7k/KCW4gcARj/8nFuXIAoJDLoC6FtVJWGBJSrgHTF2IwkAkCODFEhzr0G6Ckk0PfFAKkYTClKUwHCiA0ETBrYexJxQM+XOGkOcLDt64N+mCVkjdJ2Cs1SakYMHt4zwBIQUILYKhnxY90HevjmS4KlBedSFzg1Ch72x+tSBbLFwH17Ksjf3jI2HCvzLE4UFhDBzQyZQ2XNS073xU24AYLLBDJDhVtiABBZoYEM0MbCBfQcy5FFMPjHYoELqNTahgw1QxdSFDYX3HYcLhYXCTSCGaJRYJpVVYnGduQWXXCsidJdRJBAX44045qjjjgsFBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhVgAuAHcAACH5BAAAAAAALAAAAABWAC4AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmYAZmZmtma2/5A6AJA6OpBmAJCQZpCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFkIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePBlU0CIABpEmJKBKUOMnSIQgCLWMuzMBAps2BIgEsmFDypkyREVhkEPDBp8yXAk0MWGmUJVCBIGo2ZYniQFGhQaeeVLpShYOeWg+iKJCVIlcWKUtwYDpxhQQAAGBmHEGh7MSqH1AgSEDiQsUVPFmIlIsRhN2JIAAsBUG04tisJkhmNIzQLYOxAA5/fJxUcmHNAk9UUFwi7U0TjU3AXQ3Ac87GBykjNCFVxYOrMS2jVcDiBAYVHQiiMAAWoeyDtAXaxt0yqsARK9f6Hqh74XGDyQXfxtmAtffVsCOmZscJgUUIsJjhgoa6nkX25TFNyE3hIWlQDeitMrxe8P12qrwJJMJV+GE1EF77tYeUdsx9lNNqS6GlEgsLsuBWUCtYkBBNxsFFwGsN/hScYCMq151nBmUAl1RhtejiizDalBMDG4QYo0Ui1TSUjTdStKBpPWL0FIUsBmkRggYaedFZgBWn5ERnpbXWkxQtpxdfflHpI2mo8ajll2CGKeaYZJZppkwBAQA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 53%</div>`
+  },
+
+  {
+    n: 4,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>자계의 세기 1500AT/m되는 점의 자속밀도가 2.8Wb/m 2 이다. 이 공간의 비투자율은 약 얼마인가?`,
+    o: [
+      `1.86×10⁻³`,
+      `1.86×10⁻²`,
+      `1.48×10³`,
+      `1.48×10²`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 43%</div>자속밀도<br>비투자율= ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ<br>         투자율 × 자계세기<br>[해설작성자 : comcbt.com 이용자]<br>B[Wb/m^2] = μ0 * μs * H ▶ μs = B / μ0 * H ▶ ( 2.8 / 4π * 10^-7 * 1500 ) * 10^-3 = 1.48544 * 10^3<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 5,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>무한히 넓은 평면에 면밀도 σ[C/m]의 전하가 분포 되어 있는 경우 전계의 세기는 몇 V/m인가?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhHwAqAHcAACH5BAAAAAAALAAAAAAfACoAhAAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDqQ22YAAGYAOmYAZma2/5A6AJCQtpDb/7ZmALb//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAinADMIHEiwoMGDCBMqXMiwocOHECNKnJgQgwMAGAEEgEBR4IUFHCsMoNBxYIQGHhlIKJnBAgKSLQ+sLFmBwECRMDvWFGgxAcuYKyOM/JmhAkabRJMqXcoU4QUFGaNKlSpgZtOrWLNq3cq1K9GnAKoStWCAY9KeSy0UyIjypwWZaeEStBjW6kOLKDE8yIC2gk+JYDcWRbrz54S/J4n6LTr0J93GXiP/DAgAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhJgAoAHcAACH5BAAAAAAALAAAAAAmACgAhAAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAOmYAZma2/5A6AJA6OpCQtpDb/7ZmALbb/7b//9uQOtuQkNv///+2Zv/bkP/btv//tv//2////wAAAAjXAD0IHEiwoMGDCBMqXMiwocOHECNG7PAAgEUAASRIXMiBgcYMAzBsZDjBgUAODSqMVKgBgUgPGg6oXIkwA4GBIF/SNGhTIEUFOxHGVDkhZNCaFm8eXcq0qdOnCTksuEi1qtWrAATMhMq1q9evYCkm5doBgkapSp1qKGDSQ4aMT9e2favRawatA6Vm3brz50ANBuoytQDU54PCTDMghlngYtudPT1soABTJlMNCQZeUDm0oFi8D/VeNErRZIcIHvwqXqoXbuTITwkLLMl1dU6yFY2C3c07YUAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLwApAHcAACH5BAAAAAAALAAAAAAvACkAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAOmYAZmZmtma2/5A6AJA6OpCQtpDb/7ZmALZmOraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv///+2Zv+2kP/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEsIHEiwoMGDCBMqXMiwocOHECNKnEixokWCJCAA2AggwISLD0cw+PhhgAeQECk8EDiiQQaUDkMgOFkixIGXMBl+IDCwJM2cCncKzKgAKEObLymYNKpzI0+mUKNKnUp14ogFHLNq3cq1K0cBOKuKHUu2rNmGGZ2aJRHh49WnY0MUWFnig0eycuna/Xi2LliBH7beLXEVwF+QRAWGSFACxIQRFwiGMMAXpoaiAjuctODB8cDEOT9gJjjCQYkNleVypGtRaAkRGHqurJD6JszFAzmEpV1C5UCkBtMeZliY49KaM0togJtxJQkJQyEUFQ0SMsvIAwsPdu2a7GWBvssMUve5VuPxvujTOwwIADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLAAqAHcAACH5BAAAAAAALAAAAAAsACoAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAOmYAZmZmZmZmtma2/5A6AJBmkJCQtpDb/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtu2ttvbkNv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEsIHEiwoMGDCBMqXMiwocOHECNKnGiQRAQAGAEEoEDx4QgGHEEM+NARYgUIAkc00FDSoQgEJEuIOMCyJUMQBAaKjGlTIU6BFhX0ZDiTZYWRQ29izJm0qdOnUKO2HLEgo9WrWLNqzSigptSvYMOKHQtRpdexG7qSlemAJlkSEjy4HRuCQlGdWDemrKpW4ogHMueKSFCi7ogMBEUY4NjxAsu7JTqQxPCh7sCgJUGgDHz2bwkOjGUWyLg54gasQgVqLmEhNGSbIPoKbF3i5MDXQC/KXmgxY+qXJDcwLWERJYkJxCMIBZGa4uGUiAdS1RiS6U+xG1LbFsu8xM6xvZEJrh1Pvrz5hwEBADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 35%</div>무한 평면은 2번 일반 도체 표면은 1번<br>[해설작성자 : 원마고 전기박사]<br>표면전하 밀도는<br>도체표면 :σ / ε0<br>무한평면 : σ / 2 * ε0<br>무한평면 2장 : σ/ ε0<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 6,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>철심이 든 환상솔레노이드에서 2000AT의 가자력에 의하여 철심내에 4×10 -5wb 의 자속이 통할 때 이 철심의 자기저항은 몇 AT/Wb 인가?`,
+    o: [
+      `2×10⁷`,
+      `3×10⁷`,
+      `4×10⁷`,
+      `5×10⁷`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 60%</div>NI=RmΦ -> 2000/4*10^-5 = 5*10^7<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 7,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>반지름 a[m]인 도체구에 전하 Q[C]을 주었을 때, 구중심에서 r[m] 떨어진 구 밖(r ＞a)의 전속밀도 D[C/m 2 ]은?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhMAAtAHcAACH5BAAAAAAALAAAAAAwAC0AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAOmZmtma2/5A6AJA6OpCQkJCQtpCQ25Db/7ZmALZmOraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AE8IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNqZDiiAAAAAjRsbGjiwYAPAiuEHKmwxAIFBF3CZHmwJIGCNmke3LCSYE6dMRfcLOhyKFCBIAA4MJh06dGUPQmqFPm0ZFSkSp8OrBCAgsuuRbUO3ABAQQcNIyIUOClWoEsAN2W2Dfqx6wkTEuYW3LDUAgW9Uj8aBUxY69uPiBMrXsy4MUiqhSNLnjyypODCJiD8DQu4o1MQdvV6Rho6IlkHFQCwlQiiZ1LFod+GLDGh6YbVEEvOHJHgRAivGAiOMPBXoAgNGwZL3DDzhAeUFz78HqjbYAWnE0E0H1iiwQkOxU9JdETstASD8BFBDCWRYSCIvuFHHIAscAQClBJ5Dzw70O+J6wPJR98JyU102Eer2YdSgQKVtBReKW2XUQnBnUAhXaVRpuGGHDIUEAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLwAsAHcAACH5BAAAAAAALAAAAAAvACwAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6kDpmtjqQ22YAAGYAOmYAZmZmZmZmtma2/5A6AJA6ZpBmkJCQkJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNu2ttvbkNv///+2Zv+2kP+2tv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwoUOHJgoAACCAw8OLCFFAGCBC4IWKGEMKPKEgAUGSJkVe1EigIEuVFzuAJPgSZkOSLQvitNlwBIAHBn0C5bnwo8WCRokq1DhzoFClRQNYICl1J1SFHQAk+MDBxIQCHK8qJAmgJUqxDMkCkJoCBQW0DTsAxWABLsMLE3Pa3ctXpNqJgAMLHkyYcNO+iBMrXsx4oMa8jQWO4EhyaGSPliOfcOCXwVGVKCJ8jnkY44kFUzdgNNHAwOiLESeyfYhCQgjXcX/iDQuThAUTuCUPrlpBaAfefjkDP2oCQQrfJ1QLLMGhg16bGSwuFwiiowYRvpE9ZlY5Yuj2gZtTeKiLHjXRrIJTpiifgi5BEwc6Xh1x2P6FzNZd9dhEKeHXUYADXSDfXtGNJN1lEEYoIWIBAQA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhNwAuAHcAACH5BAAAAAAALAAAAAA3AC4AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQ22YAAGYAOmYAZmZmZmZmtma2/5A6AJA6OpA6ZpBmkJCQkJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNu2ttvbkNv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFkIHEiwoMGDCBMqXMiwocOHECNKnEixIsQUBQAAEPDBokeBKyQMMCFQA8ePFVUwWEBQJUuUEkMSKCgTpkQQJwnWtPlQ5cyCPnk+PAEggkGiRoU2NNmxIFOlDEPmHIgU6tIAGVRiDWqVIQgAC0R8SGGhwMiuDFUCmOkSrUO1ALCyWHHB7UMQRjdksOtQg8affAMLTslAo+HDiBMrXsx46uDHkCNLnnww5F/KBE+MVJkUM0ENnT2zUAFhogoHTXmuoJAaIs7WKFU0yOohYooHB2B7xKhR7sMVFUjkJgyWg+6IKDKkGC6QKGLfak+2fZqy9PKmKRSwSK6i9sAUBvZ6DgTxM0UCkhWNs7gucATJDiaSDwz5UiBngSDqTzyRlP1A0iyEIN56GWlklH+gWfQVYvXxx4Je3zHX3FkrTDCgRyc4BmGCAvk3IUnmmQCfRZZp9FKILJA3nwRG0TUaaikgkEAJGEDVnX3e2VeYb1+NlOFxogUp5JAwBQQAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhMgAtAHcAACH5BAAAAAAALAAAAAAyAC0AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAOmYAZmZmZmZmtma2/5A6AJA6ZpBmkJCQkJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNu2ttvbkNv///+2Zv+2kP+2tv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKRHiiAAAAAjpM3DgwRYQBIwRiyMhxIooFCgieTFkSokcCBV+2hOiBJEGZMxuehFlwZ86GJABAMBh06M+FIzUWTHpUoUebA4s2RRrgwsmqPqcq9ABAAYgOJygUAKlV4UkAMFeWZXgWQFUVKSqsbehhaIYLcxliuMgzr9+/D9teHEy4sOHDiA0DXsy4sePHMSPwhSyQBMiTRimLzEwZxQOIKBoo/ZlCwmi6UGeiYGCVg8MTDg6cLlnx4luGKSaIkL2RK4S9ZCOWuHCCt4qghW+fJYnCQlEPwQN/Lq7xRAIVw1G4HnjCAN6BJjpieOgrUUN13iFCbhgxvGMElks5QyRhlPpAzyo+fFdR+2Lm1ftFxFVhLNGnwl3cGUfQCQiE1BIJUCGIQWb2FTReSx4NlhKDIV0okEdDxTUQBvAdpZ1AJ963gFsBaubiizAeFRAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 56%</div>본인도 이 문제 마지막 전속밀도는? 이라는 것을 못 봐서 틀림 1. 정상 상태일 때 내부 전계의 세기 =0 , 2. 정상 상태일 때 외부 전계의 세기 = Q/ 4파이 x 유전율 r^2 -> 전속밀도 D=유전율 x E 따라서 답은 2번.<br>[해설작성자 : 원마고 전기박사]`
+  },
+
+  {
+    n: 8,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>DC전압을 가하면 전류는 도선 중심쪽으로 흐르려고 한다. 이러한 현상을 무슨 효과라 하는가?`,
+    o: [
+      `Skin 효과`,
+      `Pinch 효과`,
+      `압전기 효과`,
+      `Paltie 효과`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 58%</div>`
+  },
+
+  {
+    n: 9,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>공기 중에 0.1×10 -6 C의 점전하가 있다. 전압 Q에서 거리 a=1m, b=2m에 있는 두 점 a,b사이의 전위치는 몇 V 인가?`,
+    o: [
+      `4.5`,
+      `45`,
+      `450`,
+      `4500`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 55%</div>a 전위 = 9*10^9 * (Q / a) ▶ 9*10^9 * (0.1*10^-6 / 1) = 900<br>b 전위 = 9*10^9 * (Q / b) ▶ 9*10^9 * (0.1*10^-6 / 2) = 450<br>a - b ▶ 900 - 450 = 450[V]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 10,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>공간도체 중의 정상 전류밀도를 I, 공간전하밀도를 ρ라고 할 때 키르이호프의 전류법칙을 나타내는 것은?`,
+    o: [
+      `i = 0`,
+      `div i = 0`,
+      `<img src="data:image/gif;base64,R0lGODlhOQApAHcAACH5BAAAAAAALAAAAAA5ACkAhAAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDqQ22YAAGYAOmYAZmY6kGa2tma2/5A6AJA6OpCQOpDb/7ZmALaQkLb//9uQOtuQkNv///+2Zv/bkP//tv//2////wAAAAj+AD0IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3OiBAgAADzhi1JDAAwcGFkRapFDSw4WQAz0GmKAyIsmYBDxoGJCh5kIOCgAkuNByA4KeGw6k9IlwgwGaGCTAZCkw6VKmBqmaXECzQwSaOgVcRahhpkYOXKse9WBVIIWcCzWI1Wi0p0uYGuA6BYu1IFqaO+1emNkBAty+BjcUAMAzpoOgLRlyaGDX51+IihszbYt57UDFH0OLjty3LmKJpisCFc26deu5iT2ffpi66mLXQmfXns0QtGbewINX9AiS4MmxwW8eHxhYeMyWLwcSdX7wJvGPMIWvHtrSK1/hez0sRIXJ2bnWyzoPa0/L1jOF7OA9R/fg3UOFyrwvNzeJcj74xb91lBt1BBZIXUAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `div<img src="data:image/gif;base64,R0lGODlhNgAlAHcAACH5BAAAAAAALAAAAAA2ACUAhAAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDqQ22YAAGYAOmYAZmY6kGa2tma2/5A6AJA6OpCQOpDb/7ZmALaQkLb//9uQOtuQkNv///+2Zv/bkP//tv//2////wAAAAj+AD0IHEiwoMGDCBMqXMiwocOHECNKnEix4kQKAAA8sMiRoIYEHjgwsNCxIwWQHi5sHIgxwISSEz+yJOBBw4AMMBtyUAAgwQWUGxDg3HCAZE6FGwy8xCBh5UmBRI0eRfg05IKXHSK8rClAakENLmFyuApVqIeoAinQRKihK8ygOFOu1LA26dapB8e+tBn3gssOENbiRbihAICbLB3wRJmQQ4O4g63eRVoAceSzRR3CJVg4o+fPjCNvvhxxNMWdn1OrVu12oGnSms26Nry6J+zXsBd2tpy7t2+TGVcKFOnVt0ziA/n+ZolS5cCfyw/KxOhZuG/UPlFmnezbrgemK9EmRq+qVyDd6JLLxqVgvbts5x62e6gAOXd55SFHwv+9uz7G0OhFFBAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 64%</div>`
+  },
+
+  {
+    n: 11,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>평면도체 표면에서 d[m]의 거리에 점전하 Q[C]가 있을 때 이 전하를 무한 원까지 운반하는데 요하는 몇J인가?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhNwAxAHcAACH5BAAAAAAALAAAAAA3ADEAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmYAZmZmZmZmtma2/5A6AJA6OpA6ZpBmkJCQkJCQtpCQ25Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNu2ttvbkNv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFsIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGBOymAAAAIGMGVEMOLGigQSQKDecRLlQRYGOAkAcXBGBpcKNIwVuiFmQRQWZNmc2YECwJNGBKxxoWPEhaM8JHwlujNrCZccAGpwSDMFTKlStC0tSRdpgLFiDKACsJJh27VmDO4ESjPv24MauA9vWRbgBa0m/ZfciDAGAwQgQKi4UyCnYYEmPLYw2TvgYANYWLDBMVhjiJIesm/l2NBu6tGmhHVOrXs26tevXeE/Lnk0b41/QEFc8kMtSRYITErnyRhmCNEMVEA4MB7nh6EMWFkooR/l4AQXcDlNoUDFdYNrVlyOmNwAQm+xJug9pVu2uQkEL7UwJqjCA3WBx74wddpDJHSgJ4B6coN1AGzkn1EohGMgQCiv1V1RNIuBmVUduDeRgCypBRNhqzjHYwmcWdoeQSMAlVd9DKMQGYoYCXThiTr6dECBEG6V2VIwt3CfQRidltiNHMfWnAgIJmJBBRvFF1hRZlmVVYAsoEEXYSMJthkJUV9aWoE4VmhYllPnJVmOYtZVpJkoBAQA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhMwAuAHcAACH5BAAAAAAALAAAAAAzAC4AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmY6kGZmtma2/5A6AJA6OpA6ZpBmkJCQkJCQtpCQ25Db/7ZmALZmOraQkLa2/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKbJhCAgAABCZqPFhiAAkUDSJsHGlQg0iSC08UuCjAw0EUEFAqrOhRoIaWBVNQcCnzZQMGBEECHYjCQQYUHXrmlJCRYMWmKlReDJBBKcEPOJ0ytboQJFSiDb5yNVgCwEmCZc+OLZmV4E2ea5e2FZg2LkINVEHmDWsX4QcADEJ4OGGhQM2+BkFiVCEUcULFAKiqSHHBscIPIjdUtXz3oljOoEMjhHyxtOnTqFOrTj1XtOvXsEnq3ZxQg2e7JxKQuDz0w+eevmdW2D15+FoNQxHq5EnZquIFE2gjLCHZBO2ypyUzbgCgNViRbxmhYod6QoEK60gJnjAg/WBwFR2JJywPH7BAEbs5kLA+sGLy0SEJ9MF/Lz1AXFG0waQCCLRJdZFa6h3Ak0kLlfAfZgOVkFmDElZYE4IVfqXZQCNSKNAJHSoUX1S66ZeQf3Qdlttu700mgUjN2didSygOhkACI2CwUEW3EZUUY0cKpJhkMFooIAAeYQWXXSU0VWVsA9oEYWhOrggbkYfFJiZKAQEAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhPAAvAHcAACH5BAAAAAAALAAAAAA8AC8AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmZmtma2/5A6AJA6OpA6ZpCQkJCQtpCQ25C2kJDb/7ZmALZmOraQkLa2/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwocOHECNKnEiRIIoIAAAQqMiRIYkBI040gNCx5MIMJE1ONFEgo4AOBk88UCnxIkiBGV5anACT5kORDAgCHXjCAYYTHHw2vLjRYoSmLDMGwKCUoQedTptWhShSK9EGXrc2JAEgJUGyZsU2zNmTIFu1Di9iHYgW7sMMU0XmBWv3oQcADEB0MEGhwM2+DUVqTDEU8c8GUqmiqOA4ogeSGqhWvpsx7ObPoDsqzki6tOnTqFOrTj03tOvXsGMX1Kt5IQnPKcgC3moiwYiTnQ162OjhsM/hDpGfbVr8t9IMQRsqF3gxLU3FCyTUXjg9hQkDF1q8atVdeqpAxa2FjkzxVrpXsjozbDShIEWJo0kHft9+UPlH51a9V5ZA+4Xw2wYj3DfQRdElJFJKHjQY4FnmeVdASjKl8EFtUWVknX4H9ISSX17tR+CFApGAGYch2nZTUfwp1F11BLaYQmbsmWWCjQn9551vCHJXmlbNsQeVbylMR+NkC2L00o6DIZCACBZw9Ndi5+WHlHoAVMhgbkH9BdJVbYV2W4q4xRYhTh/KRkJQPspW0EUAGCfnnXiGFhAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhQQAxAHcAACH5BAAAAAAALAAAAABBADEAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmZmtma2/5A6AJA6OpA6ZpCQkJCQtpCQ25Db/7ZmALZmOraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLF1NEAACAAMaPC0kMGIGiAQSQKBViOJmyookCHAV0MIjiQUuKGkcKxCCTYIoJM29GLMmAINGBKBxcQLFB6EONHn1GiPqSY4ALTh166Ck1alaJJb0ibSD260MSAFgSRKvW7EOeQQnCdQtRI9eBbOlGxHC1ZF+yeiN6AMAARAcTFAroDPywZEcVRxkPbWAVa4oKkid6OJkBa+a9HMt+Hk36pmOOqFOrXs26tevWd0vLnk27tkK/nh2iBbBYhcbQWU0kGPHQg0eoAlNIwBrWqfGnUwVunfmSJYmrQjEUnYiBagHr2EHUOl6wfOL13Gu57k4d3nFsoyZVzIWItrfU7SYUqCixtOlAEwagd9BzKohEnEQvbUeQBwqGQJwGI/A3kEYKIlQSSwxW5EF4ApFQoUA1qfBBblVx1BZBJhwQ1Er0EdZhWnhFdQIHeHFGoooh6ZSUgAsB6NlgLOU3kGEDdSafWinGhZCBKgg3AoQPGVmSjpShtpiTKhDoWwQnXZbcRj0laQICCYhgQV0bPcYQUyD6ByJl2FFY4HaDjTRdbSREladtCGV4JJ8HeVigfYB+yduBhSaq6KJ8BgQAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 62%</div>W=Fd (F= Q^2 / 16파이 유전율 거리 제곱)<br>[해설작성자 : 원마고 전기박사]`
+  },
+
+  {
+    n: 12,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>정전용량 0.03μF의 평행판 공기 콘센서가 있다. 지금 전극판 간격 1/2두께인 유리판을 전극에 평행하게 넓으면 용량은 약 몇 μF 가 되는가? (단, 유리의 비유전률은 10 이다.)`,
+    o: [
+      `0.055`,
+      `0.060`,
+      `0.155`,
+      `0.333`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 29%</div>유전율의 연결에서 직렬 연결은 거리 변화, 병렬 연결은 넓이 변화로 쉽게 찾을 수 있다.<br> 위 문제와 같은 경우 두 유전체 1/2 거리에 유전체 삽입이기 때문에 직렬연결 식을 이용해 풀어주면 된다. <br>(이런 문제에 사용하는 간단 풀이식 C = 2C0/ 1+ 1/비투자율)<br>[해설작성자 : 원마고 전기박사]<br>C = 2 * Co/ 1+ 1/비투자율 ▶ 2 * 0.03 / 1 + 1/10 = 0.0545<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 13,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>진공 중에서 폐곡면(閉曲面)을 통하여 나가는 전력선의 총 수는 그 내부에 있는 점전하의 대수 화(代數和)의 몇 배가 되는가?`,
+    o: [
+      `ε_o`,
+      `1/ε_o`,
+      `0`,
+      `1`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 44%</div>`
+  },
+
+  {
+    n: 14,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>맥스웰 전자방정식의 설명 중 잘못 설명한 것은?`,
+    o: [
+      `폐곡선에 따른 전계의 선적분은 폐곡선내를 통하는 지속의 시간 변화율과 같다.`,
+      `폐곡면을 통해 나오는 자속은 폐곡면내의 자극의 세기와 같다.`,
+      `폐곡면을 통해 나오는 전속은 폐곡선내의 전하량과 같다.`,
+      `폐곡선에 따른 자계의 선적분은 폐곡선내을 통하는 전류와 전속의 시간적 변화율의 화와 같다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 41%</div>자속= B 따라서 자계의 세기 H와 같다는 말은 틀리다<br>[해설작성자 : 원마고 전기박사]`
+  },
+
+  {
+    n: 15,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>한번의 길이가 10m 되는 정방형 회로에 100A의 전류가 흐를 때 회로 중심부의 자계의 세기를 몇 A/m 인가?`,
+    o: [
+      `5`,
+      `9`,
+      `6`,
+      `21`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 44%</div>필자가 해석한 바로는 정방향 회로라는 건 정사각형을 의미 따라서 유한장 직선 전류 문제이다.<br>- 정사각형 중심의 자계의 세기 H= I(sin 45’ + sin 45’) x4 / 4파이a (여기서 4를 곱해주는 이유는 정사각형은 정삼각형 4개로 이루어져 있기 때문에 -> 애초에 유한장 직선이 비오-사바르 법칙에 의해 구해져 삼각형의 형태로 자계의 세기를 구하기 때문이다.)<br>[해설작성자 : 원마고 전기박사]<br>정사격형의 중심에서의 자계의 세기는<br>H = 2루트2 * 전류 / 파이 * 한변의 길이<br>  = 2루트2 * 100 / 파이 * 10<br>  = 9.003163162 이므로 9 [A/m] 이 답이다<br>[해설작성자 : 그만하고 싶다]<br>※정방형 회로 = 정사각형<br>정사격형의 자계의 세기)H[A/m] = 2√2 * I / π * ℓ ▶ 2√2 * 100 / π * 10 = 9.0031631[A/m]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 16,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>감자율이 0 일 것은?`,
+    o: [
+      `가늘고 짧은 막대 자성체`,
+      `굵고 짧은 막대 자성체`,
+      `가늘고 긴 막대 자성체`,
+      `환상 솔레노이드`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 73%</div>`
+  },
+
+  {
+    n: 17,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>표면전하밀도 ρ s ＞0인 도체 표면상의 한 점의 전속밀도가 D=4a x -5a y +2a z [C/m 2 ]일 때 ρ s 는 몇 C/m 2 인가?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhLAAZAHcAACH5BAAAAAAALAAAAAAsABkAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJA6OpBmkJDbtpDb/7ZmALZmOrZmZra2/7bb/7b//9uQOtuQZtuQkNv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjmAEkIHEiwoMGDCBMqXMiwocOHECNKnNhwhAQPIhYA2MixowANFA+CcBAy5AWQJSWCSJByIgcKJUdA2FjAoYgGBj9sHOBh4YgIMDPWZLjhQcENNWUOTQjCgFESHwLAVGix50ClAjd8VNj0adSpCT88RVhhacMPWwd+JXgyrNSHMhUQ/EAAglyBIxHq5Alxw92CaFFaACvSwN+FHw4TzGj0JtG3iIeGyGCwLImXB3Xe1TkW4cqBHVASBHFgAgOrBUlP3QCgs8GMHfkWlInANcHBJDLKTrlht0GZNFsOFIFBuPHjyJNPDAgAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLQAYAHcAACH5BAAAAAAALAAAAAAtABgAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGYAOmY6kGZmOmZmtmaQ22a2/5A6AJA6OpBmkJCQ25DbtpDb/7ZmALZmOrZmZra2/7bb/7b//9uQOtuQZtuQkNvb29v/ttv///+2Zv+2kP/bkP/btv/b2///tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjnAFcIHEiwoMGDCBMqXMiwocOHECMiVEFBxAIAGDNqFNBB4kITEDyKJKih40iRJhKcHPnhwkAUIwaGaKhCAsYCD1M8IEhCYwSGKia4TLEAZ0MPPweWcPnQhIGkJAIwVUgxptKpDZ1ClcqQRNKrI0lwLBgVa8mCJRzcjFhTAVkCEtwKBGmQBM6aRh16kFt37IoMWPua7MrXINGfOg0v2BoYoV2BJzgcxICzpUGtAsUOTphyIIjNA00csNDAKsEUFQZ6yJuQqMYBpgnWRPC1INIVKRg0PukBdkIMALiuLJhiw/DjyJMrXx4QADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLgAZAHcAACH5BAAAAAAALAAAAAAuABkAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJBmkJDbtpDb/7ZmALZmOrZmZra2/7b//9uQOtuQZtv/ttv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjkAEMIHEiwoMGDCBMqXMiwocOHECNKnEixosWCICJsWACgo8ePAjBcPOjBwUiKFkSejOghwUqJGiaM7NBxAAeHHxoYpAnAZsMMBUKAgBD054OCQIUSZTi0aIaQTCPcHNhU4FOVDikUXdjhaEKtEDsEkFlQLFmBKROadUjTZ1kCEBQMLImw7dSHHgzI3Qk1RIWzJPVGzDDW4IcFR3MyJAz4IM29NL0WBBvTMQDIACQj9HCAbIbMJA9IYHCXIGfPoBf+DXHYLUYICDQXXN26NMKhHbcezODaIG4Auk9+uPCyuPHjIQICADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLAAZAHcAACH5BAAAAAAALAAAAAAsABkAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGYAOmY6kGZmOmZmtmaQ22a2/5A6AJBmkJCQ25DbtpDb/7ZmALZmOrZmZra2/7b//9uQOtuQZtvb29v/ttv///+2Zv+2kP/bkP/b2///tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjoAE8IHEiwoMGDCBMqXMiwocOHECNKnNjQxIQPCwBo3MhRwAaKCEdAAAkyw0eSEkckQDmxg4WBJEAM9NAwhMYBMhuWeEDQ5sYIDDkUOGFCwtCGHIAOFPHSYdGjHDwytJhTIFOKF44uDKF0adOIIQJ8HRh2rMmCIhxo1LoVAE6DIQhIUDBQJNyhTx+OMEAXrtQTGMb6PYlUrMESC4DuPJxYYFmFNvva7Eow6wmXBvcqDfE35IGmHABQrnugQoOqA0tQGCiUYeATiN8aLIpgNGvFDAQfLLpWIQfZBy8AMMwytYbiyJMrXz4xIAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 48%</div>표면전하밀도 = 전속밀도 따라서 각 x, y, z를 제곱해서 루트 씌워주면 된다.<br>[해설작성자 : 원마고 전기박사]<br>ρs[C/m^2] = √D ▶ √( 4^2 + 5^2 + 2^2 ) = 3√5[C/m^2]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 18,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>자극의 세기가 8×10 -6wb , 길이가 5cm인 막대자석을 150 AT/m의 평등 자계내에 자계와 30도의 각도로 놓았다면 자석이 받는 회전력은 몇 N-m 인가?`,
+    o: [
+      `1.2×10²`,
+      `3×10⁻⁵`,
+      `2.4×10⁻⁵`,
+      `2×10⁻⁷`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 56%</div>회전력(토크) T= MHsin세타 = mlHsin세타<br>[해설작성자 : 원마고 전기박사]<br>mlHsinΘ ▶ 8*10^-6 * 0.05 * 150 * sin30 = 3*10^-5<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 19,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>다음의 유전체 중에서 비유전률이 가장 큰 것은?`,
+    o: [
+      `물`,
+      `운모`,
+      `수소`,
+      `고무`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>※비유전율이 크다는 것은 "전기장의 간섭을 잘 받고, 전기에너지를 잘 머금는 성질이 강하다"는 뜻이며 쉽게 전기가 잘 통하는게 무엇인지 물어보는겁니다<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 20,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>중공도체체의 중공부에 전하를 놓지 않으면 외부에서 준 전화는 외부 표면에만 분포한다. 이 때 도체내의 전계는 몇 V/m가 되는가?`,
+    o: [
+      `0`,
+      `4π`,
+      `∞`,
+      `<img src="data:image/gif;base64,R0lGODlhKwAqAHcAACH5BAAAAAAALAAAAAArACoAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6kDpmtjqQ22YAAGYAZmZmZmZmtma2/5A6AJBmkJCQtpDb/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtu2ttvbkNv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj7AEkIHEiwoMGDCBMqXMiwoUOBHwg8nIiQAgAAEilqLKgh48aPHT+KDClyI8mSFE+ifKhyZcOWLhfCjHlQw8WLHmnq3Mmzp8+fJUUsuEm0qNGjSG8KyAC0qdOnUAeKYMA0qoalUUM0OFDV6YgIHbhCBTEhhFiIRgNMECgUAFaKIhyQMFs1RAISZEVgIBjCwNqPFpjSFcjBA4kLHsgOHAFBgcgPDwQOlip3w9+5BW5GTmnUMcTIFS5PRvnhrcDQJChsnntWJOObnkMgMHySceQREgS+Nq1RL9u9UoeqJcHY8QfPTSNCzPlTg2fVT4+T+DDAsFcIAKpH3c79YUAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 77%</div>`
+  },
+
+  {
+    n: 21,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>퓨즈를 시설하여도 좋은 곳은?`,
+    o: [
+      `온기가 있는 토양에 시설한 대지전압 150V이하인 전동기 철대의 접지선`,
+      `단상3선식 110/220V인 실내 전로의 중성선`,
+      `단상2선식 100V인 실내 전로의 접지측 전선`,
+      `3상4선식 400V인 실내 전로의 접지측 전선`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 27%</div>`
+  },
+
+  {
+    n: 22,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>가공 전선로에서 전선의 단위 길이당 중량과 경간이 일정 할 때 이도는 어떻게 되는가?`,
+    o: [
+      `전선의 장력에 반비례한다.`,
+      `전선의 장력에 비례한다.`,
+      `전선의 장력의 2승에 반비례한다.`,
+      `전선의 장력의 2승에 비례한다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 43%</div>이도(D)= WS*2/8T 이므로<br>이도, 수평장력은 반비례 관계<br>W:합성하중 S:경간 T:수평장력<br>[해설작성자 : SB]`
+  },
+
+  {
+    n: 23,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>가공지선에 대한 설명 중 옳지 않은 것은?`,
+    o: [
+      `가공지선은 일반적으로 아연도금 강연선을 사용한다.`,
+      `가공지선은 뇌해방지를 위하여 1~2조 가선으로 하는 것이 없다.`,
+      `가공지선의 이도는 전선의 이도보다 크게 한다.`,
+      `가공지선은 사고시에 고장전류의 일부분이 흐를 경우가 많다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 47%</div>`
+  },
+
+  {
+    n: 24,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>직렬축전기를 선로에 삽입할 때의 현상으로 옳은 것은?`,
+    o: [
+      `장거리 선로의 인덕턴스를 보상하므로 전압강하가 많아진다.`,
+      `부하의 역률이 나쁜 선로일수록효과가 좋다.`,
+      `수전단의 전압변동율을 증가시킨다.`,
+      `인태안정도가 감소하여도 최대송전전력이 커진다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 48%</div>`
+  },
+
+  {
+    n: 25,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>중선점접지방식 중 단선고장일 때 선로의 전압상승이 최대이고, 통신장해가 최소인 것은?`,
+    o: [
+      `비접지방식`,
+      `직접접지방식`,
+      `저항접지방식`,
+      `소호리액터접지방식`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 48%</div>`
+  },
+
+  {
+    n: 26,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>원자로의 감속재로 사용하기에 적당치 않은 것은?`,
+    o: [
+      `증수`,
+      `경수`,
+      `흑연`,
+      `납`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 58%</div>`
+  },
+
+  {
+    n: 27,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>진상전류만이 아니라 지상전류도 잡아서 광범위하게 연속적인 전압조정을 할 수 있는 것은?`,
+    o: [
+      `전력용콘덴서`,
+      `동기조상기`,
+      `분로리액터`,
+      `직렬리액터`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 54%</div>`
+  },
+
+  {
+    n: 28,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>지중전선로만 전력케이블의 고장을 검출하는 방법으로 머리(Murray)루프법이 있다. 이 방법을 사용하괴 교류전압, 수호기를 접속시켜 찾을 수 있는 고장은?`,
+    o: [
+      `1선 지락`,
+      `2선 단락`,
+      `3선 단락`,
+      `1선 단선`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 26%</div>`
+  },
+
+  {
+    n: 29,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>정격전압 7.2kV, 정격차단용량 250MVA인 3상용 차단기의 정격차단전류는 약 몇 kA 정도인가?`,
+    o: [
+      `10`,
+      `20`,
+      `30`,
+      `40`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 51%</div>`
+  },
+
+  {
+    n: 30,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>페란티(Ferranti)현상이 발생하는 원인은?`,
+    o: [
+      `선로의 저항`,
+      `선로의 인덕턴스`,
+      `선로의 정전용량`,
+      `선로의 누설콘덕턴스`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 64%</div>`
+  },
+
+  {
+    n: 31,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>전력서난송 보호계전방식의 장점이 아닌 것은?`,
+    o: [
+      `장치가 간단하고, 고장이 없으며, 계전기의 성능저하가 없다.`,
+      `고장의 선택성이 우수하다.`,
+      `동작이 예민하다.`,
+      `고장점이나 계통의 여하에 불구하고 선택차단개소를 동시에 고속도 차단할 수 있다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 35%</div>`
+  },
+
+  {
+    n: 32,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>3상의 전원에 접속된 3각형 결선의 콘덴서를 성형결선으로 바꾸면 진상용량은 몇 배인가?`,
+    o: [
+      `3`,
+      `<img src="data:image/gif;base64,R0lGODlhIgAXAHcAACH5BAAAAAAALAAAAAAiABcAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJBmkJDbtpDb/7ZmALZmOrZmZra2/7b//9uQOtuQZtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiyAEEIHEiwoMGDCBMqXMiwoUOHHyJs8LAAgMWLGAVgeCiwgwOOHC1sBNmwQwKSDjVMQMnQQwODHCwO2MASRIYHBTMUAPEBwk6UEWkO7Pkzg0aUHHAmpPBzIYcAKweKTPg0qkIOBCAoGOgRYcyZDzkcBVHB6sEOBrY2pIjTJcMMUB0yBaHyYEy1MZUy7HBAAgOhBflGzQBA78KeCAwXLAuCIliHGR4f7GmxqUMPF2pq3sw5IAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhKAArAHcAACH5BAAAAAAALAAAAAAoACsAhQAAAAAAOgAAZgA6kABmkABmtjoAADoAOjo6OjpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJBmkJDbtpDb/7ZmALZmOrZmZra2/7b//9uQOtuQZtv/ttv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjpAEMIHEiwoMGDCBMqXMiwIcIOBRxKPEgBAICIEzMSzIBRo0aOHj2CDJlxJEmJJk82TKlyIcuWCV/CLJjBosWOM3Pq3Mmzp0+HHxbYHEq0qFGjAjD8XLoURIQNQo8CSNrSgwOmAy0oxeohAVaBGiZ8/dDAYAeLAzjkzPCAZkQQEHCedKp2IFyMGai27NA2IQW5DjsEEJt160HBhCd2IABBwUCrDwGkJdlBb4XEBz0YcOwxaFuyDDMMDvk3RNjDADif7avRwwEJDOoWdE24JuuMcBHcLng5RNDJITMAPwj3psoPF74qX868Z0AAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhFwApAHcAACH5BAAAAAAALAAAAAAXACkAhAAAAAAAOgAAZgA6kABmtjoAADoAOjqQ22YAAGa2/5A6AJDb/7ZmALZmOrb//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiNACsIHEiwoMGDCBMqXMiQYAQCDQ0yAAAAYkSDDyxeJJhxY8GOHgeCDFlhZEiTHlFuVNnwAUWKGknKnEmzpswJCF7q3CnAgc2fQIMKjEBxAISUECkoiMlQqcUHPWUyYHoxQoAFIYkanSmhwIGZD65WBfC1AtEEFyUYwFoSANqLDbDi3HpRKUyhePPqJRgQADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 41%</div>`
+  },
+
+  {
+    n: 33,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>변전소에서 수용가에 공급되는 전력을 끊고 소내기기를 점검할 필요가 있을 경우와 끝난 후 차단기와 단로기를 개폐시키는 동작을 설명한 것으로 옳은 것은?`,
+    o: [
+      `접검시에는 차단기로 부하회로를 끊고 단로기를 열어야 하며, 점검후에는 차단기로 부하회로를 연결한 후 단로기를 넣어야 한다.`,
+      `점검시에는 단로기를 열고 난 후 차단기를 열어야하며, 점검후에는 단로기를 넣고, 다음에 차단기로 부하회로를 연결하여야 한다.`,
+      `점검시에는 단로기를 열고 난 후 차단기를 열어야 하며 점검이 끝난 경우에는 차단기를 부하에 연결한 다음 단로기를 넣어야 한다.`,
+      `점검시에는 차단기로 부하회로를 끊고 난 다음에 단로기를 열어야 하며, 점검후에는 단로기를 넣은 후 차단기를 넣어야 한다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 54%</div>`
+  },
+
+  {
+    n: 34,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>62000kW의 전력을 60km 떨어진 지점에서 송전하려면 전압은 몇 kV로 하면 좋은가?`,
+    o: [
+      `66`,
+      `110`,
+      `140`,
+      `154`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 45%</div>스틸식 : 5.5*루트(0.6*거리+전력/100)<br>[해설작성자 : 쏙쏙]<br>스틸식)V[kV] = 5.5√[ 0.6ℓ + ( P / 100 ) ] ▶ 5.5√[ 0.6 * 60 + ( 62000 / 100 ) ] = 140.86873[kV]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 35,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>SF 6 가스차단기의 설명이 잘못된 것은?`,
+    o: [
+      `SF₆가스는 절연내력이 공기의 2~3배이고 소호능력이 공기의 100~200배이다.`,
+      `밀폐구조이므로 소용이 없다.`,
+      `근거리 고장 등 가혹한 재기전압에 대하서 우수하다.`,
+      `아크에 의해 SF₆가스는 분해되어 유독가스를 발생시킨다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 75%</div>`
+  },
+
+  {
+    n: 36,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>소도체의 반지름 r[m], 소도체간의 선간거리가 d[m]인 2개의 소도체를 사용한 345kV 송전선로가 있다. 복도체의 등가 반지름은?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhJwAZAHcAACH5BAAAAAAALAAAAAAnABkAhQAAAAAAOgAAZgA6kABmkABmtjoAOjoAZjo6Ojo6kDpmtjqQtjqQ22YAAGYAOmY6kGZmtmaQ22a2/5A6AJA6OpBmkJCQ25DbtpDb/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtv/ttv///+2Zv+2tv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjjAFEIHEiwoMGDCBMqXMiwocOHECNCPFEhRAMAGDNq3IhRgAeIJSJIHLnh40iQCk5GBIHhoYkGAVpCNAEhYokEIiJ+kKCzQESKOSFmYBBxBE+CHwBIyABgQNCXABZQkIlwREyCJQmasDBC6QenKF7yzOAx4QgCE4gKDFmQhIcPPpHGHQFW4YiyKDRQJZjhqECxAj+oVQiY5kETDvaWOGCyb8MMPlkevBlUIN2ciPcmLGHgwoPKcgteRkGZA+iDJyYg8FtwaMHFHkogSBDCQsOvpxcmdfoB70ITHVQKH068uPGDAQEAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLwAcAHcAACH5BAAAAAAALAAAAAAvABwAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmkDpmtjqQtjqQ22YAAGYAOmY6kGZmZmZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQ25Db/7ZmALZmOrZmZraQkLa2/7b/trb/27b//9uQOtuQZtuQkNv/ttv///+2Zv+2tv/bkP/b2///tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AF0IHEiwoMGDCBMqXMiwocOHECMSLAHCAYCLGDNq3HhRgAiJLTCckEjyoIoJJVMSJKFBpcqQI12WPEmyRYWLBFJyaCkRxYATLBxQIMkCQsyGQQPwFLhhaE+nD1UkOMpCQskOHyGOyCmwxYWsEatK3NBAIIsHGlh8YLjiqAsUUAWOAEBhA4CfZi0ysNBSRYGLSheiCDwQK0EWGVDQHYE36NANHiOqUFChrEAVCwqmELG1YOe3eCUyjsnyYNPDQuValqjCQEuYBs8udaHiQNbTNSvTRmlQqlufI2WnHF3a4OeBwGlP9eD2IQoBIUSaXn3ZtgoECUxkKBk0AnWGc38TjohccgNhmT25ol/Pvr379wsDAgA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLAAdAHcAACH5BAAAAAAALAAAAAAsAB0AhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmkDpmtjqQtjqQ22YAAGYAOmY6kGZmZmZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQ25Db/7ZmALZmOrZmZraQkLa2/7b/trb/27b//9uQOtuQZtuQkNvbkNv/ttv///+2Zv+2tv/bkP/b2///tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AF8IHEiwoMGDCBMqXMiwocOHECNKnFgChAMAGDNq3MgRowARD11gQDGxpMAVE0yaJKFB5USRJF1GRKnQRQWMBGQO5NAyYYoBKFo4oKCzBYSYDDcQJSg0QE+HKZYybCHh4IoESBt2AMnQxQWuBUfkfEi1YYsHGlp8MLihgUIWWaMaHAGAwgYAA0wUwOhUoFAADCw8NZii78CtBVtkSFF3BFCDQolu+IhwhYIKbk8uMKhChFiFn1/8zDr38QuWCJUmjCxwROaEKwy0hHnw7OCCKw5wVV0T8wuaVrH6fGyboWMUqA+GRjj6N1YPpAumEBBiZOrXVnWvQJDgRIaFQiMWYJdIF+gIygs3GNYJdSz79/Djy2cfEAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `rd`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 49%</div>등가 반지름 = √r s^n-1                    r: 소도체의 반지름, s : 소도체간의 간격<br>소도체 개수 n = 2이므로 √rs<br>이 문제에선 s = d 이기 때문에 1번이 정답입니다.<br>[해설작성자 : 용산철도고 현자]`
+  },
+
+  {
+    n: 37,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>전선의 중량은 전압×역률과 어떠한 관계에 있는가?`,
+    o: [
+      `비례`,
+      `반비례`,
+      `지승에 비례`,
+      `자승에 반비례`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 37%</div>전선의 중량)W ∝ 1 / V^2 * cosθ^2<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 38,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>3상 1회선과 대지가느이 단위길이당 충전전류가 0.25A/km일 때 길이가 18km인 선로의 충전전류는 몇 A인가?`,
+    o: [
+      `1.5`,
+      `4.5`,
+      `12.5`,
+      `40.5`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>`
+  },
+
+  {
+    n: 39,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>전력용 퓨즈(power fuse)는 주로 어떤 전류의 차단을 목적으로 사용하는가?`,
+    o: [
+      `단락전류`,
+      `과부하전류`,
+      `충전전류`,
+      `과도전류`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 70%</div>`
+  },
+
+  {
+    n: 40,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>수조에 대한 설명으로 옳은 것은?`,
+    o: [
+      `무압수로의 종단에 있으면 조압수조, 압력수로의 종단에 있으면 헤드탱크라 한다.`,
+      `헤드탱크의 용량은 최대사용수량의 1~2시간에 상당하는 크기로 설계된다.`,
+      `조압수조는 부하변동에 의하여 생긴 압력터널내의 수격압이 압력터널에 침입하는 것을 방지한다.`,
+      `헤드탱크는 수차의 부하가 급증할 때에는 물을 배제하는 기능을 가지고 있다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 49%</div>`
+  },
+
+  {
+    n: 41,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3[KVA], 3000/100[V]의 단상 변압기를 승압기로 연결하고 1차측에 3000[V]를 가했을 때 그 부하용량[KVA]은?`,
+    o: [
+      `76`,
+      `85`,
+      `93`,
+      `94`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 49%</div>Step 1 )  Vh = v1 + e =  3000 + 100 = 3100<br>STep 2 )  부하용량 = 자기용량 x Vn/ Vh- VL = 3x 3100/3100-3000    = 93<br>[해설작성자 : 문답가자 전산기 ㄱㄱ ]`
+  },
+
+  {
+    n: 42,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>변압기의 병렬 운전에 있어서 각 변압기가 그용량에 비례해서 전류를 분당하고, 변압기 상호간에 순환전류가 흐르지 않도록 하기 위해서는 다음의 조건을 만족하여야 한다 그중에서 합당하지 못한 것은?`,
+    o: [
+      `권수비가 같을 것`,
+      `각 변압기의 1차, 2차의 정격전압 및 극성이 같을 것`,
+      `%저항강하 및 %리액턴스 강하가 각 변압기의 용량에 반비례할 것`,
+      `3상식에서는 상회전 방향 및 위상변위가 같을 것`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 48%</div>`
+  },
+
+  {
+    n: 43,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>변압기 1차측에는 몇 개의 탭이 있다. 그 이유는?`,
+    o: [
+      `변압기의 여자전류를 조정하기 위하여`,
+      `부하 전류를 조정하기 위하여`,
+      `수전점의 전압을 조정하기 위하여`,
+      `예비용 단자`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 51%</div>`
+  },
+
+  {
+    n: 44,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>회전수 N[rmp]으로, 단자전압이 Et[V]일 때, 정격부하에서 I a[A]의 전기자 전류가 흐르는 직류 분권전동기의 전기자 전항이 Ra[Ω]이라고 한다. 이 전동기를 같은 전압으로 무부하 운전할 때 그 속도 N’[rmp]는? (단, 그 전기자 반작용 및 자기포화 현상등은 일체 무시한다.)`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhaQAvAHcAACH5BAAAAAAALAAAAABpAC8AhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6ADo6Ojo6kDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLacZrb//9uQOtuQZtuQkNu2ttv/ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AF0IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEnSYYsJAAAsGLghZQANJWNOFHGAAMEQEmTqhNjiQggBIAZ6MLGzKEMVGVQUyOmip9GnCVFoOGnTBVKoWAsOdfEz6IigWbOywCBQqQSnYbNKFXhywdW0WLcKPDHAA1i4RscSZMGgKl6jOAtuYPpX54mUKgmmuFu4sePHkCNLnkyZMl/EmDNr3sy5s+fPoENnBlpZ8tvSDU9PVJGAKGqHgym2sOCaLcrNhDGeREx6YcvMKxd2YPzwRPCCXQeyaACTY3KHJ3ofPo5QRYSJHJoTpKq1dkbuDzf++OXrF2GLCsQZsnjgvezS7Rc6mn3Il7BS6gizR1Sh4GD0oGgJFAIAErQ0QHsQ/SfQZQsM519vLmxwoAsMOngTfgydUB5LVZ1A2FiHSRDChBSJtyADK20AIUEmChQbhShGuKILxkVUY0GXpQThYiFsOFF9AlbFGoI5puRXj2W1VpCGNmKoIAsQCESCay8OpBRnLz0YFJBcYUhjbxtkyWUITvq4EJOCCZkBhWRRyBxGLapgAFhVsujXCVnKSWduc3mpEH84xkiQhUNexFdwdBHVAgXaKSeojEEl2hSjBgXGE3oE4aldWwMheZGmc004pFxzZQnjgSt8IGprpLqgX0RTrx62GYQb+AkdZiux4AAIKiCQQAltWlUAYispRcBsJeza66/BUsieRNaFNeCBCirUUpbTmlDtXHw+JEKjry00G4ImURquuOaeq+667Lbr7rtFBQQAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhbwArAHcAACH5BAAAAAAALAAAAABvACsAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmkDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmOpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLacZrb//9uQOtuQZtu2ttv/ttv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFsIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKJMiCAoCTKE9OGMny4wgBIgaucMChpU2NJQkUBHFixYOYN4NKTFFg5UAWGVqgGHBCqNOHKGC2QEpwBIOnWBl20KnUaIeURrOKldkApVSBLCrUHMtWYNSYKyIILHEixQGgbRWm2DByq8C9LVZoUMo1JOCLKRI0DbmiwVWCH2J2CBty8kAUAM4qRUn5KIbFIVEEWDuVwtW0NXmKjEy2sEDWB1E8Bok5pVm4P0d09phCwtELRQmqPuiBNNavs0OysAAU6QimA4cXXAEBdF6RxdFmKDlbOsEUC67+t7SqvUUKA2u9X3YtnvZjqi1GcFXvNnn7jyi4wi+5kr7S5I3ZJuCABBZo4IEIEqgZYeX9dZd/+d0nkmwNCmSVf+BJGJJuFU5VgQLWHcWchh9lF1h13ymGkIkHlUTgbhW5eNKCBX1lm30KUddUbQBQRhdCvS30El4zGZfRkAy95RYAOCKEAowPkWAkSRSwp5pPeMVYZUN+CdQYewix8JlFqAEZ3FFJKQUdYmfm2EBYRDVZUJmhSQXfQORhpGSADMB2mWYdQMennzd1+eRANqp0kV+NXdUBjV22YFlgjklKI0sBzpglnRY1tpJ8f6lIVkqFgWqeqDftKVcLP9qVJVGTBI7mJEyeWmifkpLKWmt8corUJWCCuQXmRH65KtCkiBYmWk3GSgolY5VCBhSyFTWqZlOcUjrbozEtha1aQi17lGlogeufQ+J6e+oJw4lLKVMqhABdYuyGSJuCQGHJ4UQ8MollCggkYMJgsJ50FVEEiGnCTwALPNh1yHE0AgBM4XrQV7JOXPGlJHbs8ccghyzyUwEBADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhbgAnAHcAACH5BAAAAAAALAAAAABuACcAhQAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjo6Ojo6kDpmkDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmOpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLbb/7b//9uQOtuQZtu2ttv/ttv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFsIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3MixY0UWFACIHClygkaQIwWISNiBpEgGHiuOUDlwhQMOHGeuXIiCZgsUAGDGjAiSQEEQJ1qseLDzIwWjDDtAVdpg6lCHKQqYHMgig0AUA5JazLpV4YoGZbMKveqw58quBUesreiWatAPTb/6bNEhrMCzd/OyHSj1a9mWI8tOLHwWZoe9AgtHLtuYL+TBdkVCZlEBp8WzJkdATZFA7N8GJK2KFkjaNOafNFdEEFgiaYoDebO6HBnAc0G3oAXK/e2zQ+/TW4fHTLHhoGTmSjV8tUqx8O2dHRTznYrieIvrkw3+Qh9b2mBlgnjDf24AE2xSzr6prn28030L+M7LAt0LtKRBFhi4NlB3voEkFH5IUUTgT361luBP3p0Vlgoh2OeggC2kdxp1Gv4211e7abbTUiKMoF1bJDFAYgoIJGCCdLq99F0BBAB4wootvnhQChJwdYFWBD1YkAfxQdTShxaNAEBYdSHUkndKMnmZQCxYsFNXI/glkJA1QYDha2AaRCSVGRg4EJesLRDmmgkpB1cKBniG5k/UsWknCgd61cJqLcyJp52ADggVXPdRYJKfcwEW4qKMNuroo5C6BBkKg+r5HW5+1hkomH/eZ+meDMyZgpqb2mkimQRxpgCGVQpWKmaGYyrlJUGtHRQrWyiFeOJVK8zaHwCK1bZjj6/pVNNNYaKwq0MkFBlTUUclRSKuAX7U2WBkpaqnfUPh9ypDdRE6kHLfviqZsoSRtGy5rykKwGbXsrtpXbLRZhtu8m76XHMrSEdnvoGeN5CG2QEM6IJUUnDgtXMaHNOvko7I1KkOs3tkxRizGxAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhbQApAHAAACH5BAAAAAAALAAAAABtACkAhwAAAAAAMwAAZgAAmQAAzAAA/wArAAArMwArZgArmQArzAAr/wBVAABVMwBVZgBVmQBVzABV/wCAAACAMwCAZgCAmQCAzACA/wCqAACqMwCqZgCqmQCqzACq/wDVAADVMwDVZgDVmQDVzADV/wD/AAD/MwD/ZgD/mQD/zAD//zMAADMAMzMAZjMAmTMAzDMA/zMrADMrMzMrZjMrmTMrzDMr/zNVADNVMzNVZjNVmTNVzDNV/zOAADOAMzOAZjOAmTOAzDOA/zOqADOqMzOqZjOqmTOqzDOq/zPVADPVMzPVZjPVmTPVzDPV/zP/ADP/MzP/ZjP/mTP/zDP//2YAAGYAM2YAZmYAmWYAzGYA/2YrAGYrM2YrZmYrmWYrzGYr/2ZVAGZVM2ZVZmZVmWZVzGZV/2aAAGaAM2aAZmaAmWaAzGaA/2aqAGaqM2aqZmaqmWaqzGaq/2bVAGbVM2bVZmbVmWbVzGbV/2b/AGb/M2b/Zmb/mWb/zGb//5kAAJkAM5kAZpkAmZkAzJkA/5krAJkrM5krZpkrmZkrzJkr/5lVAJlVM5lVZplVmZlVzJlV/5mAAJmAM5mAZpmAmZmAzJmA/5mqAJmqM5mqZpmqmZmqzJmq/5nVAJnVM5nVZpnVmZnVzJnV/5n/AJn/M5n/Zpn/mZn/zJn//8wAAMwAM8wAZswAmcwAzMwA/8wrAMwrM8wrZswrmcwrzMwr/8xVAMxVM8xVZsxVmcxVzMxV/8yAAMyAM8yAZsyAmcyAzMyA/8yqAMyqM8yqZsyqmcyqzMyq/8zVAMzVM8zVZszVmczVzMzV/8z/AMz/M8z/Zsz/mcz/zMz///8AAP8AM/8AZv8Amf8AzP8A//8rAP8rM/8rZv8rmf8rzP8r//9VAP9VM/9VZv9Vmf9VzP9V//+AAP+AM/+AZv+Amf+AzP+A//+qAP+qM/+qZv+qmf+qzP+q///VAP/VM//VZv/Vmf/VzP/V////AP//M///Zv//mf//zP///wAAAAAAAAAAAAAAAAj/APcJHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePID/qIwSgpMmScTSONCkgGkNaJ0saCekwWMuB+qqE4mjTpUN2N/exAwCE5sKREAoOc6nPik+DABwihUjLAk4qSY0mnKciJc5JAtkleFowakOuXhvqo5KW60ytCIEypVQwWFGEZhnKFbgWgBFbpw7uFUjrAVMqRAHD3acrK7u0ik6mJZh3YWOB+agUpRW0oK4HAxV5zVxUV2eafUsKCIyzEOuDlROu9Ros67wZZDEjNpl13y7buOHu1TdGIDGX81i83sc1pskAOw0CDTxb4K63BQfTgr6vum/sGudt/zqoyCrz8fk0he0Nu2F5gfJY+KQ1ObR5oQECJ59f/zzFfMEVtNZdAzHiky79UcbQgGGN1Z1rBjFI2GpCOagPhAaJJpE+jeQWVn44EfLWhYGB1d5C7IAolGHM4dYLWSmythZo82Di4G3RvGiQYkIB0NlQKA3EDoFCOqeaT/rIF0yC+8SW3UlF5ePUPDfMAI16AjVXUlFcQcChlNFQaSWWBc0Dx1Xs7WMgQbUsRxVRCTnJ0C4AjDXdQjCBSKedp+FkCJKLdEXQUjh14eFiiBpUyx18URIMiwLpCJ8OiVaakF18aTISgZkQJA9oloZKEDvYgTXPCtFJKtQRorYqVFb60N21T20CSfLUkASlZuSuvPbq66/AGkkhfKDq02l3hKR07HquisoOq92pMVA+8qmaTw7NhrqLV7ESdN0kT+nzZ7aVtplproVgyyajcK1kJJMf5WMoZvMONE8OZOUjLaI94aQToo+FZdJkwxgkTHRaTTVoNE0dyhGHDit0IcI0ccUuX2CJFXFGJJKr0J3dDnSdx81WFZZXkQ1Mcqi6DvsgxSsnOlxx+xy3X8yhfoYZeurJkybOcGUG7UCK0Qd0pSkirI8iRemzRWCqHg0SkM7d1PC2UmcLE3hZd+311x0FBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 37%</div>`
+  },
+
+  {
+    n: 45,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>2[KVA], 3000/100[V]인 단상 변압기의 철손이 200[w]이면 1차에 환산한 여자 콘덕턴스[℧]는?`,
+    o: [
+      `약 22.2×10⁻⁶`,
+      `약 0.067`,
+      `약 0.073`,
+      `약 0.090`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 30%</div>여자어드미턴스 y0 = g0 -jb0<br>철선 pi = VIi = V1^2/ r0 = g0V1^2<br>여자 컨덕턴스 g0 = pi/V1^2 = 200/3000^2 =22.2 x 10^-6<br>[해설작성자 : 공군]`
+  },
+
+  {
+    n: 46,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>권선형 유도 전동기의 회전자 권선의 접속을 핵심력 개폐기에 의해서 직렬 또는 병렬로 바꿔어 속도를 제어하는 방법은?`,
+    o: [
+      `게르게스법`,
+      `2차 여자법`,
+      `2차 저항법`,
+      `주파수 변화법`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 46%</div>`
+  },
+
+  {
+    n: 47,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>200[V], 3상 유도전동기의 전부하 슬립이 6[%]이다. 공급전압이 10[%]저하된 경우의 전부하 슬립은 어떻게 되는가?`,
+    o: [
+      `0.074`,
+      `0.067`,
+      `0.064`,
+      `0.049`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 20%</div>s=  s * ( V1/V1 )의 2제곱    = " 0.06 * ( 200/0.9*200)의 2제곱 <br>답은 = 0.074                             참고로 0.9는 100% 에서 10%가 저하되어 90%가 된것입니다. <br>[해설작성자 : 777]`
+  },
+
+  {
+    n: 48,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3상 유도 전동기의 원선도를 그리는데 필요하지 않은 시험은?`,
+    o: [
+      `슬립측정`,
+      `구속시험`,
+      `무부하 시험`,
+      `저항측정`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 64%</div>`
+  },
+
+  {
+    n: 49,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류기의 효율이 최대가 되는 경우는?`,
+    o: [
+      `와류손 = 히스테리시스손`,
+      `기계손 = 전기자동손`,
+      `전부하동손 = 철손`,
+      `고정손 = 부하손`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>`
+  },
+
+  {
+    n: 50,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>브러시의 위치를 바꾸어서 회전방향을 바꿀 수 있는 전기기계가 아닌 것은?`,
+    o: [
+      `틈슨형 반발 전동기`,
+      `3상 직원 정류자 전동기`,
+      `시라게 전동기`,
+      `정류지형 주파수 변환기`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 35%</div>`
+  },
+
+  {
+    n: 51,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3상 동기전동기에 있어서 제동권선의 역할은?`,
+    o: [
+      `효율을 좋게`,
+      `역율을 개선`,
+      `난조를 방지`,
+      `출력을 증가`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 69%</div>`
+  },
+
+  {
+    n: 52,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3300/210[V], 5[KVA]단상변압기의 퍼센트 저항 강하 2.4[%], 리액턴스 강하 1.8[%]이다. 임피던스 와트[W]는?`,
+    o: [
+      `320`,
+      `240`,
+      `120`,
+      `90`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 37%</div>임피던스 와트 w = 2.4 x 5000 / 100<br>[해설작성자 : 공군]`
+  },
+
+  {
+    n: 53,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>4극 전기자 권선이 단중중권인 직류발전기의 전기자 전류가 20[A]이면 각 전기자 권선의 병렬회로에 흐르는 전류는?`,
+    o: [
+      `10[A]`,
+      `8[A]`,
+      `5[A]`,
+      `2[A]`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 60%</div>`
+  },
+
+  {
+    n: 54,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>동기기의 안정도 항상에 유효하지 못한 것은?`,
+    o: [
+      `관성모우먼트를 크게 할 것`,
+      `단락비를 크게 할 것`,
+      `속응여자 방식으로 할 것`,
+      `동기 임피던스를 크게 할 것`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 59%</div>동기화 리액턴스를 작게 할 것, 회전자의 플라이휠 효과를 크게 할 것<br>- 역상,영상 임피던스를 크게 할 것, 단락비를 크게 할 것<br>- 전력공학.지락전류 Ig = E/(영상임피던스+정상임피던스+역상임피던스)<br>[해설작성자 : 777]`
+  },
+
+  {
+    n: 55,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3300/210[V], 5[KVA]의 단상 주상 변압기를 승압용단권 변압기로 접속하고, 1차에 3000[V]를 가할때의 출력[KVA]은?`,
+    o: [
+      `약 69`,
+      `약 76`,
+      `약 82`,
+      `약 84`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 30%</div>v2 2차전압을 구하면 3000+(3000*210/3300)=3190[v]<br>고로 2차전류를 활용하여 풀면 I2=p/v  =5000/210=23.8[A]<br>따라서 P=VI  3190*23.8=75922[VA]  75.9[KVA]  답 : 76[KVA]<br>[해설작성자 : 윤재만]<br>2차측 단자전압)Vh[V] = V1 * [ 1 + ( 1 / a ) ] ▶ 3000 * [ 1 + ( 210 / 3300 ) ] = 3190.909[V]<br>I2[A] = P / V2 ▶ 5 * 10^3 / 210 = 23.8[A]<br>P[KVA] = Vh * I2 ▶ 3190.909 * 23.8 = 75.92[KVA]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 56,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>60[Hz], 12극, 회전자의 외경 2[m]인 동기발전기에 있어서 회전자의 주변속도는?`,
+    o: [
+      `43[m/s]`,
+      `62.8[m/s]`,
+      `120[m/s]`,
+      `132[m/s]`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 56%</div>주변속도 = D * 파이 * (Ns/60)  =  2 * 3.14 * (600/ 60) <br>= 62.8 입니다.<br>(참고로 Ns = 120*f/p 이므로 120*60/12 = 600      Ns및에 60 은 꼭 넣어주시고<br>                                   p극수    f주파수    D직경    파이는 3.14)<br>[해설작성자 : comcbt.com 이용자]<br>주변속도[m] = π * D * ( N / 60 ) ▶ π * 2 * ( 600 / 60 ) = 62.8318[m]<br>N[rpm] = 120 * f / p ▶ 120 * 60 / 12 = 600[rpm]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 57,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류 분권발전기의 전기자 권선을 단중중권으로 감으면?`,
+    o: [
+      `병렬 회로수는 항상 2 이다.`,
+      `높은 전압 적은 전류에 적당하다.`,
+      `균압선이 필요없다.`,
+      `브러시 수는 극수와 같아야 한다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 45%</div>`
+  },
+
+  {
+    n: 58,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>2대의 동기발전기가 병렬운전하고 있을 때 동기화 전류가 흐르는 경우는?`,
+    o: [
+      `기전력의 크기에 차가 있을 때`,
+      `기전력의 위상에 차가 있을 때`,
+      `부하분당에 차가 있을 때`,
+      `기전력의 파형에 차가 있을 때`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 58%</div>`
+  },
+
+  {
+    n: 59,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>권선형 유도 전동기에서 비례추이를 할 수 없는 것은?`,
+    o: [
+      `회전력`,
+      `1차 전류`,
+      `2차 전류`,
+      `출력`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 57%</div>`
+  },
+
+  {
+    n: 60,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>단상 유도전동기으 기동방법중 가장 기동토크가 작은 것은?`,
+    o: [
+      `반발 기동형`,
+      `반발 유도형`,
+      `콘덴서 분상형`,
+      `분상 기동형`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 51%</div>`
+  },
+
+  {
+    n: 61,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>어떤 제어계의 임펄스 응답이 sin t 일 때에 이 계의 전달함수를 구하면?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhMwAqAHcAACH5BAAAAAAALAAAAAAzACoAhAAAAAAAZgA6kABmtjoAADpmtjqQ22YAAGaQ22a2/5A6AJA6ZpCQ27ZmALb//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjKACsIHEiwoMGDCBMqXMiwocOHECNKnEiRYoQBFTMSbAAAAEaNICs8+Bgy48iSGk+irKhy5cSWLiPCjPlwJs2GNm8mfNCxI0mdQIMKHUq0KMoJB3oqXcq0qVOmARwYnUq1qlWhF4NKQKCQo0etXBfmdEhBAQABEBJuZTi2YQMDFSQUUBtWYduFFBZIbbtW7M+Ibw9KIPAUrsG7bM+mRTiBAdu/ExskSNj48cTBkytIpuzY78TKFSKg5WxXKeTEAKIqBH21tevXsKcGBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhOgAvAHcAACH5BAAAAAAALAAAAAA6AC8AhAAAAAAAOgAAZgA6kABmtjoAADpmtjqQ22YAAGYAOmZmtmaQ22a2/5A6AJA6ZpCQ25Db/7ZmALa2/7b//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAjzADUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGClaIJCx48AIAABw9EiSwkiSHU2i9KhyZcaWLi/CjFlxJs2JNm9GzKmzIYWQIU/2HEq0qNGjSJMqfYgBAdCnUKNKnUr1qYAJS7Nq3YowQ4OgXAlaGFChKYOwBiOcRTsQgwK2AzM4wHpxI0kMCSBgkJDwwgKFIEV6vFAgZAAIff8u5OnQKwCyEP0yZNwwwgENFwxEVqyQ8kK5WD0blLxYaETLDglTvWxQ9OLHFSBieDDZ9ES1smmXnkh4LW6mujvbbjhb4NjYwDs/Hf4awNWIxeFKn069+tCAADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhMQAoAHcAACH5BAAAAAAALAAAAAAxACgAhAAAAAAAZgA6kABmtjoAADpmtjqQ22YAAGaQ22a2/5A6AJA6ZpCQ27ZmALb//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjTACsIHEiwoMGDCBMqXMiwocOHECNKnEhRIQUFAARAqMixQgMDFSQU6EiRwgIHFR4MIEnxI8uODzJufNkyAc2HEgjY9LjzJsMJDARG0OjTYUwAAVAWXcq0qdOnLyccAEC1qtWrWLNqrZoUqtevYMOKLRhhJVMJCBQ2oGp2KVqGKidelJnw7cK4El2KrJv2btuHJlHiPWhX4WCILg3m3ArS4GGIMYkiBAr3b96eBin7jZhzZwPMBTUbtvwzaIWhMw+KPniULWSqXROuHku7tu3buG0HBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhNwArAHcAACH5BAAAAAAALAAAAAA3ACsAhAAAAAAAOgAAZgA6kABmtjoAADpmtjqQ22YAAGYAOmZmtmaQ22a2/5A6AJA6ZpCQ25Db/7ZmALa2/7b//9uQOtv///+2Zv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAj2ADUIHEiwoMGDCBMqXMiwocOHECNKnCgwQwMAAypQ3JgwwgENFwxwHEkwg4MJGigQIMlSg8eWMFNi1BiTZAQGNSdeKIDTZc+cEDE8EGghI1CJFAAAEIDyqNOnUKNKnUpVIgYESrNq3cq1q9evSplWHUu2LESLSleaLVi0wtWfawvejGsQgwK6BU025WhB7UgMCSBgkJDwwgKFEdKS3Kk0AITChxeqjIjWKETDDCdDfBkyImbJfhvqTRm64WeFmh++dMjY60eDqR8mtfxQaObSquE2tA364c6ec4MO7e2Qd9uIvBEmzYpbedi9tYfjnU69uvXrdAMCADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 55%</div>`
+  },
+
+  {
+    n: 62,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>그림과 같은 회로에 대한 설명으로 잘못된 것은?<img src="data:image/gif;base64,R0lGODlhmgBcAHcAACH5BAAAAAAALAAAAACaAFwAgwAAAB0dHSsrKzk5OUBAQFVVVXJycoCAgI6OjqqqqsDAwMfHx9XV1ePj4////wAAAAj+AB0IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuXHBkkEMjAQAOBCQAYQAggAMyfIwsAcIAAgNGbQgcaBVAA51CgUDsudWB0AYCZBZo6EJr1ac6oYDUyMJpTwVYBW7VmFej1adi3FQ9cbZtW4NqtTuHqnSj3q4Ovd9dazbsXZYMFH+U2uOpgwIC6f5kGeBy58Em5bjnKdSAAQF/IQo2irWx5JIIAAAZo7ZjApwGjAZCqXUq3NEjMARLcJLlgt9CZDRIIR8xgQGbbGRu87olgd8oEjg8mKLATecYEmD0zOJnArEyaAMz+Wk94WGLWAsaNIliQAPFAA9Tdc7QKYMHr7ahHj5fOVLj//wD6B4AAxgVQQAOLGVUdVT1dtZ1GDaS3XFNT7ccfbRhmSNsBi81U12tKCafhiCTCNgBqIwagok4IHJCVcAgId0CMAdYYoHwm+fXQWEs9WABaOgJAQGcFHGDkkUYS8CNXR/5YogA5iWZUATyWaGWJq+V4XEOhUebAYgIs6ACKXkoFQHNkMZgleTh5KNNMABqY0mkQduaTSQy4t5kDLnp0F3f6WXTAdntaqNCfJtF50WJNJWXooWuSZMCdF0V55qOQzlmmRew5h+lBiJbU56clhUoSApGS+pGpQVGqakj+rIqE3qtBpSrrlrRyFCustuaakWopzerrqr2CVICrw260q7HFJkvRsh/B52xH0PqJ67QVVdsRqthuJCdKhXZ7kQCBlqSouBcJJQCOpjWLbkMRqmeStu8yRIBRD9Zab0aveajvvosyRhK9ABNUE3XbCfxvwQ5ZatQBUJbqLkIIiDlQcP5i+poAWaWnsKy9LlCAh/4p5dN3DmxHn6q/DcRjxhsxcF5WqM1MnUDZUbeUhzpF1htjjn7aAGoGCBcazBop0BmWkc2V1QFnscWziFgBkC+mVdKGNEfY/Rd0055tdVNRbCEgdVGICeUp1kINkPDW79l6IEMjEuQwsKQJbED+UaN9janDMyrcwNI8oxWcQGaP6S6KtLma005LEyZwlFBvde14loZW1UBCiUxZ2I7WBxmXqebU1L1WWy41zg/bdbl1mFVtFEFJ+QX6UH4RzKpVBqbm2AHfCmyVl34bGm+Gzi2wnQGfQ82VcXZNHD1C03m2wALp7XapXYmrrmpwqOVmVcYyi06V8545qrv0Bk120AKorU2rwvTJB3pTOcn2EME7iqcqZgIYlMLkUjm2OE8rqVsfwx5SIM2Zz3Ij41lTJsUWxOCNdAtsCH3MthxXYaw9bBlKef4SGYtlKoN0exhtrmYQ7CBkUPtjH8MSsLQBGQdu1JIhCkMksR0yJAHy8HHPx3jlw0PRRklDZFYREUKfoi1lAPIj1hIPkqAAwA8289IhwBZQQwGgBoe60iIKcwJGZYkxg1ZhlxKnyBCrRNFPJmSjQaLTQzlS714FHMkF7UiQovTMJHvkI1tyg5IBxNGOSRwJxwRZkESK5FuMdMD4UsKUSApkkigJmyXHUkaPbC+SaUxJALrHSB2dJDU2SuV/voSuwaAka1eKpSyfxLEhHYAASMqlLnfJy14aqTsuG8hnUMKeGSUgRkUz2nSOCR+bOfOZ0IQmxwzUmQEszUCMm6U2Y6lGNr7xjQJpQJ7a0x72qPI/NDqkJdfJznZCJSAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `이 회로에 시정수는 0.2[S]이다.`,
+      `이 회로의 정상전류는 6[A]이다.`,
+      `이 회로의 특성근은 -5이다.`,
+      `t=0에서 직류전압 60[V]를 제거할 때 t=0.4[S]시각의 회로의 전류는 5.26[A]이다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 49%</div>시정수)τ[S] = L / R ▶ 2 / 10 = 0.2[S]<br>정상전류)I[A] = V / R ▶ 60 / 10 = 6[A]<br>특성근 = -( R / L ) ▶ -( 10 / 2 ) = -5<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 63,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>주기적인 구형파의 산호는 그 주파수 성분이 어떻게 되는가?`,
+    o: [
+      `무수히 많은 주파수의 성분을 갖는다.`,
+      `주파수 성분을 갖지 않는다.`,
+      `직류분만으로 구성된다.`,
+      `교류합성을 갖지 않는다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 66%</div>`
+  },
+
+  {
+    n: 64,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>비정현파 기전력 및 직류의 값이 , 이라면 전력[W]은?`,
+    o: [
+      `763.2`,
+      `776.4`,
+      `785.8`,
+      `795.6`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 40%</div>P1[W] = V1 * I1 * cosθ ▶ ( 100 / √2 ) * ( 20 / √2 ) * cos30˚ = 866.0254[W]<br>P3[W] = V3 * I3 * cosθ ▶ -( 50 / √2 ) * ( 10 / √2 ) * cos60˚ = -125[W]<br>P5[W] = V5 * I5 * cosθ ▶ ( 20 / √2 ) * ( 5 / √2 ) * cos45˚ = 35.3553[W]<br>P0[W] = P1 + P3 + P5 ▶ 866.0254 + ( -125 ) + 35.3553 = 776.3807[W]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 65,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>키르히호프 전압법칙 설명 중 잘못 된 것은?`,
+    o: [
+      `회로소자의 선형, 비선형에 관계없이 적용된다.`,
+      `집중 정수회로에 적용된다.`,
+      `선형 소자만이 이루어진 회로에 적용된다.`,
+      `회로소자의 시변, 시불변성에 관계없이 적용된다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 46%</div>`
+  },
+
+  {
+    n: 66,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 3상 Y형 부하에서 1상당의 부하 임피던스가 Z=16+j12[Ω] 이다. 부하전류가 10[A]일대 이 부하의 선간 전압[V]은?`,
+    o: [
+      `200`,
+      `245`,
+      `346`,
+      `375`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 55%</div>임피던스  =   루트(16제곱  +  12제곱) =  20<br>선간전압  =   전류 * 임피던스  = 10 * 20  =  200 이지만   Y결선 일때는 <br>:     루트(3) 을 붙혀주므로  200 * 루트(3) = 346 입니다.<br>[해설작성자 : 777]`
+  },
+
+  {
+    n: 67,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>R-L-C 직렬회로에서 일정 각 주파수의 전압을 가하여 R만을 변화시켰을 때 R의 어떤 값에서 소비전력이 최대가 되는가?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhSgAvAHcAACH5BAAAAAAALAAAAABKAC8AhQAAAAAAOgAAZgA6kABmtjoAADo6kDqQ22YAAGYAOmZmtmaQ22a2/5A6AJA6ZpBmOpBmkJCQOpCQ25C2kJC2/5Db/7ZmALZmZraQkLa2/7bb/7b//9uQOtvbkNv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEkIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3MiRxIgGAAAQ6EhS4YcBHkQgYFASo8qQAFiSeBmToAWZAi3AhHmgJcOPIwl+CDpQhAKDHwRsEPgBQE+fCYEWxOCB4AgHSwtaIKqSKNSDW4XinJmggogMBFXiBFHg6VewKAUaJcg2ZIAKQpUOtBD3LdyqJC5kZRg251i/WuN+OJyQZkiviBOnPOowaVYLdyMf5KBU8MPCJD5k1lyQcwTGjRG4taCXNEEOTiGKxjsTAcoQGlwL5NCXYd2QPdkSGAEBsG6MOkcfX868ufPniB3vnE69uvXr2LMDaA29u/fv4MPRWwUpEurHxyRPplzpU71anzf9xo+oc7rbopQp1i//2+vciZYxFdtAVw1G1wKV1ZTTfR5hpR9XCHBV1lkGgYBgQyo9BQIFBYkwIVoRvScQWxoWYBdtB36GEggGGEfCb8o9FGBOvS1koYwBTNBiR6DN59CNDqlUY0bSQXbQb9UxWFAID3Cn0YyYoYihBD8a0EEBqFkE2mwQiUClby1KtVGGeznJkJdgAsaZgRdxWdttuU25kHoDNZVlREgGV8BwxQX55WYwybTfkBolJ6V4iCa6UUAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhSgAwAHcAACH5BAAAAAAALAAAAABKADAAhQAAAAAAOgAAZgA6kABmtjoAADo6kDqQ22YAAGYAOmZmtmaQ22a2/5A6AJA6ZpBmOpBmkJCQOpCQ25C2kJC2/5Db/7ZmALZmZraQkLa2/7bb/7b//9uQOtvbkNv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEkIHEiwoMGDCBMqXMiwocOHECNKnEixosWCIxoAAEDgokeLHwZ4EIGAwceTBEluBGCShEqWBC20FGhhZUcQBTZ2RNkw486BH34KFKHA4AeYNA/wfOizIAYPBEc42GCQpFISICgshWhB6IeZLhNUEJHBoAWRIAxA3erw7FqiBHFuDFDBaIAJatk+dCvwAtWHJEXq3Sv4a8QQDwT8HczQLVyIaTsUAMs4IQfFfiGrbVp54eUIlBemXXt5ceeDHABcdRhyLYmjoU8P5CC4YeqNLWturC27t+/fwIMLH0684cuVyJMrX868uXPniotLn069unWPGXUyzs5xa2uSsU/Lfi85WOZp8xF1I1898DFF9Tdzdm9fdOKH6K9VR516EMQC1kiRYAF7JEhlGlc/kZSgWGQZ5J9DVgmUVUEiMFhWROANhNNVcgFAl4P/tYVWXhrK92FE9y3GV0MPsnYXiSh1NRB6DrVoHAK8nXTcfAp1uByBBSGGH0op0nQihBLUaIBk4VUko0AfHGlckgyNxpmOCKxmwZBTVkliaUSeGJgHIWiA5EKtARWgRT4qhRMBI0Dg2kIiUInaSrmtlGOMHtZ13Z+ABirooISyFRAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhUAArAHcAACH5BAAAAAAALAAAAABQACsAhQAAAAAAOgAAZgA6kABmtjoAADpmtjqQ22YAAGYAOmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpCQtpCQ25C2/5Db/7ZmALaQkLb//9uQOtuQZtuQkNv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo0YOBDyKfFgBAICQI1MyxIBSpcuDLF/KLBhzps2aNmXizOlyJ8+UPjtyMHnyZsuRHxJQmImBaNGRICBc+Oky6tSGHhhQlWjVYdatBUFEIMghwFKBXbFqBTsww1m0D96mZfiVbYgPCwR6MCCwg1ypXtci/IDAqeHDiA0LuFqQQwOBFVD6HTjXoIcCiQEcoOo2BAgHm0NoYFzZw4TBEuyG6NwVL8G5lQl+SG13bwgOi0HEla1UIOGjBWerDlGSwFCzZBE/Ro20MIDFdV8K91gB+W0A1odzdQC8woAN2rdxf6cZOjzasQPLvhWIIXvb9eE7U9498Lf5ha5D2A4xOT2A5fch5Bhkkq1XwWIBJsQaaAKNRpkD4xVkAXgBsgZYfgN5R+FApiWoH1+4XaAbfO2t94ECGwZY3HHw3YUAgiFgAKOHDn1GVHk05qjjjjyKFBAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhUgArAHcAACH5BAAAAAAALAAAAABSACsAhQAAAAAAOgAAZgA6kABmtjoAADpmtjqQ22YAAGYAOmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpCQtpC2/5Db/7ZmALaQkLb//9uQOtuQZtuQkNv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEEIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3LhwAwGOICtSAADgY8iTEi+YRMmyocqWMBe+jEnT4MyaOEHczElzJ0+YPk9uIFkSZ9CTHhJMqHmBaNGWHyBY+Ekz6lSqMK1ivfghAsENAZYK1Lq1IgaxYx+gJVtWoocFAjsYEMhhrVSNHhA43cu3714BVw9uaCCQgsm6A9ka7FDAb9itZ0F8cHBAYIbAijtIaNswsta3BNkq5oxQLogNgD+oJZhUbN6VpBWOJDD08cChfAn/zEsScAcGsS9SsF0bbfCIk2GDoDBAw3GJk5sXvFD5eWKvt20PvKB9YGTrAr9YpzX+GrxC0CBMg0B8G4Bu84J1G6ZrnAJg+Ag9U7aM2YH0ghU4Z55nd6E3EHMCDqQZfqahZoFqxunUnQcKJGjebMUZlNd9OnGIn0OTEVXdhySWaOKJKMYWEAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 25%</div>`
+  },
+
+  {
+    n: 68,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>다음 3단자망의 4단자 정수 중 C 점수는?<img src="data:image/gif;base64,R0lGODlhnwBbAHcAACH5BAAAAAAALAAAAACfAFsAhAAAABgYGB0dHSQkJCsrKy8vLzk5OUBAQEdHR0pKSlVVVV9fX3JycnZ2doCAgI2NjY6OjqWlpaqqqr29vcDAwMfHx9XV1ejo6P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+ADEIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHElyIwABJVOqXDkQAACWMGN+dCmzpk2LNG/q3MkwJ8+fQAX6DEr05tCiSGEeTcq05NKmUEE+jUrVpMurBKpqzehg6tavGCYsuAogQIMEZA1AEIAVrNuBD64WQIAgrQGyBBSwJcuXL8q3QV0OIDjApQOBXV0eEHgAqwMHjV0qcEDAZVbAFfe+xBgXQASCVw9jqHxVoITSAhVclWDaMGaKZDMGKFvwqgKhd3Oq9kmWtUAIXiHuFlCh5G4AlyNu7su8OfMFtVEDMLBXKGoMJ1VDIKjZuffv4MP+92WrGftm5dc9Xl1sXvp1ywBEd+QbWbz9vgQsBE9YXqrr9jmRllxvHzHgkgC+jcQXUncJcEFrJz2IwQUuJUgaAMXNdB5JF5AnIVEXKPChefJhIEGJFLhEQUj7veaieS/GiJBqMtZIUGM25lhZjja2yONWPv5YVZBCRkVkkU3hiORrXS352pFOFgVllEHRSKVbTV4J1o5afjVllzpNxYBeBoAZ2IYD5ZaemUahiUFi1iXIplLOpTZdSwzMiZSVejbFZ59J/alAhoCq1CBfXKr2F3bbFRrTUrtZd5ujMHEZ3UlfUopRlgbFpilMnH7605+i7kRqqW2i+lOoqtrEaquJMp0KK52z3mRprTHdiitLme6KUa++4uRmsCQBS+xExh6LnrIqJcusQ84+29Ow0s5HbbVWYStStNoexG230YGrIVUXXvvjmiBJoJcCeUqEHIxUkjWpSOUii1K59+Wr77789quvUMh6GqWajYrEFsASpfhflBc0JmdIiX0r7sQUV2zxxRhnrHGMAQEAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `1`,
+      `jωL`,
+      `jωC`,
+      `1+j(ωL+ωC)`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 59%</div>4단자 정수 C = 1/(C)<br>(C)= 1/jωc 이기 때문에 1/1/jωc = jωc<br>여기서 C는 그냥 기호이고 (C)는 커패시터를 의미합니다.<br>[해설작성자 : 용산철도고 현자]`
+  },
+
+  {
+    n: 69,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>R[Ω]의 저항 3개를 Y로 접속하고 이것을 200[V]의 평형 3상 교류 전원에 연결할 때 선전류가 20[A]가 흘렀다. 이 3개의 저항을 △로 접속하고 동일전원에 연결하였을 때의 선전류[A]는?`,
+    o: [
+      `약 30`,
+      `약 40`,
+      `약 50`,
+      `약 60`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 53%</div>`
+  },
+
+  {
+    n: 70,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>3상 회로에 있어서 대칭분 전압이 = 8 + j3[V], = 6 - j8[V], = 8 + j12[V] 일 때 a상의 전압[V]는?(오류 신고가 접수된 문제입니다. 반드시 정답과 해설을 확인하시기 바랍니다.)`,
+    o: [
+      `6+j7`,
+      `8+j6`,
+      `3+j12`,
+      `6+j12`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>아래와 같은 오류 신고가 있었습니다.<br>여러분들의 많은 의견 부탁 드립니다.<br>추후 여러분들의 의견을 반영하여 정답을 수정하도록 하겠습니다.<br>참고로 정답 변경은 오류 신고 5회 이상일 경우 수정합니다.<br>[오류 신고 내용]<br>위 문제 오류 입니다. : 8+j3 이 아니고 -8+j3 입니다.                        <br>a상의 전압은             -8+j3  +  6-j8  +   8+j12   =   6+j7  입니다.     <br>j는 계산기로 계산할때  shift 누르시고 ENG버튼 (보라색 i) 입니다.<br>계산기로 계산시          -8+3i  +  6-8i  +   8+12i   이렇게 계산하세요.<br>[해설작성자 : 777]`
+  },
+
+  {
+    n: 71,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 3상 교류에서 순시값의 백터 합은?`,
+    o: [
+      `0`,
+      `40`,
+      `0.577`,
+      `86.6`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 63%</div>`
+  },
+
+  {
+    n: 72,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>ε at sin ωt 의 라플라스 변환은?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhaQAsAHcAACH5BAAAAAAALAAAAABpACwAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6Ojo6kDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNqHIhiAQAACkxk2EiyZMMTBj6oSCFBgEqTMGMKRNHgpYoSBA6egCCzZ0WcBEtE0MnTp1GIIHIOFGGT4M6FHUFyaHrUZAkAA0gsfJqwowIVGlxW7Xn141CEXBEmFXgCgdaxPkGIZVvgo927XzkuOAsiL1ySKDw4TYkQxYWEKF9qOPt3o8igWQsfRlgicooJIxtvXEyQs+SElbW2JdHhrWaLHedqUPq5cM0TBxCMmHzaotCyABi3VouVRIm5tYMLH068uPHjyBtGvcu8ufPn0KNLn05dOvDk2LNr3849JsuPrEv+fgcQnuEJDFXPFwzdUfdG9nsdjh7r2WD9mPcTpqhgWu/HkJlpNJVBKDzgU4EOleDXQImt1BJVF6UlUAoUQEgShRYetEGAM9U0EFAFSRgRhhwxkEFgaBVFEQomogiVA/3dFJ5QBokY0YZ0fRQAh06pKNEJdQGwo3kJGLTWUhDaWFBUCgxIUF8QKTlQChYENeREIAbVm0JSzrTAV2FRpWCUPhoUAoeX8fjQmAbh5h6DZRZ05HxBlbdVnBwZqMIJRarwGJYLGjkXkNAt2J5AUK5nZ4hBOrcgjWAp9adEWargIluEEUhbjZnmd1OgUG1a0JkO5sUURXwSNOlNkWkKmmVimBn5pkKGJUQqiQhSRKJA93k6k6iQieZWaQTh+FCtaBX52wdpWmRsaoot+mtXr8U2G0EowAgRsghpQN5VV1bE1W12zcoRsE/2tmxQ5naFbk+kjrVfjNg1e5S93eWr774OBQQAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhawAtAHcAACH5BAAAAAAALAAAAABrAC0AhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6Ojo6kDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNqRIhiAQAACkxk2Eiy5MMTBj6oSCFBgEqTMGMSRNHgpYoSBGTqjImTYIkIO4OSBJFzoAibETuC5IBUKE8AA0hc7KhAhQaXToOW+AgAKEWiAk8gkJpVKAisYQtwXQsgwMiBHb2CqFoWJgoPBFE2dahXoAavdUuK9Bl1YonCKSa8DUzyL0HHhguLJdGBLGOMHdFqKDqR5ocTBxCMuHBZ48+tHwF/hUqiBNrSsGPLnk27tu3bmD2y3c27t+/fwIMLHw7gNe7jyJMrX56V5UfOJZ0DgM4XQ9YT1gceJhEX5vbuJ8f+loVckHxM8wtTVLAMV3fIxRqZFkTxYCd9iCXo5k25suXeiydAQFAKFPy3EYEGIrQBfCp4ph11YQlIEYICocBABnchFKBFFmKIV0MoOMDeTdD9dNCGFS2owglqtcXgQChOxOJHbvGVgEFgGfVfjBx5pIB8BM11koQJpWCBTzVS1FNBWxWmEI8GUWWVcTfpxxCUBoUAX2IvPpTfQah1lRCWQRY1GZMQjknkQfeteKMKgylpJY6vzdibleAJieaTLfI2p4lWFRWnYdBlCCN/bJKmIaLoVfkQCooipGV/dB1V0QlvCjToTU5GGalB262kGI6qLQSpQpNS2OaEBQ5kXqNScH3KpGRjVUaQig6dOuaNrn3A5UW4ZvbSZgrpymZNoIn2aYgjFiurQRpMt1WSFqF4GleleqoQCKz16lO2zjI2aVnqNXvcr06hy9y67LbrbrsBAQA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhcAAvAHcAACH5BAAAAAAALAAAAABwAC8AhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6Ojo6kDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7b//9uQOtuQZtuQkNv/ttv///+2Zv+2kP/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmy5MUUFgiWCJDBpEuNIVoOTDFB5subE1E8EHgigUATNnEKdVgigkANBH4GHco0YUwVKSQoECjiQ9OrTlumoGBVJ9avBnuqKCHgA82lYL9qAECgBACWaePKnUu3rt27ePPqHYhiAYC/gAMLHky4sOHDiBMrHlx2r+PHkCNLfhj1b9KPldlePIHBJOeCJQaQ6GvUY+jRC0pPPIGAhEsNqgvCHjl7YooKrgv2/asAKEcOVnXvFOmVYompBU8YsBq18cYTEApuDQ5yesUNS1E0oF7iMkHoFa3+C0TBIAMKDwjBVyRvHr1EFA5yD+yuMjbP6NdlnijwF+5B9avx9xZaDYlVEAjeqVBVWPgptJsCwBEEAnIOAXgQSir5lxF9oAEgmkIWHtTXVBo4J9BxEIVY0FMz1bQRiga59Zd9A6l44GWsyTdWggzZON5wBvqmEYwIgeDcfoZROF5qAk0IGo9hCUiYkkUddZmQGyZ43nfLiXgBiF2qUNt8SjKEwpcIPRUVcgtqZKBSKn1o0JkKnQaVixLS6CCaB6nJlQrFaSSemLGNqRufB9mZYwfyYQcRnen5RJZZeG7kKKALOIdUQpAipN0HJxyAwAh8wqejmYgatFZbA3qkXlErMgKgJ1+pGgSChyRMOt+snNaKE4sm3XbqXmcFW+lkyCar7LLMNuvss80GBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhgAAyAHcAACH5BAAAAAAALAAAAACAADIAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6Ojo6kDpmtjqQ22YAAGYAOmYAZmY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQtpCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNv/ttv///+2Zv+2kP/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFkIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEMWRIFB5MiSJlMyRIGghMqBGiK8nFlwRQWXBVUsAABAwYkMHTmAoDlxhQSeBCKaUGAQhYGhRgUM5YgCAtGIKyYA1Zn04QagBFU0mMrCRFeOKyiQvbqygMyyAcAyVOEA50CzBE287fiVrUMUbgWaiCtwhYW8hAWiSGAwxFkWI9ZC1NlTaMEQTP0qlSpQhFwWWeXiLWgCwAC7FHUy1cA5b2bNDo1mVvFAMWMWP+++zssTwF6JjhW3JP0Y9kLMd99q6Jpb8O7GrVkA7k0dQGKBOt8iJ2684VKCnkH+S8gc+e5jFR4IOpX896nAmAa/d1c4OsUHFuHTDqWt/rbA5oKdNpEJAobW2G/zjeRfeYuVJZWBA+kH02/wDSggSyV0gFpfCRpEWW8CsqABAASUdt1AHOrU2nIViQUCCgcgQMIFYdXVYUdVCRZBaTwhCJxpJZgQXVk+3ohReDTZhJqRGUGokpNMRinllFQi9GF1WGap5ZZcdunll2CG2duQVZZp5plopqnmmmwqZBRSIL1J4kFyFvdXAUOS9JKeeZ2W3UcElvDniJkF+mdEOao33EsVGtQoSBUmStCjf1kV4U0e7tQTgBlZllNtIvGnmKUDiYooqWU9J517UbFnkaT+haklkoSjEkTrqQRxWOpY5jWFKlayYsdABughBKtEKgxbrHSkJktserhiZ2Nej+nlq0UcTmfdZ+r9CpG2iSUKLrcNSdrgZY+VN5K3Oe2kgKcDbVepm4fddeK1GUk6Gm8hGstuqQusRqZ88yaEZGFaKXRsRfqqWlZvRTKrUHDSLdrrQwuXCuq5nOKLUcMTt6ZtlrsdKu/FCY2M5W7Wisgcud1qpO950Crmnoc0GnszpalOlvNB+Y0nkLr+ykzquf99FuhBKvwcX4EJXxaxlU4XlJ+sphadL6m3PsozdlX36RKGGuYKc0JNp8yYkCBAeVDGE8Ga4gIr2llq2Lu+GONAjDUuuVDaCY1Y4rYr/SsRrInqxaNvCgGOUAhAsp3X1FTjaHi0Ax38JKbGwX34r26HFDpbnrdp+umop6766hYFBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 42%</div>아래와 같은 오류 신고가 있었습니다.<br>여러분들의 많은 의견 부탁 드립니다.<br>추후 여러분들의 의견을 반영하여 정답을 수정하도록 하겠습니다.<br>참고로 정답 변경은 오류 신고 5회 이상일 경우 수정합니다.<br>[오류 신고 내용]<br>문제 오류<br>e^-at가 맞아요<br>[해설작성자 : comcbt.com 이용자]<br>[관리자 입니다.<br>다른 문제집 확인 가능한분 계시면 확인 부탁 드립니다.<br>신고시 출판사명까지 기제 부탁 드립니다.]`
+  },
+
+  {
+    n: 73,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>그림과 같은 R과 C의 병렬회로에서 주파수가 일정 하고 C가 0에서 ∞까지 변할 때 합성 임피던스 Z의 궤적은 어떻게 되는가?<img src="data:image/gif;base64,R0lGODlhjwBEAHcAACH5BAAAAAAALAAAAACPAEQAhAAAABgYGBkZGR0dHSQkJCoqKisrKy8vLzk5OUBAQEdHR0tLS1BQUFVVVWpqam5ubn5+foCAgI6OjqqqqsDAwMfHx9XV1f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AC8IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmOESYMpBCBIMuTMGMqBABgYAIALQXSpCCzp0wLBmha0AnAgEAJNHP6XEryJs2aEZ62bEAzAdOrIakmoED1glOcFILuJPqUJlaYVMuqXct2Lc8JAJyK3enUQtu7ePGeVdgA5FOrZS9ExVnVplWNZvci7PsxrcrBFS4ADey3puKDjD1SSLzZMlGlHxNfLpjZYwSlor3iFJl6tMDSIqMSjAraY2vXsEPeLFjbtmfXr0caGNAgrVGTt0cfD/n7QnPWz5WPbB69MnCC1TdSP5n8cu6O25H+Z9+LYPpa7uPPfucYvmR3xeu1F0zPnv7V+Ijno78+EH/G9iS9R9508y1nHn86xZTAYQHax5SBCE4koHoRWjQhVv5VOJODS2WoIUIXXgXhhw6FiFJvCXlI4nwcHsRSBEM11FlhDI244kImYlYWigbdNBgAGbZ4Y44GJRYiAOU591RaRc311I0QPaUAAQcoMCVNBABg5VMC0DQXUQ0ZCSRDQk70IwA8iVeRkwwqdKZ9KlbUmVVB7UeRBV89NFgEaS4UJ0U0yqYmgn9K6JlddvJXqERj9kRkT4tGBIBKDCXAY0WPymQje5QqJBZ4Zca0qXYG9pZnfRFGGqVncBX0VZu4/4UKU5IhBcVYVwLB9VSn2sl60qgazSjamcBi6ityJOlaVJpqxQhqhMUyR5lvqcokLKyoEhpTA3NdGmu1I9llla7YhnZsSdFipCyNDUZ4bkPrrubeu8LhdNq9+Oar7777MlnVvRA84MDABBdscF53IWgXwmwZ4C9N3Jb1sFFePtyWAm0FQMACDBQAMVUDGCCWAlByNONA8pZ8448oe6vyddMCAMHLNNds880456zzzjz37PPPQE8UEAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `원점을 지나는 반직선이다.`,
+      `원점을 지나지 않고 실수축에 평행인 반직선이다.`,
+      `원점을 지나는 반원이다.`,
+      `원점을 지나지 않는 반원이다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 58%</div>`
+  },
+
+  {
+    n: 74,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>그림과 같은 회로에서 단자 ab 사이의 합성 저항은?<img src="data:image/gif;base64,R0lGODlhpQBUAHcAACH5BAAAAAAALAAAAAClAFQAgwAAAB0dHSsrKzk5OVVVVXJyco6OjqqqqsfHx9LS0uPj4/Ly8v///wAAAAAAAAAAAAj+ABkIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3MixIYABAQh0HEmypMmCBwAcSHkgAQCRJ2PKnAkxAIAEBgAYoMmzp0+QBxjk9Em0aMkBNwUWAGC0qVOLKQcMXPq0qtWGUQmIPADzqtevYHuuDEsWrE0AAQQifVnWYEuBBAoIDJBWYIK2FpkyUJmTANKueAHoFRxUsEgCevFOPKuTLQPEioUKFpCT78fGaCNHzDkAac6dDFIKHk26tOnTqFOrRs2Yrk0GjFfLni17JOS9SwMoUPA6YeumA3YKyGwzbeUFguvyJD3SJWnEyRkaOGsV9IEBCxggZ4o4O83paKf+kywQl3yCoBDBO/66AL33mdDlMpBaFnwA0JrHCx6Afq9i6MHlx9EBNvFXkHJtJQBdAP0JWNFZ8hUEGF5c2URAgw46VOFHCCA0YWRrBZhhQ2sR0KFvIyZw1oUQcaUVWeBFqBCCDnJlmEPIhRTSVwSiJaNCHzqooGAFvIcQcnINcFiQPkHHJEL0jUhQjwD8aFB2Ocm1XlHgifhQYlIStJRg+B1EwH0CqWSUfVZ6FOZBK61VwAFZDkRXf2r6tEBxBpwoEZhvFjTmaDClFBKLeX6HWAAF+DkRoIGiZKMBCyBFUHZGyrSgoxRFGSlCoo2WKU/XEaaRp5+6td9re2IYU2X+NF6EaqoEuRTUmdC5WlJliWoEKa0GAaimrhvB+qRFswIroU4IvCTYrskRm9Gvyg5Ep2TRdlTpjSdRW62YHwFY7H7wfQvRmGVOtOdH0naUrLkJ9fguQwvE1xOj8J5r4agJraskUYvm22J0C/XIYFHFtSuwQUMGwO9cPhbVbLbzEblwwWdlmhO+TSFgAHRpIvDveXddfFABwxHwnmCcSvyXQCtV+ZjMJiOELsRVQZfYxHLFVfNCSN2X2VOlPjvQx48pLDBnd6lI5lWVpWnAvyz+PJDTo8WmE9FIDVBygXcZULLVG8/JwJgDJImW0iWFOpa5LjaEE7kKlWpiUeRRZ+7+mQ1VNq9BY7I9kmh/B/ovw0cvmm5DNjXqU3j5vljQfl0u/lCMLZvkLa2Sn63WaF5aBJ3lJG2e6tiGXnffsRJtO0DmHZmeKgE7OTda213HJPunN94HnuAT5Qb8nxejRWhorGO0reMj7R7mWi8tUADHNE3/EuwVOS9lACAZbdTNG2lfo00L7BkrwBz6Wm0CQff3sE8xTqtsZW1eJfxF4lPYNeleTV0l9gzJH4wKNLynnOl6jwpUqRwmJfBBRIBeUVykEFM4g0DwKQmwXv1GshT+YcR/G7RghuT1PtuEUCO5clN+Pva0nqhsJvXa2kIuSJSylbAkVZvJdKh3EBou5ITREBldU4rUJFP1sCQ+tBORbmiuGCYriQl5SQ4ZMDaGHBA7REEPV0DTlQJahH6TQ+JoEoA1IFrvYEVhCwVnJpeleLEi2wqAn6CIkCrxRkk6QUwVC1JGJo6nQHsxTHRe1pN1yYeOR8SWVJrFJFgt7j1+7FdB3uM/Z61KkKQ5n+7QYqnSKeBs5JpYZ5KDltaQskDQ61q4tKIkXJ1JSV1jpVZm2cpZamUnIHPJVohEm176MmtINBH3lnKmAOwxQdaailQ6Yy5gSkaTVoumNKdJzWr+LCAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `r`,
+      `<img src="data:image/gif;base64,R0lGODlhIQAqAHcAACH5BAAAAAAALAAAAAAhACoAhAAAAAAAOgAAZgA6kABmtjoAADoAOjpmtjqQkDqQ22YAAGa2/5A6AJA6OpDb/7ZmALZmOrbb/7b//9uQOtuQkNv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAjFADcIHEiwoMGDCBMqXMiwocOHECNKNGgBAIABFSYinEBggwYGHTUW/BhyggAJIhM+CJmSYgAHLQtWxBjz4IUCCWoanPCyZsWcGyouqHnBAMwNEwAMrQkBZgYFNGt+tMhSp1WJExI8PamzIgIFALjqNIly4VOLaNOiFZv16sC2bpECdQuX7tyHUwFUfWvxLkMNDZwq2Cvy5lILPWMaFoj46FULYq1+9FuzrlULlGNaCIkhgs4LBwZSKNvyLNqocVOrXs1aYkAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhHQAlAHcAACH5BAAAAAAALAAAAAAdACUAhAAAAAAAOgAAZgA6kABmtjoAADpmtjqQkDqQ22YAAGa2/5A6AJA6OpDb/7ZmALbb/7b//9uQOtuQkNv///+2Zv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAinADMIHEiwoMGDCBMqXMiwIUIKBBwudAAAQESJCyNcxJhQI0eFHj8iDCnSIMmSBE+iFKhyZUuRESpW3Liypk2XCC4kEABhJQUABxIA4FkzAtGDOmUqXXo0AoKbLJ9CdQo1A9WpUhliWDDzYEwAWRNiYNAgg06aHysUUCCQQoCyJdWyzeAWrk0KR2tuDYsTKgW+KCEKtPBgZQUDAyX0LJlU5oAJVSNLDAgAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `3r`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 63%</div>`
+  },
+
+  {
+    n: 75,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>L-C 직렬회로에 직류 기전력 E를 t=0에서 갑자기 인가할 때 C에 걸리는 최대 전압은?`,
+    o: [
+      `E`,
+      `1.5E`,
+      `2E`,
+      `2.5E`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 39%</div>`
+  },
+
+  {
+    n: 76,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>다음과 같은 회로의 영상임피던스 Z 01 과 Z 02 는 각각 몇 [Ω]인가?<img src="data:image/gif;base64,R0lGODlhmwBNAHcAACH5BAAAAAAALAAAAACbAE0AgwAAAB0dHSsrKzk5OUBAQFVVVXJycoCAgI6OjqqqqsDAwMfHx9XV1ePj4////wAAAAj+AB0IHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuXMGPKdGggwcybMgEAOMCQgACcQD/qDFBwwE+COg0UFDAgqFOJCXQCKDDwwFCkOnkKjAqg6VOUAgAczRjVQVgFAq1mHSgVQFWpWm8yICDV5sgCUgswyGiAqAOxAvEWCOD3rwMDAJQ6GDAVME68AALoXDAyK+SMOwWG5anTQVS0Zf+6/csz7N6ZDAAQEEg37sfUVBtIRnARr90FkfEqluwAwWirCFLzROxVJmOkxT9atcu4rfPn0Nva9VxXIO4BvANXdwA5uvfv4MP+523gIPX0jwqmCtQ5dmNYAKdFdxaYen5H9RfrC1B7/iP2Aoy1txFu7THA2Hm+UeURAP1RxNVVJEmGn0vx3ddgRQYYUCFJG341EYMexsRAAiQyRGIClGEEYogvqbViQnlh5hqLJSVQwHRWBaDgVgXcSJABYe1o0Ys0lsTYjssNlIBkgzmW1oRD0lZkSfUh+aJOdm2GlJAVETllSBJaOV1kStr3F5cUefllRwu8N2GS6+3I1ZaYXbimRlEJINhbY8rp5Jl13glSAAIssOeTYwJAXm8ASBknZmgKilFUqx3qAJyi8VRfhVB2KVWHklLUXVuIDqQfkwV1ShEDPeo0QAH+KYZa0YmMDWAXptAVBihHiJkpa0WW4godnRx11xBkkf5qI46JVdXjAQj0yGyyExkAmQD9LXBifLkxJKGsLto5UJgXGfqejwXVR+p6RXXFmK6G/YpSejpRa5WAmhFkFVLnjSavSUtKhcCFmCJFEF5I6ervvybNldeG9x5wwHlCIszWwgszfFICbjLbWGYCJWexQNmxq7FKbhJk48WKLYwXt0JmfPJINrKHFkJB5vsWvwbPTNKD6KocK2IKJsfdVJD16/NIEjpaEG7+SmbXwr45p5jJS6P3KYyAhbWazto913PWH3Vna4MGxjhQcg9KiDHZI7kJssoSF4TsQg7DHRLUq1INAOpBCOjo9EFS6e1RAs3pZTiNzom7OFBAFv74mjJPHmLlln+FeeZObc45UJ5/flPooudU+uWne0h66i6tzjpLrjc0YqwkSTxx1rEv9ODXIzUX2d+/5p7QAm53RbN6VTsuqfAI4cVTA2FV5u+o4lVv/fXYZx/eziJFr10AtTYX1qs9lm/++einr34BcudVfr3md9WjjgCab61zr4KvvVYjg5Sa36J5HUK4AiAy3aUtNxOgQVw0N5GU72oKNAgDMgS8CFrwghjMoAY3yMEOejAlAQEAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `9,5`,
+      `4,5`,
+      `<img src="data:image/gif;base64,R0lGODlhMwApAHcAACH5BAAAAAAALAAAAAAzACkAhAAAAAAAOgAAZgA6kABmtjoAADoAOjoAZjqQ22YAAGYAOma2/5A6AJC2kJC2/5Db/7ZmALZmOrb//9uQOtv///+2Zv+2tv/bkP//tv//2////wAAAAAAAAAAAAAAAAAAAAj+ADUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLCSsQMAgBAAAEGBt2BLCR4IQBFDIwABmS4YSSAjEoeCDwwgEJLRe+JGgTpwaZNHMm3DmwggCfGBIsEDoUpgajSJUyRUhUINSYUqcarPr0KNalWgty7RlzZlixTpOCJXtWwwSPHmGeTLkyYgWPLC+OzOtw59y2CjUK/Av4oEqwhRVeMNCgAMnECO96heD0YFK4mDNrhuv14N21BoJCLhog6IUCiEdrWGwatUAInQsfrnnzNYDUgP9S5ung4V0AKCm+fUzQgk+XG1VWvii4ofLBsVUX3C3dYIXS1QneDZ694Gm+3d0ZYq9+l+Xn7KwH3+4egWZS7tVVxg1Pv77QgAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhLgAnAHcAACH5BAAAAAAALAAAAAAuACcAhAAAAAAAOgAAZgA6kABmtjoAADoAOjqQ22YAAGYAOmZmOma2/5A6AJCQ25C2/5Db/7ZmALZmOrb//9uQOtvb29v///+2Zv+2kP+2tv/bkP/b2///tv//2////wAAAAAAAAjyADsIHEiwoMGDCBMqXMiwocOHECNKnEhRoAUCBy9WZAgBAACMBDt+3NhwAsiCJkkyTGmQpcqELgnGfNnypEybNFHiFDgz58CeHYD6BCo0J9GdBDVUGEgh4gSPHk8+hYq0gwWoABb4ZHjhwdaHXb86DCuWq4KoZRNq5MCgKsENCLDKnTtXgISMdtMWhKvVagCvegdmKNDXQl4IedNuaPATZMe+aSdo3ZAAcIcMDiJeBTBgacOOfwliuPswJVu3DDU+PM0zcWCDEFCntRD6NcGrnW0fHHxAd8var6/2tppVdwYDgJ9Cfh3BK9zcutmi9U2dZEAAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 37%</div>`
+  },
+
+  {
+    n: 77,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>314[[mH]의 자기 인덕턴스에 120[V], 60[Hz]의 교류전압을 가하였을 때 흐르는 전류[A]는?`,
+    o: [
+      `10`,
+      `8`,
+      `1`,
+      `0.5`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>120/2π*60*314*10의-3승 => 1.013 〓 1<br>[해설작성자 : comcbt.com 이용자]<br>I[A] = V / 2π * f * L ▶ 120 / 2π * 60 * 314 * 10^-3 = 1.01372[A]<br>[해설작성자 : 따고싶다 or 어디든 빌런]`
+  },
+
+  {
+    n: 78,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>용량 30[KVA]의 단상 변압기 2대를 V결선하여 역률 0.8, 전력 20[kW]의 평형 3상부하에 전력을 공급할 때 변압기 1대가 분당하는 피상 전력[KVA]은 얼마인가?(오류 신고가 접수된 문제입니다. 반드시 정답과 해설을 확인하시기 바랍니다.)`,
+    o: [
+      `14.4`,
+      `15`,
+      `20`,
+      `30`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 28%</div>변압기 1대가 분담할 피상전력을 Pa, 부하의 피상전력을 Pa'라고 할때<br>루트(3) * Pa = Pa'<br>Pa = Pa'/루트(3) = P/루트(3) * cosΘ = 20 / 루트(3) * 0.8 =14.4[KVA]<br>[해설작성자 : 따고싶다 or 어디든빌런]`
+  },
+
+  {
+    n: 79,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>일 때 f(t)의 최종값은?`,
+    o: [
+      `2`,
+      `3`,
+      `5`,
+      `15`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 63%</div>`
+  },
+
+  {
+    n: 80,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 n상에서 선전류와 환상전류 사이에 위상차는?`,
+    o: [
+      `<img src="data:image/gif;base64,R0lGODlhUwArAHcAACH5BAAAAAAALAAAAABTACsAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6kDpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEGieAAAAIGQKBWigFAhxQkFJ1PKJFiigAOBIgK0nDmz5s0UOXdaFFGyKACdPBOKEMDhYgkEKUZUOKEhqcoHCTCCCJEiQwipVhN2yKrxBIMUHoSGJSiCrEYRNy+oPViCAkoRMU1sMFg3otwUFn4iLHGAK8inAz80NRj4IWGuHWIeRCHB8MeXRgdYLohhMUOqAkEjbFsQ79oUJRp0/CvQQknJVlFE8IzxxILNKSKfTsE6I+KCuk+P3WgaOGyrpA9iNsq8KFOcbgcGr7i8OfPnA4tnTE5w+sCa1o+jzq2oHWN5gd6RR3cK1fjuDoIxyqad+3jS3ldfK+zdwaj9lLbhNhlLLsGUUGq7GQRXQz7hhBRCaSU4EGUC0mWTg+NNSCBI/TnQHwDrpbBShgwtRV9SJ0zQ30mPaTRSiEmRwEEHmqFWmEbDSQjYT7+ZB2NYI6L3Y0TF6ZVgCQY0FSR7iZ2YVHGPKUadAplVyFOOeKWoI0eNFYjdlmCGKeaYZFoVEAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhRgAqAHcAACH5BAAAAAAALAAAAABGACoAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6kDpmtjqQ22YAAGY6kGaQ22a2/5A6AJA6OpA6ZpBmkJCQ25C2/5Db/7ZmALZmOrZmZrbb/7b//9uQOtuQZtuQkNv///+2Zv+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AEkIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo0eDIxwAAEDgo0kSIx5QICFCQcmTHUEUaCDQQ4CVMDfKpEnCJs6cHj0IyADUY8gERT1qQJqUowemHEFMyOnhZQgMBaVOBHGgA0wQCAZyIFqwAs+HIyJ4Pdly5MgBawteIEsw5MiXA5/WFUmyqUAQDAqmXNkSLwkLPwezdOl3BAS6JHbWvClQxIK4kntSboqYYGaff8MO/Lw56dKEQslWRT3Ur96DR/NCFexgdsS2bnPrbl3TMMHTshECH11At9vSFlcbfJ3Xd03bSZk3F3g19HKrWJtqOGtd4FiBjiFrgxULGWjngbjfxj2/ODfcppbjMgTsV6EH7g03/KxfV21ExSZpAEADAgIAHYD8JSSCBAKWxJV8CTr0QQYavPdghBOZ1R2GEAE4HIcOgWAAUQiC2JByD35nIkPAVbXgig1puBhvMNZo440OBQQAOw==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhTwAqAHcAACH5BAAAAAAALAAAAABPACoAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6kDpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMMOABygBJDAZMgTE1ASSFHiQAiXBUUA2MkzQIWIJDh0GHCz5k2cAksgSDGiwgkNFi04SLoUqUAQNzOEaFoRBYSfKTq0tDrwBIMUHsBOLGGAQwqvag+WoCBSxNQLcQfOZShiJk2bH9waNCoSbwqpCBErFCuwL8yDKCQcBUm4g9+DGAQnnprihAIBmgmKGCv6MsanAlEjLNEgo+GBFnaaNokiQuiJJxZMHmiZ7OuKSg/2tsrYYl/hs02OLuiZp/PnAECnWG5wOMXm0KFLH3jcOGmC1vWfFsgOwGfG7hXRg09ekjrwqgXDu+zAuavt6uxJ/ob8QHbC/Sv5lxEK/QGQX2e6JQRXZwrkx9pIC3qWn10KlVAAZyKYd1BaIlmIoYYERbbbYBc2BmJBC1JW4nQnvvUVRCJsR5ZoMlJE4HczvvUAjhMVlyNvPErk3o/TBRlRdyZs8COSSq4FX2A5BicQlBJhtxNRM1oJAJZEdunll2CG+VFAADs=" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `<img src="data:image/gif;base64,R0lGODlhUgAsAHcAACH5BAAAAAAALAAAAABSACwAhQAAAAAAOgAAZgA6kABmtjoAADoAZjo6kDpmtjqQ22YAAGY6kGZmtmaQ22a2/5A6AJA6OpA6ZpBmkJCQ25C2/5Db/7ZmALZmOrZmZraQkLa2/7bb/7b//9uQOtuQZtuQkNu2ttv///+2Zv+2kP+2tv/bkP/btv//tv//2////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAj+AFMIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmwAwAHJgEkuCgCgMuXASqQNHhigkkCKUocCFGxBIIUIyqc0DATIQkOHQbw1MmTIgieGUIELZrQggOBPjGeYJDCg0yqBlFA+NphJcurF74mLEEhZAkDHFKIVTuQLcS0KawqZBpSBM6cOz/EJai3Id8Ofw+ikNAUZFmBfmsexDB44VCBlxGKMDvQL8fCJxQIqEywRAOOeAVacJkYLIoIpC2eWNBYIGKwBFNjzFrwNm7bnFm2tj2c6maEoV8qXw5gdIrjvYtHTM6cufPO0idCLym9RIHqAGKdZvQ8vrjv39sv8ub+2/bVjK9jn8etWyGKB6wT6k6ZHz5+ANlhRhtDc6UQWnamiVTggQmJ8N5C3r0ngngHeeVWARJSWNBita2FIWQabjgWSBGCSJdABUokwnXtdcYiRvcF12KMHD3WYkkyspRje+lhRJ4JG9z4Y5Dq/SSQYC2uh6RsCiinVHvUufTkjVRWaeWVWGap5ZZcdunllwcFBAA7" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 58%</div>`
+  },
+
+  {
+    n: 81,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>상용되는 전선이 반드시 절연전선이 아니라도 되는 배선 공사는?`,
+    o: [
+      `합성수지관공사`,
+      `금속관공사`,
+      `버스덕트공사`,
+      `플로어덕트공사`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 35%</div>`
+  },
+
+  {
+    n: 82,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>폭연성 분진이 많은 장소의 저압 옥내배선에 적합한 배선 공사방법은?`,
+    o: [
+      `금속관공사`,
+      `애자사용공사`,
+      `합성수지관공사`,
+      `캡타이어케이블공사`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 64%</div>`
+  },
+
+  {
+    n: 83,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>농촌지역에서 고압 가공전선로에 접속되는 배전용 변압기를 시설하는 경우, 지표상의 높이는 몇 m 이상이어야 하는가?`,
+    o: [
+      `3.5`,
+      `4`,
+      `4.5`,
+      `5`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 26%</div>`
+  },
+
+  {
+    n: 84,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>지중전선로 사용되는 전선은?`,
+    o: [
+      `절연전선`,
+      `동북강선`,
+      `케이블`,
+      `나경동선`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 67%</div>`
+  },
+
+  {
+    n: 85,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>특별고압 가공전선로에 사용하는 철탑 중에서 전선로의 지지물 양쪽의 경간의 차가 큰 곳에 사용하는 것은?`,
+    o: [
+      `각도형`,
+      `인류형`,
+      `보강형`,
+      `내장형`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 69%</div>`
+  },
+
+  {
+    n: 86,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>239kV 가공전선로의 다중접지를 한 중성선은 어느 공사의 규정에 준하여 시설하는가? (단, 중성선 다중접지식의 것으로서 전로에 지기가 생겼을 때에 2초이내에 자동적으로 이를 전로로부터 차단하는 장치가 되어 있다고 한다.)`,
+    o: [
+      `가공공동시선`,
+      `저압가공전선`,
+      `고압가공전선`,
+      `특별고압가공전선`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 24%</div>`
+  },
+
+  {
+    n: 87,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>지중전손로에서 관, 암거, 기타 지중전선을 넣은 방호장치의 금속제 부분 또는 지중저선의 금속체 피복의 접지는 제 몇 종 접지공사를 하여야 하는가? (단, 방호장치의 금속제 부분에는 케이블을 지지하는 금구류을 제외한다.)(관련 규정 개정전 문제로 여기서는 기존 정답인 3번을 누르면 정답 처리됩니다. 자세한 내용은 해설을 참고하세요.)`,
+    o: [
+      `제 1종`,
+      `제 2종`,
+      `제 3종`,
+      `특별 제 3종`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 54%</div>3종접지해야할것<br>1. 지중전선피복 금속체  2. 기공직류전차선 장선  3. 조가용선 및 케이블 피복<br>4. 네온변압기 외함 5. 저압옥내 400v 미만 6. 옥내방전등 외함접지<br>7. 전기욕기 외함접지 8.강제 배류기 9.교통신호등 제어장치의 금속제 외함 <br>10.교량에 가터 등의 금속제 11 교압용 계기용 변성기<br>그리고 답인  12 관,암거,기타 지중선언을 넣은 방호장치의 금속제 부분 <br>[해설작성자 : 참두부]<br>(2021년 KEC 규정 변경으로 인하여 종별 접지관련 문제는 출제되지 않습니다.)`
+  },
+
+  {
+    n: 88,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>애자사용공사에 의한 저압 옥내배선을 시설할 때 사용 전압이 400V를 넘는 경우 전선과 조명재와의 이격 거리는 최소 몇 cm이상이어야 하는가?`,
+    o: [
+      `2.5`,
+      `5`,
+      `7.5`,
+      `10`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 41%</div>`
+  },
+
+  {
+    n: 89,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>옥내에 시설하는 저압전선으로 나전선을 절대로 사용할 수 없는 경우는?`,
+    o: [
+      `금속덕트공사에 의하여 시설하는 경우`,
+      `버스덕트공사에 의하여 시설하는 경우`,
+      `애자사용공사에 의하여 전개관 곳에 전기로용 전선을 시설하는 경우`,
+      `라이팅덕트공사에 의하여 시설하는 경우`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 51%</div>상식적으로 생각하면 금속덕트에 나전선 시설하면 감전됨.^^;<br>[해설작성자 : Yaroo]`
+  },
+
+  {
+    n: 90,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>고압용 기계기구를 시간차에 시설할 때 지표상 몇m이상의 높이에 시설하고, 또한 사람이 쉬게 접촉할 우려가 없도록 하여야 하는가?`,
+    o: [
+      `4`,
+      `4.5`,
+      `5`,
+      `5.5`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 28%</div>`
+  },
+
+  {
+    n: 91,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>옥내 저압용의 전구선율 시설하려고 한다. 사용 전압이 몇 V 이상인 전구선은 옥내 시설할 수 없는가?`,
+    o: [
+      `250`,
+      `300`,
+      `350`,
+      `400`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 33%</div>사용전압 = 4용전압 = 400   <br>대지전압 = 300  ( 누전차단기 시설안하면 150)<br>(사용전압 예외: 교통신호등 사용전압은 300V , 전기욕기 10v ,전기부식방지 직류 60v , 전기울타리 250v ) <br>[해설작성자 : 참두부]`
+  },
+
+  {
+    n: 92,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>사용전압이 400V미만인 경우의 저압 보안공사에 전선으로 경동선을 사용할 경우 몇 mm 의 것을 사용하여야 하는가?`,
+    o: [
+      `1.2`,
+      `2.6`,
+      `3.5`,
+      `4`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 26%</div>`
+  },
+
+  {
+    n: 93,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>송유풍냉식 특별고압용 변압기의 송풍기가 고장이 생길 경우를 대비하기 위한 장치는?`,
+    o: [
+      `경보장치`,
+      `자동차단장치`,
+      `압축공기장치`,
+      `속도조정장치`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 61%</div>`
+  },
+
+  {
+    n: 94,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>선로의 길이가 10km가 넘는 154kV 가공전선로에 시설하는 전력보안통신용 전화설비 중 적어도 1회선에는 시설되어야 하는 것은?`,
+    o: [
+      `이동통신설비`,
+      `OW전선을 사용한 참가전화설비`,
+      `악전선 반송전화설비`,
+      `전력선 반송전화설비`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 4,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 34%</div>`
+  },
+
+  {
+    n: 95,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>고압전로와 비접지식 저압전로를 결합하는 변압기로 고압 권선과 저압권선간에 있는 금속제의 흔촉방지판에 제 2종 접지공사를 한 것에 접속하는 저압전선을 옥외에 시설할 때 잘못된 것은?`,
+    o: [
+      `저압 옥상전선로의 전선으로 절연전선을 사용하였다.`,
+      `저압 저선은 1구내에만 시설하였다.`,
+      `저압 가공전선로의 전선은 케이블을 사용하였다.`,
+      `저압 가공전선과 고압가공전선은 별개의 지지물에 시설하였다.`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 18%</div>`
+  },
+
+  {
+    n: 96,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>특별고압 가공전선로를 시가지에 시설하는 경우, 지지물로 사용할 수 없는 것은?`,
+    o: [
+      `목주`,
+      `철탑`,
+      `철그콘크리트주`,
+      `철주`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 63%</div>`
+  },
+
+  {
+    n: 97,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>교류 전차선 등과 식물과의 이격거리는 몇 m 이상이어야 하는가?`,
+    o: [
+      `1`,
+      `1.5`,
+      `2`,
+      `2.5`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 3,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>`
+  },
+
+  {
+    n: 98,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>유도장해를 방지하기 위하여 사용전압 60000V이하인 가공 전선로의 유도전류는 전화선로의 유도전류는 전화선로의 길이 12km마다 몇 μ A를 넘지 않도록 하여야 하는가?`,
+    o: [
+      `2`,
+      `3`,
+      `5`,
+      `6`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 50%</div>`
+  },
+
+  {
+    n: 99,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>방전등용 안정기로부터 방전관까지의 전로를 무엇이라고 하는가?`,
+    o: [
+      `소세력회로`,
+      `관등회로`,
+      `급전선로`,
+      `악전류전선로`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 2,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 69%</div>`
+  },
+
+  {
+    n: 100,
+    subject: "전기설비기술기준 및 판단 기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준 및 판단 기준]</span><br>발전기를 구동하는 수차의 압유장치의 유압이 현저히 저하한 경우 자동적으로 이를 전로로부터 차단하는 장치를 하여야 한다. 용량 몇 kVA 이상인 발전기에 반드시 자동차단장치를 시설하여야 하여야 한다. 용량KVA 이상인 발전기에 반드시 자동차단장치를 시설하여야 하는가?`,
+    o: [
+      `500`,
+      `1000`,
+      `1500`,
+      `2000`,
+      `해설이 아직 작성되지 않았습니다.`
+    ],
+    ans: 1,
+    e: `<div style="color:var(--tx3);font-size:.75rem;font-weight:700;margin-bottom:6px;">정답률 21%</div>`
+  }
+
+
+];
+
+/* ── 과목별 몰아풀기 / 학습모드 지원 (?subject=, ?mode=study) ── */
+const __params = new URLSearchParams(location.search);
+const SUBJECT_FILTER = __params.get('subject') || null;
+const STUDY_MODE = __params.get('mode') === 'study';
+if (SUBJECT_FILTER) { QS = QS.filter(q => q.subject === SUBJECT_FILTER); }
+window.addEventListener('DOMContentLoaded', () => {
+  const hd = document.querySelector('.hd-title');
+  if (hd && SUBJECT_FILTER) hd.textContent = hd.textContent + ' · ' + SUBJECT_FILTER + '만';
+  if (hd && STUDY_MODE) hd.textContent = hd.textContent + ' [학습모드]';
+});
+
+
+
+/* ══════════════════════════════════════════════════
+   주관식 문제 데이터  (SQS 배열)
+   ──────────────────────────────────────────────────
+   A형(빈칸): { type:'fill', id:'sqA1', title, sub, sent }
+   B형(공식): { type:'formula', id:'sqB1', title, hint, ans }
+   ══════════════════════════════════════════════════ */
+const SQS = [
+
+  /* ─────────── 여기에 주관식 추가 ─────────── */
+
+  /* 예시 (참고용 — 실제 사용 시 위에 새로 추가할 것)
+  {
+    type: 'fill',
+    id: 'sqA1',
+    title: '직류발전기의 종류 — 접속 방식',
+    sub: '빈칸에 알맞은 말을 입력하고 채점하기를 눌러보세요',
+    sent: `
+      ⊙ <strong style="color:var(--ac)">분권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="병렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">직권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="직렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">복권기</strong> : 직권계자권선과 분권계자권선이 전기자와
+      <input class="sq-inp" data-ans="직·병렬" placeholder="　　　"> 로 접속된 것이다.
+    `
+  },
+  {
+    type: 'formula',
+    id: 'sqB1',
+    title: '직류발전기 유기기전력 공식',
+    hint: 'E = ?',
+    ans: `
+      <div class="fb0" style="border-color:var(--ac2);text-align:center;">
+        <div class="fl">\\( E = \\dfrac{PZ\\phi N}{60a} \\;[\\text{V}] \\)</div>
+      </div>
+      <div style="margin-top:10px;line-height:2.0;font-size:.83rem;">
+        · <strong>P</strong> : 극수<br>
+        · <strong>Z</strong> : 총 도체수<br>
+        · <strong>φ</strong> : 1극당 자속 [Wb]<br>
+        · <strong>N</strong> : 회전수 [rpm]<br>
+        · <strong>a</strong> : 병렬 회로수
+      </div>
+    `
+  },
+  */
+
+];
+
+
+/* ═══════════════════════════════════════════════════
+   엔진 — 수정 불필요
+   ═══════════════════════════════════════════════════ */
+
+/* ── 상수 ── */
+const N = ['①','②','③','④'];
+const KATEX_OPTS = {
+  delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+  throwOnError:false
+};
+const STORE_KEY = 'egki_' + document.title.replace(/\s/g,'_');
+
+/* ── 상태 변수 ── */
+let wrongSet    = new Set();
+let okSet       = new Set();
+let bookmarkSet = new Set();
+let shufMap     = {};
+let selectedMap = {};
+let attemptMap  = {};  /* attemptMap[n] = {try, ok} */
+let randMode    = false;
+let randedOrder = null;  /* 섞인 문제 순서 저장 */
+let shufMode    = false;
+let bmMode      = false;
+let viewMode    = 'all';
+let weakPctActive = null;
+let lastSeenN   = null;
+
+function shuf(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+/* 시도 비율 → CSS 클래스 */
+function atCls(at){
+  if(!at||at.try===0) return 'tg-at-none';
+  const r=at.ok/at.try;
+  if(r<0.2)  return 'tg-at-zero';
+  if(r<0.5)  return 'tg-at-low';
+  if(r<0.8)  return 'tg-at-mid';
+  return 'tg-at-full';
+}
+function atHtml(at){
+  const cls=atCls(at);
+  const txt=at?`${at.ok}/${at.try}`:'-/-';
+  return `<span class="tg tg-at ${cls}">${txt}</span>`;
+}
+
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      wrongSet:[...wrongSet],
+      okSet:[...okSet],
+      selectedMap,
+      attemptMap,
+      bookmarkSet:[...bookmarkSet],
+      lastN: lastSeenN
+    }));
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    const validNs=new Set(QS.filter(q=>q.n!=null).map(q=>q.n));
+    wrongSet   = new Set((s.wrongSet||[]).filter(n=>validNs.has(n)));
+    okSet      = new Set((s.okSet||[]).filter(n=>validNs.has(n)));
+    bookmarkSet= new Set((s.bookmarkSet||[]).filter(n=>validNs.has(n)));
+    selectedMap= Object.fromEntries(Object.entries(s.selectedMap||{}).filter(([k])=>validNs.has(parseInt(k))));
+    const am=s.attemptMap||{};
+    Object.keys(am).filter(k=>validNs.has(parseInt(k))).forEach(k=>{ attemptMap[parseInt(k)]=am[k]; });
+    lastSeenN  = validNs.has(s.lastN)?s.lastN:null;
+  }catch(e){}
+}
+
+/* 통계 업데이트 */
+function upStat(){
+  const done=okSet.size+wrongSet.size;
+  document.getElementById('st-done').textContent=done;
+  document.getElementById('st-total').textContent=QS.length;
+}
+
+/* 전체 렌더 (DOM 재구성) */
+function render(){
+  let qs = randedOrder
+    ? randedOrder.map(n=>QS.find(q=>q.n===n)).filter(Boolean)
+    : QS.filter(q=>q.n!=null);
+  document.getElementById('main').innerHTML=qs.map(mkCard).join('');
+  renderMathInElement(document.getElementById('main'),KATEX_OPTS);
+  if(viewMode!=='all') applyViewFilter(viewMode, weakPctActive);
+  upStat();
+}
+
+/* ── 뷰 필터 ── */
+
+/* 순수 DOM show/hide — alert 없음, render()에서 내부 호출용 */
+function applyViewFilter(mode, weakPct){
+  document.querySelectorAll('.card').forEach(c=>{
+    const n=parseInt(c.dataset.n);
+    let show=true;
+    if(mode==='ok')   show=okSet.has(n);
+    if(mode==='ng')   show=wrongSet.has(n);
+    if(mode==='bm')   show=bookmarkSet.has(n);
+    if(mode==='weak'){
+      const at=attemptMap[n];
+      show=!!at&&at.try>0&&(at.ok/at.try*100)<=weakPct;
+    }
+    c.style.display=show?'':'none';
+  });
+  /* 오답 뷰: 카드를 초기화해 다시 풀 수 있게 */
+  if(mode==='ng'){
+    wrongSet.forEach(n=>{
+      const card=document.getElementById('q'+n);
+      if(!card) return;
+      card.querySelectorAll('.opt').forEach(o=>o.className='opt');
+      const res=document.getElementById(`q${n}_res`);
+      if(res) res.classList.remove('show');
+      card.className='card answered-ng';
+      const cn=card.querySelector('.cn');
+      if(cn) cn.className='cn ng';
+    });
+  }
+}
+
+/* 버튼 강조 업데이트 */
+function updateViewBtns(mode, weakPct){
+  ['btnAll','btnNg','btnWeak'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  if(mode==='all')        document.getElementById('btnAll').classList.add('on');
+  else if(mode==='ng')    document.getElementById('btnNg').classList.add('on');
+  else if(mode==='weak'){
+    document.getElementById('btnWeak').classList.add('on');
+    document.querySelector('#btnWeak .lbl').textContent=`≤${weakPct}%`;
+  }
+}
+
+/* 사용자 클릭 진입점 — 검증 + 상태 저장 + 필터 적용 */
+function setView(mode, weakPct){
+  document.getElementById('weakMenu').classList.remove('open');
+  /* 빈 상태 경고 */
+  if(mode==='ok'   && okSet.size===0)   {alert('아직 맞힌 문제가 없어요!');return;}
+  if(mode==='ng'   && wrongSet.size===0){alert('아직 틀린 문제가 없어요!');return;}
+  if(mode==='weak'){
+    const has=QS.some(q=>{const at=attemptMap[q.n];return at&&at.try>0&&(at.ok/at.try*100)<=weakPct;});
+    if(!has){alert(`정확률 ${weakPct}% 이하인 문제가 없어요! 먼저 풀어보세요 😊`);return;}
+  }
+  viewMode=mode;
+  weakPctActive=(mode==='weak')?weakPct:null;
+  updateViewBtns(mode, weakPct);
+  applyViewFilter(mode, weakPct);
+}
+
+/* 자주틀림 드롭다운 */
+function toggleWeakMenu(){
+  document.getElementById('weakMenu').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.weak-wrap')) document.getElementById('weakMenu').classList.remove('open');
+});
+
+/* ── 카드 생성 ── */
+function mkCard(q){
+  const id='q'+q.n;
+  const isOk=okSet.has(q.n),isNg=wrongSet.has(q.n);
+  const answered=STUDY_MODE||isOk||isNg;
+  const tags=``;
+  const at=attemptMap[q.n];
+  const atTag=atHtml(at);
+
+  let opts=[...q.o],dispAns=q.ans;
+  if(shufMode){
+    if(!shufMap[id]){const sh=shuf([0,1,2,3]);shufMap[id]={order:sh,newAns:sh.indexOf(q.ans-1)+1};}
+    opts=shufMap[id].order.map(i=>q.o[i]);dispAns=shufMap[id].newAns;
+  }
+
+  const savedSel=selectedMap[q.n]?.sel??null;
+
+  const optHtml=opts.map((o,i)=>{
+    const pos=i+1;
+    let cls='opt';
+    if(answered){
+      cls+=' lk';
+      if(pos===dispAns) cls+=' cor';
+      if(savedSel!==null && pos===savedSel && savedSel!==dispAns) cls+=' wrg';
+    }
+    return `<div class="${cls}" id="${id}_p${pos}" onclick="sel('${id}',${pos},${dispAns})">
+      <span class="on">${N[i]}</span><span>${o}</span>
+    </div>`;
+  }).join('');
+
+  const resShow=answered?'show':'';
+  const aeHtml=q.ae?`
+    <div class="expl ae-expl">
+      <div class="ae-label">✦ 추가 해설 (AI)</div>
+      ${q.ae}
+    </div>`:'';
+
+  const cnCls=isOk?'cn ok':isNg?'cn ng':'cn';
+  const cardCls=`card${isOk?' answered-ok':isNg?' answered-ng':''}`;
+  const bmCls=bookmarkSet.has(q.n)?'bm-icon on':'bm-icon';
+  return `<div class="${cardCls}" id="${id}" data-n="${q.n}">
+  <div class="ch">
+    <div class="${cnCls}">${q.n}</div>
+    <div class="ct">
+      <div class="tags">${tags}${atTag}</div>
+      <div class="qt">${q.q}</div>
+    </div>
+    <button class="${bmCls}" onclick="toggleBM(event,${q.n})" title="북마크">⭐</button>
+  </div>
+  <div class="opts" id="${id}_opts">${optHtml}</div>
+  <div class="res-bar ${resShow}" id="${id}_res">
+    <div class="ansbar">
+      <span class="albl">정답</span>
+      <span class="aval">${N[dispAns-1]} ${opts[dispAns-1]}</span>
+      <button class="rtbtn" onclick="reset('${id}')">↺ 다시풀기</button>
+    </div>
+    <div class="expl">${q.e}</div>
+    ${aeHtml}
+  </div>
+</div>`;
+}
+
+/* 보기 선택 */
+function sel(id,n,dispAns){
+  const os=document.querySelectorAll(`#${id}_opts .opt`);
+  if(os[0].classList.contains('lk'))return;
+  os.forEach(o=>o.classList.add('lk'));
+  const qn=parseInt(id.replace('q',''));
+  const isCorrect=n===dispAns;
+
+  /* 마지막 푼 문제 기록 */
+  lastSeenN=qn;
+
+  /* 시도 기록 */
+  if(!attemptMap[qn]) attemptMap[qn]={try:0,ok:0};
+  attemptMap[qn].try++;
+  if(isCorrect) attemptMap[qn].ok++;
+  /* 카드 상단 시도 표시 갱신 */
+  const atEl=document.querySelector(`#q${qn} .tg-at`);
+  if(atEl){
+    const at=attemptMap[qn];
+    atEl.textContent=`${at.ok}/${at.try}`;
+    atEl.className=`tg tg-at ${atCls(at)}`;
+  }
+
+  /* 선택 저장 */
+  selectedMap[qn]={sel:n,dispAns};
+
+  if(isCorrect){
+    document.getElementById(`${id}_p${n}`).classList.add('cor');
+    okSet.add(qn);wrongSet.delete(qn);
+    document.getElementById(id).className='card answered-ok';
+    document.querySelector(`#${id} .cn`).className='cn ok';
+  } else {
+    document.getElementById(`${id}_p${n}`).classList.add('wrg');
+    document.getElementById(`${id}_p${dispAns}`).classList.add('cor');
+    wrongSet.add(qn);okSet.delete(qn);
+    document.getElementById(id).className='card answered-ng';
+    document.querySelector(`#${id} .cn`).className='cn ng';
+  }
+
+  const res=document.getElementById(`${id}_res`);
+  res.classList.add('show');
+  renderMathInElement(res, KATEX_OPTS);
+
+  upStat();
+  saveState();
+}
+
+function reset(id){
+  const n=parseInt(id.replace('q',''));
+  /* 상태 초기화 */
+  wrongSet.delete(n); okSet.delete(n); delete selectedMap[n];
+  if(shufMode) delete shufMap[id];
+  /* DOM 초기화 */
+  document.querySelectorAll(`#${id}_opts .opt`).forEach(o=>o.className='opt');
+  document.getElementById(`${id}_res`).classList.remove('show');
+  document.getElementById(id).className='card';
+  document.querySelector(`#${id} .cn`).className='cn';
+  document.getElementById(id).style.display='';
+  upStat();
+  saveState();
+  /* 오답 뷰에서 오답이 0개가 되면 전체 뷰로 전환 */
+  if(viewMode==='ng' && wrongSet.size===0) setView('all');
+}
+
+function resetAll(){
+  wrongSet.clear(); okSet.clear();
+  shufMap={}; selectedMap={}; randedOrder=null; shufMode=false;
+  /* attemptMap·bookmarkSet 유지 */
+  viewMode='all'; weakPctActive=null; lastSeenN=null; bmMode=false;
+  /* 버튼 초기화 */
+  document.getElementById('btnBM').classList.remove('on');
+  document.querySelector('#btnWeak .lbl').textContent='자주틀림';
+  updateViewBtns('all');
+  render(); upStat(); saveState();
+}
+
+function toggleMenu(){
+  document.getElementById('menuPanel').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
+}
+
+function toggleBM(e,n){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  if(bookmarkSet.has(n)){bookmarkSet.delete(n);btn.classList.remove('on');}
+  else{bookmarkSet.add(n);btn.classList.add('on');}
+  btn.blur();
+  saveState();
+  if(viewMode==='bm') setView('bm');
+}
+
+function toggleBookmark(b){
+  bmMode=!bmMode;
+  b.classList.toggle('on', bmMode);
+  if(bmMode){
+    if(bookmarkSet.size===0){
+      alert('북마크한 문제가 없어요! 문제 옆 ★을 눌러 추가하세요.');
+      bmMode=false; b.classList.remove('on'); return;
+    }
+    viewMode='bm'; applyViewFilter('bm');
+    updateViewBtns('bm');
+  } else {
+    viewMode='all'; applyViewFilter('all');
+    updateViewBtns('all');
+  }
+}
+
+function toggleFormulaSheet(){
+  const page=document.getElementById('formulaPage');
+  const isOpen=page.classList.toggle('open');
+  /* 메인 페이지 스크롤 잠금 */
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(isOpen) renderFormulaSheet();
+}
+
+function renderFormulaSheet(){
+  const body=document.getElementById('fsBody');
+  const items=QS.filter(q=>q.formula);
+  if(!items.length){
+    body.innerHTML='<div class="fc-empty">등록된 공식이 없어요.<br>QS 데이터에 formula 필드를 추가하세요.</div>';
+    return;
+  }
+  body.innerHTML=items.map(q=>`
+    <div class="fc">
+      <div class="fc-title">Q${q.n}. ${q.q.replace(/<[^>]*>/g,'').substring(0,40)}${q.q.length>40?'…':''}</div>
+      <div class="fc-body">${q.formula}</div>
+    </div>
+  `).join('');
+  renderMathInElement(body, KATEX_OPTS);
+}
+
+/* 순서섞기 — 섞인 순서를 유지 */
+function doRand(){
+  randedOrder = shuf(QS.filter(q=>q.n!=null).map(q=>q.n));
+  render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+/* 보기섞기 — 순서는 그대로, 보기 배치만 새로 섞기 */
+function doShuf(){
+  shufMap={}; shufMode=true; render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+
+/* ── 주관식 렌더 ── */
+function renderSQ(){
+  const wrap=document.getElementById('sq-wrap');
+  if(!SQS.length){wrap.style.display='none';return;}
+  wrap.innerHTML=`<div class="sq-divider"><span>📝 주관식</span></div>`+SQS.map(s=>{
+    if(s.type==='fill'){
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">${s.sub||'빈칸을 채워보세요'}</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-sent">${s.sent}</div>
+    <div class="sq-btns">
+      <button class="sq-btn-check" onclick="sqCheck('${s.id}')">✓ 채점하기</button>
+      <button class="sq-btn-sub" onclick="sqShowAll('${s.id}')">정답 보기</button>
+      <button class="sq-btn-sub" onclick="sqReset('${s.id}')">↺ 다시풀기</button>
+    </div>
+    <div class="sq-score" id="${s.id}_score"></div>
+  </div>
+</div>`;
+    } else {
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">공식을 떠올린 후 정답을 확인하세요</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-formula-box">
+      <span style="color:var(--tx3);font-size:.78rem;display:block;margin-bottom:6px;">공식을 써보세요</span>
+      <span style="color:var(--ac2);font-size:1.05rem;font-style:italic;">${s.hint}</span>
+    </div>
+    <button class="sq-show-btn" onclick="sqToggle('${s.id}',this)">🔍 정답 보기</button>
+    <div class="sq-ans-box" id="${s.id}_ans">${s.ans}</div>
+  </div>
+</div>`;
+    }
+  }).join('');
+  /* 번호 순서대로 주N 표시 */
+  wrap.querySelectorAll('.sq-num').forEach((el,i)=>el.textContent='주'+(i+1));
+  renderMathInElement(wrap, KATEX_OPTS);
+}
+
+function sqCheck(id){
+  const sc=document.getElementById(`${id}_score`);
+  const inps=sc.closest('.sq-body').querySelectorAll('.sq-inp');
+  let ok=0;
+  inps.forEach(inp=>{
+    inp.classList.remove('cor','wrg');
+    if(inp.value.trim()===inp.dataset.ans){inp.classList.add('cor');ok++;}
+    else inp.classList.add('wrg');
+  });
+  sc.className='sq-score '+(ok===inps.length?'ok':'ng');
+  sc.textContent=ok===inps.length?'🎉 모두 정답!':`${ok} / ${inps.length} 정답 — 틀린 칸을 확인해보세요`;
+}
+function sqShowAll(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.remove('wrg');inp.classList.add('cor');});
+  sc.className='sq-score ok';sc.textContent='정답을 확인했습니다 ✓';
+}
+function sqReset(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value='';inp.classList.remove('cor','wrg');});
+  sc.className='sq-score';sc.textContent='';
+}
+function sqToggle(id,btn){
+  const box=document.getElementById(`${id}_ans`);
+  const showing=box.classList.toggle('show');
+  btn.textContent=showing?'🙈 정답 숨기기':'🔍 정답 보기';
+  if(showing) renderMathInElement(box, KATEX_OPTS);
+}
+
+/* 터치 기기 :active 고착 방지 — touchend 후 0.1초 뒤 blur */
+document.addEventListener('touchend', e=>{
+  const btn=e.target.closest('button,.stat-btn');
+  if(btn) setTimeout(()=>btn.blur(), 100);
+}, {passive:true});
+
+/* 초기화 */
+loadState();
+render();
+renderSQ();
+
+/* 마지막 푼 문제로 스크롤 */
+if(lastSeenN){
+  requestAnimationFrame(()=>{
+    const el=document.getElementById('q'+lastSeenN);
+    if(el) el.scrollIntoView({behavior:'instant',block:'center'});
+  });
+}
+
+/* 맨 위로 버튼 — 화면 높이 2배 이상 스크롤 시 표시 */
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('topBtn');
+  btn.classList.toggle('visible', window.scrollY > 300);
+},{passive:true});
+</script>
+</body>
+</html>
