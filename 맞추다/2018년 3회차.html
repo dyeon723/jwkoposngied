@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           전기기기 기출문제 HTML 템플릿  —  AI 작업 필수 지침               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  ★ 작업 전 이 주석을 반드시 끝까지 읽을 것 ★                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [1] 수식 렌더링 (KaTeX)                                                     ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 모든 수식은 KaTeX LaTeX 문법으로 작성할 것                               ║
+║  · 절대 ², √, · 같은 유니코드 문자로 대체하지 말 것                         ║
+║                                                                              ║
+║  JS 백틱(`) 문자열 안 수식 작성법:                                           ║
+║    인라인 → \\( 수식 \\)                                                     ║
+║    블록   → \\[ 수식 \\]                                                     ║
+║                                                                              ║
+║  ⚠️  백슬래시와 괄호 사이 공백 절대 금지 — 렌더링 실패                      ║
+║    올바름: \\( E = IR \\)                                                    ║
+║    틀림:   \\ ( E = IR \\ )                                                  ║
+║                                                                              ║
+║  여러 줄 수식(= 기준 정렬)은 반드시 aligned 환경 사용:                       ║
+║    \\[ \\begin{aligned}                                                      ║
+║      E &= V + IR \\\\                                                        ║
+║        &= 100 + 20 \\\\                                                      ║
+║        &= 120                                                                ║
+║    \\end{aligned} \\]                                                        ║
+║    → & 는 = 앞에 붙이는 정렬 기준, \\\\ 는 줄바꿈                           ║
+║                                                                              ║
+║  분수: \\( \\dfrac{분자}{분모} \\)                                           ║
+║  루트: \\( \\sqrt{3} \\)                                                     ║
+║  단위: \\( [\\text{V}] \\)                                                   ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [2] 이미지 / 그래프 / 회로도                                                ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 그림·그래프·회로도가 필요하면 절대 직접 그리지 말 것                     ║
+║  · 반드시 사용자에게 이미지 파일을 요청할 것                                ║
+║  · 이미지 파일이 오면 → <img src="파일명.jpg" style="max-width:100%">       ║
+║  · 이미지 없이 진행할 경우 해당 문제 작업 중단 후 요청                      ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [3] 불명확한 내용 처리                                                      ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 글자, 숫자, 수식이 불분명하면 작업 전에 반드시 사용자에게 질문할 것      ║
+║  · 추측으로 채우거나 임의로 생략하지 말 것                                  ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [4] 해설 작성 규칙                                                          ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  e 필드 (기본 해설):                                                         ║
+║    · 책에 있는 내용을 빠짐없이 전부 입력할 것                               ║
+║    · 표·수식·단계별 풀이 모두 포함                                           ║
+║    · 마음대로 요약하거나 단어 바꾸지 말 것                                  ║
+║                                                                              ║
+║  ae 필드 (AI 추가 해설):                                                     ║
+║    · AI가 작성하는 보충 설명 (기본 해설과 별도 영역에 표시됨)               ║
+║    · 암기 팁, 직관적 설명, 오답 분석 포함                                   ║
+║    · 수식은 동일한 KaTeX 규칙 적용                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [5] 해설 HTML 요소 사용법                                                   ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  수식 박스:                                                                  ║
+║    <div class="fb0">\\[ 수식 \\]</div>                                       ║
+║                                                                              ║
+║  표 (모바일 스크롤 지원):                                                    ║
+║    <div class="tbl-wrap">                                                    ║
+║      <table class="ctbl">                                                    ║
+║        <tr><th>구분</th><th>중권</th><th>파권</th></tr>                      ║
+║        <tr><td>병렬회로수</td><td>P</td><td>2</td></tr>                      ║
+║      </table>                                                                ║
+║    </div>                                                                    ║
+║                                                                              ║
+║  강조:  <strong>강조할 텍스트</strong>                                       ║
+║  팁박스: <div class="tip">암기 팁 내용</div>                                 ║
+║  줄바꿈: <br>                                                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6] 문제 데이터 형식 (QS 배열에 추가)                                       ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  {                                                                           ║
+║    n   : 문제번호 (숫자),       ← 작업 전 반드시 기존 n값 목록 확인 후 결정 ║
+║    q   : '문제 본문' (KaTeX 수식 사용 가능),                                 ║
+║    o   : ['보기①', '보기②', '보기③', '보기④'],  ← 책 원본 순서 그대로     ║
+║    ans : 정답 번호 1~4 (o 배열 기준, 1=첫번째 보기),                         ║
+║    e   : `책 해설 HTML`,          ← 절대 줄이지 말 것                        ║
+║    ae  : `AI 추가해설 HTML`,      ← 아래 ae 작성 기준 참고                   ║
+║    formula : `공식모음 HTML`,     ← 공식이 없는 문제는 이 필드 생략          ║
+║  }                                                                           ║
+║                                                                              ║
+║  ※ n번호 안내                                                                ║
+║    작업 시작 전 "현재 QS 배열의 n값만 나열해줘" 라고 먼저 요청할 것         ║
+║    → AI가 파일 재스캔 없이 중복 없는 번호 바로 결정 가능                    ║
+║    번호는 반드시 연속일 필요 없음 (띄엄띄엄 가능)                           ║
+║                                                                              ║
+║  ※ ae 필드 작성 기준                                                         ║
+║    · 분량: 3~6줄 이상, 충분히 상세하게                                       ║
+║    · 필수 포함: 직관적 설명 or 암기 팁 or 오답 분석 중 2가지 이상           ║
+║    · 책 해설과 내용이 겹치지 않게 보충 관점으로 작성                         ║
+║    · tip 박스 적극 활용: <div class="tip">핵심 암기 내용</div>               ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6-1] 자주 쓰는 HTML 스니펫 (복붙용)                                        ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  인라인 수식:   \\( 수식 \\)                                                 ║
+║  블록 수식:     \\[ 수식 \\]                                                  ║
+║                                                                              ║
+║  수식 박스:                                                                  ║
+║  `<div class="fb0">\\[ 수식 \\]</div>`                                       ║
+║                                                                              ║
+║  여러줄 수식:                                                                ║
+║  `<div class="fb0">                                                          ║
+║  \\[ \\begin{aligned}                                                        ║
+║    E &= V + IR \\\\                                                          ║
+║      &= 100                                                                  ║
+║  \\end{aligned} \\]</div>`                                                   ║
+║                                                                              ║
+║  표:                                                                         ║
+║  `<div class="tbl-wrap"><table class="ctbl">                                 ║
+║  <tr><th>구분</th><th>A</th><th>B</th></tr>                                  ║
+║  <tr><td>항목</td><td>값</td><td>값</td></tr>                                ║
+║  </table></div>`                                                             ║
+║                                                                              ║
+║  팁 박스:  `<div class="tip">내용</div>`                                     ║
+║  강조:     `<strong>내용</strong>`                                           ║
+║  줄바꿈:   `<br>`                                                            ║
+║                                                                              ║
+║  formula 필드:                                                               ║
+║  `<div class="fb0">\\[ 공식 \\]</div>변수 설명`                              ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [7] 주관식 데이터 형식 (SQS 배열에 추가)                                    ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  A형 (빈칸 채우기):                                                          ║
+║  {                                                                           ║
+║    type: 'fill',                                                             ║
+║    id: 'sqA1',        ← 고유 id, 순서대로 sqA1 sqA2 ...                     ║
+║    title: '제목',                                                            ║
+║    sub: '안내 문구',                                                         ║
+║    sent: `문장 <input class="sq-inp" data-ans="정답" placeholder="　"> 문장` ║
+║  }                                                                           ║
+║                                                                              ║
+║  B형 (공식 암기):                                                            ║
+║  {                                                                           ║
+║    type: 'formula',                                                          ║
+║    id: 'sqB1',        ← 고유 id, 순서대로 sqB1 sqB2 ...                     ║
+║    title: '제목',                                                            ║
+║    hint: 'E = ?',     ← 화면에 표시될 힌트                                  ║
+║    ans: `<div class="fb0">\\[ 수식 \\]</div> 변수 설명`                      ║
+║  }                                                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [8] 작업 순서                                                               ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  1) 제목 수정: <title> 태그와 .hd-title 텍스트 변경                         ║
+║  2) QS 배열의 /* 여기에 문제 추가 */ 위치에 문제 데이터 추가               ║
+║  3) 공식이 있는 문제에는 formula 필드 추가                                  ║
+║  4) 주관식이 있으면 SQS 배열에 추가                                         ║
+║  5) 예시 주석 블록은 건드리지 말 것 (/* ... */ 로 감싸져 있음)              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2018년도 3회차</title><!-- ★ 제목 수정 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#0d0f18; --sf:#161929; --sf2:#1d2035; --bd:#272b42;
+  --ac:#5b9cf6; --ac2:#f5c842; --ok:#3ecf8e; --ng:#f05a5a;
+  --tx:#e4e8f5; --tx2:#8e97be; --tx3:#5a6285;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+
+/* ── 헤더 (컴팩트) ── */
+.hd{
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac);
+  padding:8px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.hd-title{font-size:.95rem;font-weight:900;color:var(--ac);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hd-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
+/* 진도 칩 */
+.progress-chip{
+  font-size:.68rem;font-weight:700;
+  background:var(--sf2);border:1px solid var(--bd);
+  border-radius:20px;padding:3px 9px;
+  color:var(--tx2);white-space:nowrap;
+}
+.progress-chip span{color:var(--ac);}
+
+/* 통계/필터 버튼 */
+.stat-btn{
+  display:flex;align-items:center;gap:3px;
+  background:var(--sf2);border:1px solid var(--bd);border-radius:20px;
+  padding:3px 9px;font-size:.68rem;font-weight:700;
+  cursor:pointer;transition:all .2s;user-select:none;white-space:nowrap;
+  color:var(--tx2);
+}
+@media(hover:hover){.stat-btn:hover{filter:brightness(1.2);}}
+.stat-btn .lbl{font-weight:700;}
+#btnAll.on{border-color:var(--ac);background:rgba(91,156,246,.15);color:var(--ac);}#btnNg.on{border-color:var(--ng);background:rgba(240,90,90,.12);color:var(--ng);}
+#btnWeak.on{border-color:#f5963a;background:rgba(245,150,50,.12);color:#f5963a;}
+
+/* 자주 틀림 드롭다운 */
+.weak-wrap{position:relative;}
+.weak-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:5px 0;min-width:140px;z-index:50;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.weak-menu.open{display:block;}
+.weak-item{
+  padding:8px 14px;font-size:.76rem;color:var(--tx2);cursor:pointer;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.weak-item:hover{background:rgba(245,150,50,.1);color:#f5963a;}
+
+/* 버튼 */
+.fb{background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);padding:4px 11px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.fb.on{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fb:active{filter:brightness(1.25);}
+.fb.danger{color:var(--ng);border-color:rgba(240,90,90,.3);background:rgba(240,90,90,.08);}
+.fb.danger:active{filter:brightness(1.2);}
+
+/* ── 기능버튼 바 ── */
+.sb{padding:7px 18px;background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;}
+.sb-btns{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── 메인 ── */
+.main{max-width:860px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:11px;}
+
+/* ── 객관식 카드 ── */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:border-color .2s;}
+.card.answered-ok{border-color:rgba(62,207,142,.35);}
+.card.answered-ng{border-color:rgba(240,90,90,.35);}
+
+/* 문제 헤더 */
+.ch{display:flex;align-items:flex-start;gap:10px;padding:13px 15px 0;}
+.cn{background:var(--ac);color:#fff;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cn.ok{background:var(--ok);}
+.cn.ng{background:var(--ng);}
+.ct{flex:1;padding-bottom:11px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
+.tg{font-size:.64rem;padding:2px 7px;border-radius:9px;font-weight:500;}
+.tg-g{background:rgba(91,156,246,.14);color:var(--ac);border:1px solid rgba(91,156,246,.28);}
+.tg-s{background:rgba(245,200,66,.13);color:var(--ac2);border:1px solid rgba(245,200,66,.27);}
+
+.tg-at{font-size:.62rem;font-variant-numeric:tabular-nums;border:1px solid transparent;}
+.tg-at-none {background:rgba(255,255,255,.04);color:var(--tx3);border-color:transparent;}          /* 미시도 */
+.tg-at-zero {background:rgba(240,90,90,.12);color:var(--ng);border-color:rgba(240,90,90,.3);}      /* 0% */
+.tg-at-low  {background:rgba(245,150,50,.12);color:#f5963a;border-color:rgba(245,150,50,.3);}      /* 1~49% */
+.tg-at-mid  {background:rgba(245,200,66,.12);color:var(--ac2);border-color:rgba(245,200,66,.3);}   /* 50~99% */
+.tg-at-full {background:rgba(62,207,142,.12);color:var(--ok);border-color:rgba(62,207,142,.3);}    /* 100% */
+.qt{font-size:.9rem;line-height:1.65;color:var(--tx);font-weight:500;}
+
+/* 보기 — 항상 표시 */
+.opts{padding:0 15px 12px 57px;display:flex;flex-direction:column;gap:4px;}
+.opt{display:flex;align-items:flex-start;gap:7px;padding:7px 9px;border-radius:7px;border:1px solid transparent;font-size:.84rem;color:var(--tx2);line-height:1.5;cursor:pointer;transition:all .18s;}
+@media(hover:hover){.opt:hover:not(.lk){background:rgba(91,156,246,.07);border-color:rgba(91,156,246,.2);}}
+.on{font-size:.73rem;font-weight:700;min-width:17px;color:var(--tx3);padding-top:1px;flex-shrink:0;}
+.opt.cor{background:rgba(62,207,142,.09);border-color:rgba(62,207,142,.35);color:var(--ok)!important;}
+.opt.cor .on{color:var(--ok);}
+.opt.wrg{background:rgba(240,90,90,.09);border-color:rgba(240,90,90,.3);color:var(--ng)!important;}
+.opt.wrg .on{color:var(--ng);}
+
+/* 결과 바 (답 선택 전엔 숨김) */
+.res-bar{display:none;border-top:1px solid var(--bd);}
+.res-bar.show{display:block;}
+
+/* 정답 표시 줄 */
+.ansbar{display:flex;align-items:center;gap:9px;padding:8px 15px;background:rgba(62,207,142,.05);border-bottom:1px solid var(--bd);}
+.albl{font-size:.68rem;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.5px;}
+.aval{font-weight:900;font-size:.88rem;color:var(--ok);}
+.rtbtn{margin-left:auto;background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:4px 11px;border-radius:7px;font-size:.73rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.rtbtn:hover{color:var(--ac);border-color:var(--ac);}
+
+/* 해설 */
+.expl{padding:13px 15px 15px;font-size:.83rem;line-height:1.9;color:var(--tx2);word-break:keep-all;overflow-wrap:break-word;}
+.expl strong{color:var(--ac2);font-weight:700;}
+
+/* 추가해설 — expl과 동일 렌더링, 구분선으로만 분리 */
+.ae-expl{border-top:1px dashed var(--bd);margin-top:0;padding-top:11px;}
+.ae-label{font-size:.72rem;font-weight:700;color:var(--ac);margin-bottom:7px;}
+
+/* 수식 박스 */
+.fb0{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:6px;padding:11px 14px;margin:9px 0;line-height:2.2;overflow-x:auto;max-width:100%;word-break:break-word;}
+.fl{margin:3px 0;white-space:nowrap;}
+
+/* KaTeX — 긴 수식 줄바꿈 */
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0;max-width:100%;}
+.katex-display > .katex{max-width:100%;white-space:normal;}
+.katex-display > .katex > .katex-html{max-width:100%;overflow-x:auto;overflow-y:hidden;}
+.katex{font-size:1em;}
+
+/* aligned 환경 — = 기준 정렬 줄바꿈 */
+.katex .base{max-width:100%;}
+
+.tip{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:6px;padding:8px 12px;margin-top:8px;font-size:.8rem;color:var(--ac2);word-break:keep-all;}
+.tip::before{content:"💡 ";}
+
+/* 표 — 모바일 스크롤 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:9px 0;}
+.ctbl{width:100%;border-collapse:collapse;font-size:.79rem;min-width:280px;}
+.ctbl th,.ctbl td{border:1px solid var(--bd);padding:5px 9px;text-align:center;white-space:nowrap;}
+.ctbl th{background:var(--sf2);color:var(--ac);font-weight:700;}
+.ctbl td{color:var(--tx2);}
+.gw{margin:11px 0;text-align:center;overflow-x:auto;}
+
+/* ── 주관식 ── */
+.sq-wrap{max-width:860px;margin:0 auto;padding:0 14px 60px;display:flex;flex-direction:column;gap:11px;}
+.sq-divider{display:flex;align-items:center;gap:10px;padding:4px 0;}
+.sq-divider span{font-size:.75rem;font-weight:700;color:var(--ac2);white-space:nowrap;}
+.sq-divider::before,.sq-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+.sq-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.sq-hd{display:flex;align-items:center;gap:10px;padding:12px 15px;}
+.sq-num{background:var(--ac2);color:#111;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sq-title{font-size:.88rem;font-weight:700;color:var(--tx);}
+.sq-sub{font-size:.7rem;color:var(--tx3);margin-top:2px;}
+.sq-body{padding:13px 15px 15px;border-top:1px solid var(--bd);}
+.sq-sent{font-size:.87rem;line-height:2.6;color:var(--tx);word-break:keep-all;}
+.sq-inp{display:inline-block;min-width:64px;border:none;border-bottom:2px solid var(--ac);background:transparent;color:var(--tx);font-family:inherit;font-size:.87rem;text-align:center;padding:1px 6px;outline:none;transition:all .2s;vertical-align:middle;}
+.sq-inp:focus{border-color:var(--ac2);background:rgba(245,200,66,.05);}
+.sq-inp.cor{color:var(--ok);border-color:var(--ok);background:rgba(62,207,142,.06);}
+.sq-inp.wrg{color:var(--ng);border-color:var(--ng);background:rgba(240,90,90,.06);}
+.sq-btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px;}
+.sq-btn-check{background:var(--ac);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.sq-btn-check:hover{background:#4a87e8;}
+.sq-btn-sub{background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:6px 13px;border-radius:8px;font-size:.76rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.sq-btn-sub:hover{color:var(--ac);border-color:var(--ac);}
+.sq-score{margin-top:9px;font-size:.83rem;font-weight:700;min-height:1.4em;}
+.sq-score.ok{color:var(--ok);}
+.sq-score.ng{color:var(--ng);}
+.sq-formula-box{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac2);border-radius:8px;padding:16px 20px;margin:10px 0;text-align:center;font-size:.95rem;line-height:2.4;overflow-x:auto;}
+.sq-ans-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.25);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:.84rem;line-height:1.9;color:var(--tx2);display:none;}
+.sq-ans-box.show{display:block;}
+.sq-ans-box strong{color:var(--ok);}
+.sq-show-btn{background:rgba(62,207,142,.12);color:var(--ok);border:1px solid rgba(62,207,142,.3);padding:7px 18px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px;}
+.sq-show-btn:hover{background:rgba(62,207,142,.22);}
+
+/* ── 햄버거 버튼 ── */
+.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;justify-content:center;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s;}
+.hamburger:hover span{background:var(--ac);}
+
+/* ── 오버레이 ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(2px);}
+.menu-overlay.open{display:block;}
+
+/* ── 사이드 패널 ── */
+.menu-panel{position:fixed;top:0;left:-260px;width:240px;height:100%;background:var(--sf);border-right:1px solid var(--bd);z-index:201;display:flex;flex-direction:column;transition:left .25s cubic-bezier(.4,0,.2,1);}
+.menu-panel.open{left:0;}
+.menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);background:var(--sf2);}
+.menu-title{font-size:.9rem;font-weight:700;color:var(--ac);}
+.menu-close{background:none;border:none;color:var(--tx3);font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:5px;transition:color .2s;}
+.menu-close:hover{color:var(--tx);}
+.menu-body{flex:1;padding:10px 0;overflow-y:auto;}
+.menu-nav{display:flex;flex-direction:column;}
+.menu-item{display:block;padding:12px 20px;font-size:.88rem;color:var(--tx2);text-decoration:none;border-left:3px solid transparent;transition:all .18s;}
+.menu-item:hover{background:rgba(91,156,246,.08);color:var(--ac);border-left-color:var(--ac);}
+
+/* 북마크 아이콘 */
+.bm-icon{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;opacity:.2;}
+.bm-icon.on{opacity:1;}
+
+/* ── 공식모음 페이지 뷰 ── */
+.formula-page{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:var(--bg);overflow-y:auto;
+}
+.formula-page.open{display:block;}
+.fp-hd{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac2);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.fp-back{
+  background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);
+  padding:5px 12px;border-radius:20px;font-size:.78rem;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.fp-back:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fp-title{font-size:.95rem;font-weight:900;color:var(--ac2);}
+.fp-body{max-width:700px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:12px;}
+.fc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.fc-title{
+  padding:10px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);
+  font-size:.78rem;font-weight:700;color:var(--ac2);
+}
+.fc-body{padding:12px 14px;font-size:.84rem;line-height:1.9;color:var(--tx2);}
+.fc-body .fb0{margin:6px 0;}
+.fc-empty{text-align:center;color:var(--tx3);font-size:.84rem;padding:60px 0;line-height:2;}
+.top-btn{
+  position:fixed;bottom:28px;right:18px;z-index:150;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sf2);border:1px solid var(--bd);
+  color:var(--tx3);font-size:.85rem;
+  cursor:pointer;font-family:inherit;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,background .2s,color .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.top-btn.visible{opacity:1;pointer-events:auto;}
+.top-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+
+/* focus 잔상 제거 */
+button:focus,button:focus-visible,
+.stat-btn:focus,.stat-btn:focus-visible{outline:none;}
+.fb:active,.bm-icon:active,.stat-btn:active{filter:brightness(1.2);}
+
+@media(max-width:580px){
+  .qt{font-size:.86rem;}
+  .sq-sent{font-size:.84rem;}
+  .sq-inp{min-width:52px;font-size:.84rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════
+     헤더 — 제목 + 통계 + 버튼
+     ══════════════════════════ -->
+<div class="hd">
+  <button class="hamburger" onclick="toggleMenu()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="hd-title">2018년도 3회차</div><!-- ★ 단원명 수정 -->
+  <div class="hd-right">
+    <span class="progress-chip"><span id="st-done">0</span>/<span id="st-total">0</span></span>
+    <div class="stat-btn" id="btnAll" onclick="setView('all')">전체</div>
+    <div class="stat-btn" id="btnNg" onclick="setView('ng')">오답</div>
+    <div class="weak-wrap">
+      <div class="stat-btn" id="btnWeak" onclick="toggleWeakMenu()">
+        <span class="lbl">자주틀림</span><span style="color:#f5963a;">▾</span>
+      </div>
+      <div class="weak-menu" id="weakMenu">
+        <div class="weak-item" onclick="setView('weak',24)">정확률 24% 이하</div>
+        <div class="weak-item" onclick="setView('weak',49)">정확률 49% 이하</div>
+        <div class="weak-item" onclick="setView('weak',74)">정확률 74% 이하</div>
+      </div>
+    </div>
+    <button class="fb danger" onclick="resetAll()">↺</button>
+  </div>
+</div>
+
+<!-- 메뉴 오버레이 -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- 사이드 메뉴 패널 -->
+<div class="menu-panel" id="menuPanel">
+  <div class="menu-header">
+    <span class="menu-title">메뉴</span>
+    <button class="menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-nav">
+      <a class="menu-item" href="https://dyeon723.github.io/jungigigi/">⚡ 전기기기</a>
+      <a class="menu-item" href="https://dyeon723.github.io/junjagihak/">🔬 전자기학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsfurrhdgkr/">🔌 전력공학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsrlhoiro/">🔄 회로이론</a>
+      <a class="menu-item" href="https://dyeon723.github.io/rovPwkdcl/">🔧 개폐장치</a>
+    </nav>
+  </div>
+</div>
+
+<!-- 공식모음 페이지 뷰 (전체화면 전환) -->
+<div class="formula-page" id="formulaPage">
+  <div class="fp-hd">
+    <button class="fp-back" onclick="toggleFormulaSheet()">← 돌아가기</button>
+    <span class="fp-title">📐 공식모음</span>
+  </div>
+  <div class="fp-body" id="fsBody"></div>
+</div>
+
+<!-- 맨 위로 버튼 -->
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'instant'})" aria-label="맨 위로">↑</button>
+
+<!-- 기능 버튼 -->
+<div class="sb">
+  <div class="sb-btns">
+    <button class="fb" onclick="doRand()" ontouchstart="">🔀 순서섞기</button>
+    <button class="fb" onclick="doShuf()" ontouchstart="">🎲 보기섞기</button>
+    <button class="fb" id="btnBM" onclick="toggleBookmark(this)">⭐ 북마크</button>
+    <button class="fb" id="btnFormula" onclick="toggleFormulaSheet()">📐 공식모음</button>
+  </div>
+</div>
+
+<!-- 객관식 출력 영역 -->
+<div class="main" id="main"></div>
+
+
+<!-- ══════════════════════════════════
+     주관식 섹션 — SQS 배열로 자동 생성
+     ══════════════════════════════════ -->
+<div class="sq-wrap" id="sq-wrap"></div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ★★★  데이터만 이 아래에서 수정하세요  ★★★
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ══════════════════════════════════════════════════
+   객관식 문제 데이터  (QS 배열)
+   ──────────────────────────────────────────────────
+   필드 설명:
+     n   : 문제번호 (숫자)
+     q   : 문제 본문 (KaTeX 사용 가능)
+     o   : 보기 배열 ['①내용','②내용','③내용','④내용']
+     ans : 정답 번호 1~4
+     e   : 책 해설 HTML  ← 절대 줄이지 말 것
+     ae  : AI 추가해설 HTML (암기팁·직관적 설명·오답 분석 등 2줄이상 길고 정확하게 적을 것 )
+   ══════════════════════════════════════════════════ */
+let QS = [
+
+  {
+    n: 1,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>그림과 같이 반지름 \\(a\\rm[m]\\) , 중심간격 \\(d\\rm[m]\\) , \\(\\rm A\\) 에 \\(+\\lambda\\rm[C/m]\\) , \\(\\rm B\\) 에 \\(-\\lambda\\rm[C/m]\\) 의 평행원통도체가 있다. \\(d\\gg a\\) 라 할 때의 단위길이당 정전용량은 약 몇 \\(\\rm[F/m]\\) 인가? 자료 확대<img src="data:image/png;base64,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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(\\dfrac{2\\pi\\epsilon_{0}}{\\ln \\tfrac{a}{d}}\\)`,
+      `\\(\\dfrac{\\pi\\epsilon_{0}}{\\ln \\tfrac{a}{d}}\\)`,
+      `\\(\\dfrac{2\\pi\\epsilon_{0}}{\\ln \\tfrac{d}{a}}\\)`,
+      `\\(\\dfrac{\\pi\\epsilon_{0}}{\\ln \\tfrac{d}{a}}\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 2,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>모든 전기장치를 접지시키는 근본적 이유는?`,
+    o: [
+      `영상전하를 이용하기 때문에`,
+      `지구는 전류가 잘 통하기 때문에`,
+      `편의상 지면의 전위를 무한대로 보기 때문에`,
+      `지구의 용량이 커서 전위가 거의 일정하기 때문에`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 3,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>그림과 같이 일정한 권선이 감겨진 권회수 \\(N\\) 회, 단면적 \\(S\\rm[m^{2}]\\) , 평균자로의 길이 \\(l\\rm[m]\\) 인 환상솔레노이드에 전류 \\(I\\rm[A]\\) 를 흘렸을 때 이 환상솔레노이드의 자기 인덕턴스 \\(\\rm[H]\\) 는? (단, 환상철심의 투자율은 \\(\\mu\\) 이다.) 자료 확대<img src="data:image/png;base64,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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(\\dfrac{\\mu^{2}N}{l}\\)`,
+      `\\(\\dfrac{\\mu SN}{l}\\)`,
+      `\\(\\dfrac{\\mu^{2} SN}{l}\\)`,
+      `\\(\\dfrac{\\mu SN^{2}}{l}\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 4,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>강자성체가 아닌 것은?`,
+    o: [
+      `철(Fe)`,
+      `니켈(Ni)`,
+      `백금(Pt)`,
+      `코발트(Co)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 5,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>온도 \\(0[℃]\\) 에서 저항이 \\(R_{1}[\\Omega]\\) , \\(R_{2}[\\Omega]\\) , 저항온도계수가 \\(\\alpha_{1}\\) , \\(\\alpha_{2}[1/℃]\\) 인 두 개의 저항선을 직렬로 접속하는 경우, 그 합성저항 온도계수는 몇 \\([1/℃]\\) 인가?`,
+    o: [
+      `\\(\\dfrac{\\alpha_{1}R_{2}}{R_{1}+R_{2}}\\)`,
+      `\\(\\dfrac{\\alpha_{1}R_{1}+\\alpha_{2}R_{2}}{R_{1}+R_{2}}\\)`,
+      `\\(\\dfrac{\\alpha_{1}R_{1}-\\alpha_{2}R_{2}}{R_{1}+R_{2}}\\)`,
+      `\\(\\dfrac{\\alpha_{1}R_{2}+\\alpha_{2}R_{1}}{R_{1}+R_{2}}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 6,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>두 유전체의 경계면에서 정전계가 만족하는 것은?`,
+    o: [
+      `전계의 법선성분이 같다.`,
+      `전계의 접선성분이 같다.`,
+      `전속밀도의 접선성분이 같다.`,
+      `분극 세기의 접선성분이 같다.`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 7,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>진공 중의 전계강도 \\(E=ix+jy+kz\\) 로 표시될 때 반지름 \\(10\\rm[m]\\) 의 구면을 통해 나오는 전체 전속은 약 몇 \\(\\rm[C]\\) 인가?`,
+    o: [
+      `\\(1.1\\times10^{-7}\\)`,
+      `\\(2.1\\times10^{-7}\\)`,
+      `\\(3.2\\times10^{-7}\\)`,
+      `\\(5.1\\times10^{-7}\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 8,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>물의 유전율을 \\(\\epsilon\\) , 투자율을 \\(\\mu\\) 라 할 떄 물 속에서의 전파속도는 몇 \\(\\rm[m/s]\\) 인가?`,
+    o: [
+      `\\(\\dfrac{1}{\\sqrt{\\epsilon\\mu}}\\)`,
+      `\\(\\sqrt{\\epsilon\\mu}\\)`,
+      `\\(\\sqrt{\\dfrac{\\mu}{\\epsilon}}\\)`,
+      `\\(\\sqrt{\\dfrac{\\epsilon}{\\mu}}\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 9,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>비투자율 \\(\\mu_{s}\\) , 자속밀도 \\(B\\rm[Wb/m^{2}]\\) 인 자계 중에 있는 \\(m\\rm[Wb]\\) 의 점자극이 받는 힘 \\(\\rm[N]\\) 은?`,
+    o: [
+      `\\(\\dfrac{mB}{\\mu_{0}}\\)`,
+      `\\(\\dfrac{mB}{\\mu_{0}\\mu_{s}}\\)`,
+      `\\(\\dfrac{mB}{\\mu_{s}}\\)`,
+      `\\(\\dfrac{\\mu_{0}\\mu_{s}}{mB}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 10,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>콘덴서의 성질에 관한 설명으로 틀린 것은?`,
+    o: [
+      `정전용량이란 도체의 전위를 \\(1\\rm[V]\\) 로 하는 데 필요한 전하량을 말한다.`,
+      `용량이 같은 콘덴서를 \\(n\\) 개 직렬 연결하면 내압은 \\(n\\) 배, 용량은 \\(1/n\\) 로 된다.`,
+      `용량이 같은 콘덴서를 \\(n\\) 개 병렬 연결하면 내압은 같고, 용량은 \\(n\\) 배로 된다.`,
+      `콘덴서를 직렬 연결할 때 각 콘덴서에 분포되는 전하량은 콘덴서 크기에 비례한다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 11,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>평행판 콘덴서에서 전극 간에 \\(V\\rm[V]\\) 의 전위차를 가할 때, 전게의 강도가 공기의 절연내력 \\(E\\rm[V/m]\\) 을 넘지 않도록 하기 위한 콘덴서의 단위면적당 최대용량은 몇 \\(\\rm[F/m^{2}]\\) 인가?`,
+    o: [
+      `\\(\\epsilon_{0} EV\\)`,
+      `\\(\\dfrac{\\epsilon_{0}E}{V}\\)`,
+      `\\(\\dfrac{\\epsilon_{0}V}{E}\\)`,
+      `\\(\\dfrac{EV}{\\epsilon_{0}}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 12,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>자화율을 \\(\\chi\\) , 자속밀도를 \\(B\\) , 자계의 세기를 \\(H\\) , 자화의 세기를 \\(J\\) 라고 할 때, 다음 중 성립될 수 없는 식은?`,
+    o: [
+      `\\(B=\\mu H\\)`,
+      `\\(J=\\chi B\\)`,
+      `\\(\\mu=\\mu_{0}+\\chi\\)`,
+      `\\(\\mu_{s}=1+\\dfrac{\\chi}{\\mu_{0}}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 13,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>두 종류의 금속으로 된 폐회로에 전류를 흘리면 양 접속점에서 한 쪽은 온도가 올라가고 다른 쪽은 온도가 내려가는 현상을 무엇이라고 하는가?`,
+    o: [
+      `볼타(Volta) 효과`,
+      `지벡(Seeback) 효과`,
+      `펠티에(Peltier) 효과`,
+      `톰슨(Thomson) 효과`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 14,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>무한 평면도체로부터 거리 \\(a\\rm[m]\\) 의 곳에 점전하 \\(2\\pi\\rm[C]\\) 가 있을 때 도체 표면에 유도되는 최대 전하 밀도는 몇 \\(\\rm[C/m^{2}]\\) 인가?`,
+    o: [
+      `\\(-\\dfrac{1}{a^{2}}\\)`,
+      `\\(-\\dfrac{1}{2a^{2}}\\)`,
+      `\\(-\\dfrac{1}{2\\pi a}\\)`,
+      `\\(-\\dfrac{1}{4\\pi a}\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 15,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>\\([\\Omega\\cdot \\rm sec]\\) 와 같은 단위는?`,
+    o: [
+      `\\(\\rm F\\)`,
+      `\\(\\rm H\\)`,
+      `\\(\\rm F/m\\)`,
+      `\\(\\rm H/m\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 16,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>두 도체 사이에 \\(100\\rm[V]\\) 의 전위를 가하는 순간 \\(700\\rm[\\mu C]\\) 의 전하가 축적되었을 때 이 두 도체 사이의 정전용량은 몇 \\(\\rm[\\mu F]\\) 인가?`,
+    o: [
+      `\\(4\\)`,
+      `\\(5\\)`,
+      `\\(6\\)`,
+      `\\(7\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 17,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>벡터 \\(A=5r\\sin\\phi a_{z}\\) 가 원기둥 좌표계로 주어졌다. 점 \\((2,\\pi,0)\\) 에서의 \\(\\nabla\\times A\\) 를 구한 값은?`,
+    o: [
+      `\\(5a_{r}\\)`,
+      `\\(-5a_{r}\\)`,
+      `\\(5a_{\\phi}\\)`,
+      `\\(-5a_{\\phi}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 18,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>반지름 \\(a\\rm[m]\\) 인 원주 도체의 단위 길이당 내부 인덕턴스 \\(\\rm[H/m]\\) 는?`,
+    o: [
+      `\\(\\dfrac{\\mu}{4\\pi}\\)`,
+      `\\(\\dfrac{\\mu}{8\\pi}\\)`,
+      `\\(4\\pi\\mu\\)`,
+      `\\(8\\pi\\mu\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 19,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>자기 쌍극자의 중심축으로부터 \\(r\\rm[m]\\) 인 점의 자계의 세기에 관한 설명으로 옳은 것은?`,
+    o: [
+      `\\(r\\) 에 비례한다.`,
+      `\\(r^{2}\\) 에 비례한다.`,
+      `\\(r^{2}\\) 에 반비례한다.`,
+      `\\(r^{3}\\) 에 반비례한다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 20,
+    subject: "전기자기학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기자기학]</span><br>전자유도작용에서 벡터퍼텐셜을 \\(A\\rm[Wb/m]\\) 라 할 때 유도되는 전계 \\(E\\rm[V/m]\\) 는?`,
+    o: [
+      `\\(\\dfrac{\\partial A}{\\partial t}\\)`,
+      `\\(\\int Adt\\)`,
+      `\\(-\\dfrac{\\partial A}{\\partial t}\\)`,
+      `\\(-\\int Adt\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 21,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>중성점 비접지방식을 이용하는 것이 적당한 것은?`,
+    o: [
+      `고전압 장거리`,
+      `고전압 단거리`,
+      `저전압 장거리`,
+      `저전압 단거리`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 22,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>역률개선에의한 배전계통의 효과가 아닌 것은?`,
+    o: [
+      `전력손실 감소`,
+      `전압강하 감소`,
+      `변압기 용량 감소`,
+      `전선의 표피효과 감소`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 23,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>초고압용 차단기에서 개폐저항을 사용하는 이유는?`,
+    o: [
+      `차단전류 감소`,
+      `이상전압 감쇄`,
+      `차단속도 증진`,
+      `차단전류의 역률개선`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 24,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>최대 전력의 발생시각 또는 발생시기의 분산을 나타내는 지표는?`,
+    o: [
+      `부등률`,
+      `부하율`,
+      `수용률`,
+      `전일효율`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 25,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>선간전압이 \\(V\\rm[kV]\\) 이고, \\(1\\) 상의 대지정전용량이 \\(C\\rm[\\mu F]\\) , 주파수가 \\(f\\rm[Hz]\\) 인 \\(3\\) 상 \\(3\\) 선식 \\(1\\) 회선 송전선의 소호리액터 접지방식에서 소호리액터의 용량은 몇 \\(\\rm[kVA]\\) 인가?`,
+    o: [
+      `\\(6\\pi fCV^{2}\\times10^{-3}\\)`,
+      `\\(3\\pi fCV^{2}\\times10^{-3}\\)`,
+      `\\(2\\pi fCV^{2}\\times10^{-3}\\)`,
+      `\\(\\sqrt3\\pi fCV^{2}\\times10^{-3}\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 26,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>전력계통 안정도는 외란의 종류에 따라 구분되는데, 송전선로에서의 고장, 발전기 탈락과 같은 큰 외란에 대한 전력계통의 동기운전 가능 여부로 판정되는 안정도는?`,
+    o: [
+      `과도안정도`,
+      `정태안정도`,
+      `전압안정도`,
+      `미소신호안정도`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 27,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>송전선에 복도체를 사용할 때의 설명으로 틀린 것은?`,
+    o: [
+      `코로나 손실이 경감된다.`,
+      `안정도가 상승하고 송전용량이 증가한다.`,
+      `정전 반발력에 의한 전선의 진동이 감소된다.`,
+      `전선의 인덕턴스는 감소하고, 정전용량이 증가한다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 28,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>영상변류기를 사용하는 계전기는?`,
+    o: [
+      `지락계전기`,
+      `차동계전기`,
+      `과전류계전기`,
+      `과전압계전기`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 29,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>변압기의 손실 중 철손의 감소 대책이 아닌 것은?`,
+    o: [
+      `자속 밀도의 감소`,
+      `권선의 단면적 증가`,
+      `아몰퍼스 변압기의 채용`,
+      `고배향성 규소 강판 사용`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 30,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>변압기 내부 고장에 대한 보호용으로 현재 가장 많이 쓰이고 있는 계전기는?`,
+    o: [
+      `주파수 계전기`,
+      `전압차동 계전기`,
+      `비율차동 계전기`,
+      `방향 거리 계전기`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 31,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>단상 \\(2\\) 선식에 비하여 단상 \\(3\\) 선식의 특징으로 옳은 것은?`,
+    o: [
+      `소요 전선량이 많아야 한다.`,
+      `중성선에는 반드시 퓨즈를 끼워야 한다.`,
+      `\\(110\\rm[V]\\) 부하 외에 \\(220\\rm[V]\\) 부하의 사용이 가능하다.`,
+      `전압 불평형을 줄이기 위하여 저압선의 말단에 전력용 콘덴서를 설치한다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 32,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>원자력 발전의 특징이 아닌 것은?`,
+    o: [
+      `건설비와 연료비가 높다.`,
+      `설비는 국내 관련 사업을 발전시킨다.`,
+      `수송 및 저장이 용이하여 비용이 절감된다.`,
+      `방사선 측정기, 폐기물 처리 장치 등이 필요하다.`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 33,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>선로의 특성임피던스에 관한 내용으로 옳은 것은?`,
+    o: [
+      `선로의 길이에 관계없이 일정하다.`,
+      `선로의 길이가 길어질수록 값이 커진다.`,
+      `선로의 길이가 길어질수록 값이 작아진다.`,
+      `선로의 길이보다는 부하전력에 따라 값이 변한다.`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 34,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>수력발전소의 취수 방법에 따른 분류로 틀린 것은?`,
+    o: [
+      `댐식`,
+      `수로식`,
+      `역조정지식`,
+      `유역변경식`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 35,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>정삼각형 배치의 선간거리가 \\(5\\rm[m]\\) 이고, 전선의 지름이 \\(1\\rm[cm]\\) 인 \\(3\\) 상 가공 송전선의 \\(1\\) 선의 정전용량은 약 몇 \\(\\rm[\\mu F/km]\\) 인가?`,
+    o: [
+      `\\(0.008\\)`,
+      `\\(0.016\\)`,
+      `\\(0.024\\)`,
+      `\\(0.032\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 36,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>수전단전압이 \\(3,300\\rm[V]\\) 이고, 전압강하율이 \\(4[\\%]\\) 인 송전선의 송전단전압은 몇 \\(\\rm[V]\\) 인가?`,
+    o: [
+      `\\(3,395\\)`,
+      `\\(3,432\\)`,
+      `\\(3,495\\)`,
+      `\\(5,678\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 37,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>그림과 같은 전선로의 단락 용량은 약 몇 \\(\\rm[MVA]\\) 인가? (단, 그림의 수치는 \\(10,000\\rm[kVA]\\) 를 기준으로 한 \\(\\%\\) 리액턴스를 나타낸다.) 자료 확대<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV0AAAB/CAYAAABMmxE+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABq9SURBVHhe7Z0JuFRlGcc/QEvDpbJEkUxARXMpTUHU1EyRxV1E1FBKXHLDBcQlUFFE9kRBDE3KlRQxF1ASEiRcUFHJXEGkRIPKSI0y8zS/937nOg73XmbunHPmnLn/3/Oc597znblzYe7M/7zfuzYLcjghhBCJ0Nx/FUIIkQASXSGESBCJrhBCJIhEVwghEkSiK4QQCSLRFUKIBJHoCiFEgkh0hRAiQVQcIUSRPPfcc27mzJn+zLlzzz3XbbLJJv6s8UyaNMn99a9/te87dOjgjj32WPteVCeydIWog+OPP96tXLnSn9Xw7LPPumXLlrlBgwbZsfHGG/srxbHjjju61157zZ99Rr9+/ez5tt12W3f33Xf7VVGtSHSFKGDixIn1il/z5s3d+uuvb0ezZs38ag2LFy921157rTvooINcly5d3Pvvv2/rf/jDH9wJJ5zgvv3tb7vtttvO1vJZb7317Pn4Kqofia4QeTz//PPukksu8WfFg+D+4Ac/cJtuuqmbMWOGGzp0qOvZs6e7/PLL3V133WVuicGDB5toi6aN3gFC5DF79mw3YMAAf1Y848ePd1//+tfdcccd577whS+4vfbay33ve99zV155pfvggw/cIYccYu4FISS6QngIaLVu3dp95Stf8SvFM2vWLDdt2jT31a9+1c6xbpcuXepeeeUVs55Hjx4tK1cYehcIkeOFF15wb7/9tgXQSuX22293f/rTn9wGG2zgV5y755573LBhw9yECRPM+m3Tpo2/Ipo6El0hcmCpXnDBBY2yRtu3b+9atmzpRowYYZYtVu3111/vPvroI7do0SLXu3dvy1o47bTTLM2MLIXXX3/d/7Roakh0RWpYuHCh/y5Zfv7zn1t2AT7ZxtC5c2c3ffp0t+GGG5rFjLhutdVWlgVBzi1ZDPh027Zt68aOHWuBuk8//dT/dDp49913zVoX8SPRFanh4Ycf9t8lx0svveS+9rWvmS+3HEgTQ1BxT1AwgSVLXi9ijvjuvvvubuDAgZYWhlWcNkL/s4gfia5o0lAAgQuALAPSuzhC8R85cqR78MEH7ftSIV0Msd18883dQw895H76058qD1cYEl3RpMFCveqqq0x0w6NHjx527aKLLnKHHXaYfV8KBNFID9t55539ivtc9do//vEPy+cVTROJrhD1gAXcGMhaoKw3tGy/853v2HOxhb/hhhtcixYt3JZbbmnXRNNDoitEHpTxLlmyxPXp08dcC6W6F+69915rWrPLLrv4FefOP/989/jjj7t58+a5Xr16uVNPPdVfEU0RdRkTqeGKK66wI61QrUbDm1NOOcWvrA3uCVLEEN5iwfpdtWqV+/DDD903vvENd9555/kryfH73//eUtzoGSHiRaKbMn784x/btjTcfp544olu++23t+/XBb7CBQsWuO7du/uVGvhA88H+5z//aUEi8kgPP/xwfzU9pF10qxmJbnLIvZAQf/nLX9ycOXPcW2+9ZRHyX/ziF2Y5FfLOO++4o48+ujaoU5/gPvHEE+7Pf/6zP6uBpirLly/3Z59B/inPdcYZZ7g33njDegEIISqDRDcBSEvCl4dPjwR5BJBcTiLjTz75pH9UcRAZxyd46623urPOOsvOObBksWDJCxVCpBeJbgLQTxXBxdoNIX9zzZo1tqUrFkQW98CYMWPMUqaf64oVK9wOO+xgrgV8jVFMMhBCxEfFRZdmITR3Do/hw4f7K+VB1Dn/eWlmUin23HNPKw8dNWqUXymdl19+2f5PCG++sH7zm990W2+9tdX2y8oVIv2ULbqUOz7wwAP11pK/+eabVtt+//33m3AUwmwoSjGvu+462zL/8Ic/9FeKgyYjtNErZO+997bn4/j73//uPv74Y38leUiMR/g32mgjv1ID3ac6duzozxoGqxjrGAEPQXy32GIL9+ijj1r/1i9/+cv+Svb44x//aAelslRwieTAxXX11VfbV2IFImbIXmgskydPDlq3bk32Q5ATNb/6GTNmzAiGDBkSLF++PHjuueeCnFUWLFq0yF+tYdy4cfbzf/vb3/zK2syaNSvo06dP0Ldv32D+/Pl+NQhyghu0a9cuyG3b/UrdtG/fPsjdHPxZ5cjdYIKcoAQ33HBDMHjw4GD16tX+ymd06dIlmDlzpj/7jIULFwbf/e53/VkQ5G50Qb9+/YJXX3012GOPPYLcjcXWn332WfsdK1assPN8eCyvdW534VfSwSeffBL07NnT/m0czZs3T8XfqynA5y5nENS+9h06dFjn50mUR1kpY0TaKaG8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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(33.7\\)`,
+      `\\(66.7\\)`,
+      `\\(99.7\\)`,
+      `\\(132.7\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 38,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>화력발전소에서 증기 및 급수가 흐르는 순서는?`,
+    o: [
+      `보일러 → 과열기 → 절탄기 → 터빈 → 복수기`,
+      `보일러 → 절탄기 → 과열기 → 터빈 → 복수기`,
+      `절탄기 → 보일러 → 과열기 → 터빈 → 복수기`,
+      `절탄기 → 과열기 → 보일러 → 터빈 → 복수기`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 39,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>현수애자 \\(4\\) 개를 \\(1\\) 련으로 한 \\(66\\rm[kV]\\) 송전선로가 있다. 현수애자 \\(1\\) 개의 절연저항은 \\(1,500\\rm[M\\Omega]\\) , 이 선로의 경간이 \\(200\\rm[m]\\) 라면 선로 \\(1\\rm[km]\\) 당의 누설컨덕턴스는 몇 \\([\\mho]\\) 인가?`,
+    o: [
+      `\\(0.83\\times10^{-9}\\)`,
+      `\\(0.83\\times10^{-6}\\)`,
+      `\\(0.83\\times10^{-3}\\)`,
+      `\\(0.83\\times10^{-2}\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 40,
+    subject: "전력공학",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전력공학]</span><br>전선의 지지점 높이가 \\(31\\rm[m]\\) 이고, 전선의 이도가 \\(9\\rm[m]\\) 라면 전선의 평균 높이는 몇 \\(\\rm[m]\\) 인가?`,
+    o: [
+      `\\(25.0\\)`,
+      `\\(26.5\\)`,
+      `\\(28.5\\)`,
+      `\\(30.0\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 41,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>자기용량 3[kVA], 3000/100[V]의 단상변압기를 승압기로 연결하고 1차측에 3100[V]를 가했을 때 그 부하용량[kVA]은?`,
+    o: [
+      `\\(76\\)`,
+      `\\(85\\)`,
+      `\\(93\\)`,
+      `\\(94\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 42,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>2중 농형 유도전동기가 보통 농형 유도전동기에 비해서 다른 점은 무엇인가?`,
+    o: [
+      `기동전류가 크고, 기동토크도 크다.`,
+      `기동전류가 적고, 기동토크도 적다.`,
+      `기동전류는 적고, 기동토크는 크다.`,
+      `기동전류는 크고, 기동토크는 적다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 43,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>일반적으로 전철이나 화학용과 같이 비교적 용량이 큰 수은 정류기용 변압기의 2차측 결선 방식으로 쓰이는 것은?`,
+    o: [
+      `3상 반파`,
+      `3상 전파`,
+      `3상 크로즈파`,
+      `6상 2중 성형`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 44,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>\\(3\\) 상 유도전동기의 출력이 \\(10\\rm[kW]\\) , 전부하 때의 슬립이 \\(5[\\%]\\) 라 하면 \\(2\\) 차 동손은 약 몇 \\(\\rm[kW]\\) 인가?`,
+    o: [
+      `\\(0.426\\)`,
+      `\\(0.526\\)`,
+      `\\(0.626\\)`,
+      `\\(0.726\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 45,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>SCR에 관한 설명으로 옳지 않은 것은?`,
+    o: [
+      `3단자 소자이다.`,
+      `전류는 애노드에서 캐소드로 흐른다.`,
+      `소형의 전력을 다루고 고주파 스위칭을 요구하는 응용분야에 주로 사용된다.`,
+      `도통 상태에서 순방향 애노드 전류가 유지전류 이하로 되면 SCR은 차단상태로 된다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 46,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류 분권전동기의 기동 시에는 계자 저항기의 저항 값은 어떻게 설정하는가?`,
+    o: [
+      `끊어 둔다.`,
+      `최대로 해 둔다.`,
+      `0(영)으로 해 둔다.`,
+      `중위(中位)로 해 둔다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 47,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>단상 반발 유도전동기에 대한 설명으로 옳은 것은?`,
+    o: [
+      `역률은 반발기동형보다 나쁘다.`,
+      `기동토크는 반발기동형보다 크다.`,
+      `전부하 효율은 반발기동형보다 좋다.`,
+      `속도의 변화는 반발기동형보다 크다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 48,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>공급전압이 일정하고 역률 1로 운전하고 있는 동기전동기의 여자전류를 증가시키면 어떻게 되는가?`,
+    o: [
+      `역률은 뒤지고 전기자 전류는 감소한다.`,
+      `역률은 뒤지고 전기자 전류는 증가한다.`,
+      `역률은 앞서고 전기자 전류는 감소한다.`,
+      `역률은 앞서고 전기자 전류는 증가한다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 49,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3상 유도전동기의 특성에 관한 설명으로 옳은 것은?`,
+    o: [
+      `최대토크는 슬립과 반비례한다.`,
+      `기동토크는 전압의 2승에 비례한다.`,
+      `최대토크는 2차 저항과 반비례한다.`,
+      `기동토크는 전압의 2승에 반비례한다.`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 50,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>유압식 변압기에 콘서베이터(conservator)를 설치하는 목적으로 옳은 것은?`,
+    o: [
+      `충격 방지`,
+      `열화 방지`,
+      `통풍 장치`,
+      `코로나 방지`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 51,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>동기발전기의 단락비나 동기임피던스를 산출하는 데 필요한 특성곡선은?`,
+    o: [
+      `부하 포화곡선과 3상 단락곡선`,
+      `단상 단락곡선과 3상 단락곡선`,
+      `무부하 포화곡선과 3상 단락곡선`,
+      `무부하 포화곡선과 외부특성곡선`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 52,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3상 유도전동기의 속도제어법이 아닌 것은?`,
+    o: [
+      `극수변환법`,
+      `1차 여자제어`,
+      `2차 저항제어`,
+      `1차 주파수제어`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 53,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류전동기의 공급전압을 \\(V\\rm[V]\\) , 자속을 \\(\\phi\\rm[Wb]\\) , 전기자 전류를 \\(I_{a}\\rm[A]\\) , 전기자 저항을 \\(R_{a}[\\Omega]\\) , 속도를 \\(N\\rm[rpm]\\) 이라 할 때 속도의 관계식은 어떻게 되는가? (단, \\(k\\) 는 상수이다.)`,
+    o: [
+      `\\(N=k\\dfrac{V+I_{a}R_{a}}{\\phi}\\)`,
+      `\\(N=k\\dfrac{V-I_{a}R_{a}}{\\phi}\\)`,
+      `\\(N=k\\dfrac{\\phi}{V+I_{a}R_{a}}\\)`,
+      `\\(N=k\\dfrac{\\phi}{V-I_{a}R_{a}}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 54,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>3상 반파정류회로에서 직류전압의 파형은 전원전압 주파수의 몇 배의 교류분을 포함하는가?`,
+    o: [
+      `1`,
+      `2`,
+      `3`,
+      `6`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 55,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>\\(3\\) 상 \\(\\rm Y\\) 결선, \\(30\\rm[kW]\\) , \\(460\\rm[V]\\) , \\(60\\rm[Hz]\\) 정격인 유도전동기의 시험결과가 다음과 같다. 이 전동기의 무부하 시 \\(1\\) 상당 동손은 약 몇 \\(\\rm[W]\\) 인가? (단, 소수점 이하는 무시한다.) 자료 확대<img src="data:image/png;base64,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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(102\\)`,
+      `\\(104\\)`,
+      `\\(106\\)`,
+      `\\(108\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 56,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류 분권전동기 운전 중 계자 권선의 저항이 증가할 때 회전속도는?`,
+    o: [
+      `일정하다.`,
+      `감소한다.`,
+      `증가한다.`,
+      `관계없다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 57,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>동기기의 과도 안정도를 증가시키는 방법이 아닌 것은?`,
+    o: [
+      `단락비를 크게 한다.`,
+      `속응 여자방식을 채용한다.`,
+      `회전부의 관성을 작게 한다.`,
+      `역상 및 영상 임피던스를 크게 한다.`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 58,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>변압기의 내부고장에 대한 보호용으로 사용되는 계전기는 어느 것이 적당한가?`,
+    o: [
+      `방향계전기`,
+      `온도계전기`,
+      `접지계전기`,
+      `비율차동계전기`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 59,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>임피던스 강하가 \\(4[\\%]\\) 인 변압기가 운전 중 단락되었을 때 그 단락전류는 정격전류의 몇 배인가?`,
+    o: [
+      `\\(15\\)`,
+      `\\(20\\)`,
+      `\\(25\\)`,
+      `\\(30\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 60,
+    subject: "전기기기",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기기기]</span><br>직류발전기의 전기자 권선법 중 단중파권과 단중 중권을 비교했을 때 단중 파권에 해당하는 것은?`,
+    o: [
+      `고전압 대전류`,
+      `저전압 소전류`,
+      `고전압 소전류`,
+      `저전압 대전류`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 61,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>어느 저항의 \\(v_{1}=220\\sqrt2\\sin(2\\pi\\cdot60t-30^{\\circ})\\rm[V]\\) 와 \\(v_{2}=100\\sqrt2\\sin(3\\cdot2\\pi\\cdot60t-30^{\\circ})\\rm[V]\\) 의 전압이 각각 걸릴 때의 설명으로 옳은 것은?`,
+    o: [
+      `\\(v_{1}\\) 이 \\(v_{2}\\) 보다 위상이 \\(15^{\\circ}\\) 앞선다.`,
+      `\\(v_{1}\\) 이 \\(v_{2}\\) 보다 위상이 \\(15^{\\circ}\\) 뒤진다.`,
+      `\\(v_{1}\\) 이 \\(v_{2}\\) 보다 위상이 \\(75^{\\circ}\\) 앞선다.`,
+      `\\(v_{1}\\) 과 \\(v_{2}\\) 의 위상관계는 의미가 없다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 62,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(0.2\\rm[H]\\) 의 인덕터와 \\(150[\\Omega]\\) 의 저항을 직렬로 접속하고 \\(220\\rm[V]\\) 상용교류를 인가하였다. \\(1\\) 시간 동안 소비된 전력량은 약 몇 \\(\\rm[Wh]\\) 인가?`,
+    o: [
+      `\\(209.6\\)`,
+      `\\(226.4\\)`,
+      `\\(257.6\\)`,
+      `\\(286.8\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 63,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(\\dfrac{s\\sin\\theta+\\omega\\cos\\theta}{s^{2}+\\omega^{2}}\\) 의 라플라스 역변환을 구하면 어떻게 되는가?`,
+    o: [
+      `\\(\\sin(\\omega t-\\theta)\\)`,
+      `\\(\\sin(\\omega t+\\theta)\\)`,
+      `\\(\\cos(\\omega t-\\theta)\\)`,
+      `\\(\\cos(\\omega t+\\theta)\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 64,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 \\(3\\) 상 전압이 있을 때 한 상의 \\(\\rm Y\\) 전압 순시값 \\(e_{p}=1,000\\sqrt2\\sin\\omega t+500\\sqrt2\\sin(3\\omega t+20^{\\circ})\\) \\(+100\\sqrt2\\sin(5\\omega t+30^{\\circ})\\rm[V]\\) 이면 선간전압 \\(E_{L}\\) 에 대한 상전압 \\(E_{P}\\) 의 실효값 비율( \\(\\dfrac{E_{P}}{E_{L}}\\) )은 약 몇 \\([\\%]\\) 인가?`,
+    o: [
+      `\\(55\\)`,
+      `\\(64\\)`,
+      `\\(85\\)`,
+      `\\(95\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 65,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>같은 저항 \\(r[\\Omega]\\) \\(6\\) 개를 사용하여 그림과 같이 결선하고 대칭 \\(3\\) 상 전압 \\(V\\rm[V]\\) 를 가하였을 때 흐르는 전류 \\(I\\) 는 몇 \\(\\rm[A]\\) 인가? 자료 확대<img src="data:image/png;base64,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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(\\dfrac{V}{2r}\\)`,
+      `\\(\\dfrac{V}{3r}\\)`,
+      `\\(\\dfrac{V}{4r}\\)`,
+      `\\(\\dfrac{V}{5r}\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 66,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(100\\rm[V]\\) , \\(800\\rm[W]\\) , 역률 \\(80[\\%]\\) 인 교류회로의 리액턴스는 몇 \\([\\Omega]\\) 인가?`,
+    o: [
+      `\\(6\\)`,
+      `\\(8\\)`,
+      `\\(10\\)`,
+      `\\(12\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 67,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>불평형 \\(3\\) 상 전류 \\(I_{a}=15+j2\\rm[A]\\) , \\(I_{b}=-20-j14\\rm[A]\\) , \\(I_{c}=-3+j10\\rm[A]\\) 일 때 영상전류 \\(I_{0}\\) 는 약 몇 \\(\\rm[A]\\) 인가?`,
+    o: [
+      `\\(2.67+j0.36\\)`,
+      `\\(15.7-j3.25\\)`,
+      `\\(-1.91+j6.24\\)`,
+      `\\(-2.67-j0.67\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 68,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 \\(3\\) 상 전압이 \\(a\\) 상 \\(V_{a}\\rm[V]\\) , \\(b\\) 상 \\(V_{b}=a^{2}V_{a}\\rm[V]\\) , \\(c\\) 상 \\(V_{c}=aV_{a}\\rm[V]\\) 일 때 \\(a\\) 상을 기준으로 한 대칭분전압 중 정상분 \\(V_{1}\\rm[V]\\) 은 어떻게 표시되는가? (단, \\(a=-\\dfrac{1}{2}+j\\dfrac{\\sqrt3}{2}\\) 이다.)`,
+    o: [
+      `\\(0\\)`,
+      `\\(V_{a}\\)`,
+      `\\(aV_{a}\\)`,
+      `\\(a^{2}V_{a}\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 69,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>어떤 교류 전동기의 명판에 역률 \\(=0.6\\) , 소비전력 \\(=120\\rm[kW]\\) 로 표기되어 있다. 이 전동기의 무효전력은 몇 \\(\\rm[kVar]\\) 인가?`,
+    o: [
+      `\\(80\\)`,
+      `\\(100\\)`,
+      `\\(140\\)`,
+      `\\(160\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 70,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(e=E_{m}\\cos(100\\pi t-\\dfrac{\\pi}{3})\\rm[V]\\) 와 \\(i=E_{m}\\sin(100\\pi t+\\dfrac{\\pi}{4})\\rm[A]\\) 의 위상차를 시간으로 나타내면 약 몇 초인가?`,
+    o: [
+      `\\(3.33\\times10^{-4}\\)`,
+      `\\(4.33\\times10^{-4}\\)`,
+      `\\(6.33\\times10^{-4}\\)`,
+      `\\(8.33\\times10^{-4}\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 71,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>그림에서 \\(\\rm a,b\\) 단자의 전압이 \\(100\\rm[V]\\) , \\(\\rm a,b\\) 에서 본 능동 회로망 \\(N\\) 의 임피던스가 \\(15[\\Omega]\\) 일 때, \\(\\rm a,b\\) 단자에 \\(10[\\Omega]\\) 의 저항을 접속하면 \\(\\rm a,b\\) 사이에 흐르는 전류는 몇 \\(\\rm[A]\\) 인가? 자료 확대<img src="data:image/png;base64,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" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(2\\)`,
+      `\\(4\\)`,
+      `\\(6\\)`,
+      `\\(8\\)`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 72,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(\\dfrac{dx(t)}{dt}+3x(t)=5\\) 의 라플라스 변환 \\(X(s)\\) 는? (단, \\(x(0^{+})=0\\) 이다.)`,
+    o: [
+      `\\(\\dfrac{5}{x+3}\\)`,
+      `\\(\\dfrac{3x}{s+5}\\)`,
+      `\\(\\dfrac{3}{s(s+5)}\\)`,
+      `\\(\\dfrac{5}{s(s+3)}\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 73,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(RLC\\) 병렬 공진회로에 관한 설명 중 틀린 것은?`,
+    o: [
+      `\\(R\\) 의 비중이 작을수록 \\(Q\\) 가 높다.`,
+      `공진 시 입력 어드미턴스는 매우 작아진다.`,
+      `공진 주파수 이하에서의 입력전류는 전압보다 위상이 뒤진다.`,
+      `공진 시 \\(L\\) 또는 \\(C\\) 에 흐르는 전류는 입력전류 크기의 \\(Q\\) 배가 된다.`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 74,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 좌표법에서 사용되는 용어 중 각상에 공통인 성분을 표시하는 것은?`,
+    o: [
+      `영상분`,
+      `정상분`,
+      `역상분`,
+      `공통분`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 75,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>그림과 같은 \\(\\pi\\) 형 \\(4\\) 단자 회로의 어드미턴스 상수 중 \\(Y_{22}\\) 는 몇 \\([\\mho]\\) 인가? 자료 확대<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARAAAACNCAYAAAB/hSU8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABavSURBVHhe7d0JnE3l/wfwb0n2n6wRUyhk37L8LdmSENEL6YVKRZbXyxKTpRDGvpMSsicR2UUh+5p9i0hCqez7Nud/P888x1xjxtx7zDn33Duf9+t1XjPPc8a4c+/zfM+znfM8YngIEZEFj+qvRER+YwAhIssYQIjIMgYQIrKMAYSILGMAISLLGECIyDIGECKyjAvJEqGKFSvKiRMnpHHjxirdrFkzyZkzp/reH1OnTpXffvtNTp06JZMnT5YFCxZIzZo19VlKDBhAQsiUKVMkefLkUrJkSZk1a5bKa9KkiWTPnl19b6pQoYIkTZpUVq5cqXOiVKtWTdasWaNTIkuXLpUqVarIwIEDpUePHiovLCxMli9fLrly5VJp2Lx5s5QpU0YWL17MAJLIsAsTIo4ePSoTJ06UEiVKyDPPPCNt27aV/PnzS/Xq1eXkyZP6p+KGwBEeHi7nzp27e6xbt07Wr18vhQsXvpu3e/dumT59uv5XlNgxgISIgwcPqsp+9uxZSZIkiaRMmVKSJUsm+/fvl2PHjumfiltkZKRqleDfmQfy4sonAgaQEIFWR5s2bSRz5sw6h8h+DCAhokCBAjJy5EjJkSOHzomC8Y8sWbLoVNzKlSsn5cuXV9/PmzdPIiIipH79+mpsA7+zT58+MmfOHHX+o48+Ul+JGEBC0PHjx2Xs2LGya9cu6dSpkzz77LP6TNzQTcExatQoNR6CIFGwYEGV99xzz0nnzp1l69atMnjwYNWNIQIGkBAzbtw4GTNmjFy4cEEyZcokuXPn1mfit2HDBtXK6N+/vzz++OM6NwrSvXv3VmMsRCYGkBDTokULNe2KFkPevHmlZcuWKqj44ubNm+orBl9jgyAS1zlKnBhAQljZsmXVGMjs2bN1DlHCYgAJEVjrEXNhGJHdGEBCxIgRI9QA58MoVaqUFCpUSMaPH69z7oWVpjVq1NApIgaQkFG5cmX9XTSsJN25c6daH+ILzK60atVKtm/fLqtWrdK5Ufbt2ydXrlyR0qVL6xwiBpCQgftbihUrJtOmTVOBAze5zZ07V7777jt1j4uvsJ5kyJAhamHaH3/8oQLJkSNHJGPGjNKwYUP9U0RReDNdiDl06JBayv6gtR8INufPn1eLxQCLyBAg/LVx40b5559/1P+JdSO8mS7xYQBJhH799Ve5fPmyTonkyZNH0qRJo1O+O3z4sFy8eFGnRC04S5s2rU5RYsAAQkSWcQyEiCxjACEiyxhAiMgyjoGEMDxBDOs37IYnn6VPn16nKDFhAAlhy5YtkwMHDqgKbhf8fszicIVq4sQAEsIQQDA9i5vq7LJp0ybV0mEASZw4BkJEljGAEJFlDCBEZBkDSCKHG+YwEIqvpqtXr6o8HLgDlyguDCCJ3Pz589UsDbalNOE+maZNm6q7eS9duqRzie7naADhA3ndB9tgYjvMbNmy6RxRjwLADncff/yxT1tCkD2Cob7YPo2L28aHDx8u+G/SpUunpvzatWsnGTJk0D8RGLjK4rVlzZpV3f4einydxq1UqZL6+vPPP6sd7vBAZmwLgfcmPpzGTVioJ2j5YUsOs74UL15c6tatq3/CZRBA7OKpoMbQoUONyMhInRPFE1AMT3TVKef9uGyZUb/e68azz+Qwxn/5pXH79m19JrT88MMPxvr163UqbviMPC0NY8eOHUb79u2NdevW6TPx27hxo7FkyRKdCn4nT5wwOncKN5Yt/cHwXGR0rjNQTzzBw9i5c6fOibJt2zbD09XUKXextQXSq1cv6d69uzz66P09pY4dO6ojEOrUelXOeyK76fsF8yWDhQfquB1aFNhVLr4WCJ46hl34u3Tpolod2JjbV2iB4IllsT1SMdhgwLhNy1Zy1PP3QMfwTvJavXrqeydgW40ZM2ZIt27ddE60Tz/9VB1uE7AAUrt2balVq5ZOOWvMqNFy7epVnRJp2aa1pLbwQB23w8bajRo18jmAoBviaU3oXN8ggGC3fuxiF+wuX7okY8d8rlMiL71cTYp6ug9OuXXrlhq0DqYAYmsXZvPmzcbChQt1Kpon0hsDBgzQKed17/axUaJIUaNA3ueNt5s2Va8nFPnahVm5ciUuIuprbEaOHGl4gpFO3SuUujD/nD5t5MudR3Vtn8uR05j97bf6jDPQlfZcdHUqGro2PXv21Cl3sXUWBtsE7N27V65du6ZzRK5fvy6jR49We7YGSu++EbJt5w5p/FZTmTx1Kvd6jQeedfr333/rVOjKlDmzTJg8Scq/+KJE9Osn9R1+iDQG86tWrSrLly/XOVGDqkuXLnXtILXt07joV2PPkh49eqjvhw0bpoKHG2Y+buitHBO7GzduqIcw45mmscGF4IUXXlALzEIduns5cuWUN95spHOchQdc44Jm1hdPy0M9KsGt22k4sg6ka9euamNmrDdA/y5Up02DEVabNm/eXA22hoWF6dxoR48eVbv1Y1q3devWOpfsVL58+bv1BV/LlCmjz7iPIwEEVqxYIZ6+nE5RoCEw4CqHwWxszYA9dCdOnKjPRsMSd6wTCQ8PV0GGnHHnzp2g2KrUsQCyYcMG1Z8jd8iVK5e6umHVKbowkydPlnfffVefjYYZlnfeeUeOHz+uNpsiZ+Bii3133M6xAIKpwtWrV6vISsHjxRdfVIX56aeflmbNmulcshvqC+oK6oybORJA8CZgUdPatWvZCgkyb7/99gN3uaOEh8CBXQNRV1Bn3MyxAGIGDiwuI6K4IYCYgcPt9cWRANKnTx9ZtGiRGl3Gxs9YcUdEsUN9qVixopq97NChg/Tr10+fcR9HHqqM9QMpUqRQ0RS3iD/22GPyyCOP6LOB49rlwQkEe+BOmzYt1lsJEgrGR5o0aSLPP/+8zgl+gS4X5gW2b9++ah3I7du3JWnSpCrPdRBAnOK25bhuXR5MgeWWchEM5dOxWRgiCj0MIERkGQMIEVnGAEJEljGAEJFlDCBEZBkDCBFZxgBCRJYxgBCRZQwgRGQZAwgRWcYAQkSWMYAQkWUMIERkGQMIEVnGAEJEljGAEJFljjzS0GTno+L++usvOXbsmE75ZsKECfL+++/rVPwyZcoU5/aP5E7Yi3nHjh065Rt/ywVg062sWbPqVMII9KMVfREyLZBZs2bJn3/+KefPn/f5QOGKLT+uY9y4cfp/o2CBTcFnz54d6+cZ1+FvuUC5Q/lLjBxtgRw6dEjy5MmjUwlr5MiR0rRpU7URsa/8fT0JcUU4d+6c2lbSlC5dOrVLnL9QcI8cOaJTImnTpmXrKBZolWJPIuyu5yt/y8XZs2fVw6vbtWuncxKGnfUloTjaAnHbmxGI1/Pjjz+qne4bN24s7733nowZM0af8c/u3bvVv8dRoUIFadu2rT7jXr///rvs3Lnz7nHhwgV9xj/Yr9f796ACJyS3lFO3Bw+wNYBg0+Y9e/ao4/Tp0zo3yt69e1U+mpihAsEBG1bjwNUIj+RH8zY2c+bMUYV/6NChKj1//nx5/fXX7zlQ4bCfTsx87GeLLSfNClSwYEH1O9wAV3x8rniNMbVv317q1aunWmA4rly5ovIREMxygsMMLOhKeOej1QUoS/j32GOoWLFismTJEpUf7FAXzL8VdceEvze2fDewNYD8+++/UrhwYalSpcp9AQQf/OjRo9XPhIK5c+eq/VewYTWOjh07yvjx4+WDDz5Qm1fHZ+HChfLmm2/ePbCdJCoSAot3fu7cue9WJLe4du2aCp4IhgiYCHolS5aUX375Rf9EtCeeeOJuIHzqqadU8GjYsOE9x4cffqjes88///yefAQgKFWqlPr3L7/8skqHilOnTqn6Uq1aNTlz5ozOjQogyB87dqzr6outAaRAgQJqA6lWrVqpN8CENwc7wX/xxRdSqFAhnWs/VDz0K3Fgsx6Tme+d54+LFy+qwu29ez02o06TJo0sXbpUtSTikz17dmnQoMHdo2zZsio/W7Zs9+Rjdz+3QYvrk08+UQEO3alatWqpzZEwMxYfBMnOnTvLgQMH7h5hYWGqBYP3xDsfMx12QAXF5+89pgTIj5lnJ9QXQHc0X7586nvIkiWLtGzZUnV3zZ9xi4DMwnz99dcqeCRJkkTnOAPNP1y1MP6A5rEJI+hoKdy8eVPn+GfFihU+VZYHwWCq6fLly6p5/vjjj6tCjMpktmJSpkwpyZIlU9+7AV4bPk9019CiAFws0KIqWrSoSluBndhSpUqlU/bavn275M2bV4YPH65zomDAfMiQIToVGP/995/MnDlT1Rc3cjyAoEnepk0bW7dbjAsGpZYtW6a2fDxx4oTOFdXy6NKli6qcVqBf/+2330rmzJl1TlQQwFW4dOnSPq0PMEfwf/rpJ1WQsQVo/vz5VcFBIEFB3r9/v1StWtXRVlt80E2LLXhWrlxZtSDig58pUaKE+h4BfuLEiaqbhs8K3aBhw4bJyZMn1fm6deuqrwkN40nYixatRhO6VgiOZrcpEDBB+tlnn7l6gNzRWoymPpqnTrc8vOFKg316R4wYodILFixQ+7pWr15dpa1Cn/x///ufTkX9XgyKderUSU2x+mLVqlUyYMAAFWC9p6NRsBFQunXr5vdiObvt2rVLfUULCeMfeP3ozsQc84oL/k50/fbt26emWhF40EIEBORmzZqpCrR58+aHatE8CFo6mBkzywR2xx80aJCMGjVKlZdAQPCYOnWqbUEzoTgaQHC1sqsQ+KN27drqK2YBvv/+e9VKSEi4kmLsY/LkyVK/fn2dGz+0QlB54lrLggrqPbjmJhjwRIXLkCGDKvyYGVq/fr0++2BoqSE4tm7dWnLmzKlzo6BrFxERoX63nRDo0YVdvXq1TJo0SW0A7z0O4RRcXGvUqKHWC6Fr7F1fLl26pAZa3cTWAILReHOd2uLFi6VDhw53uy74oPChWR24fBhoMmPm4K233lJXzITsa6MVgS7Gq6++qmYO/GU254MJKhsGQgcPHizNmzdXgRADf74urMIAKaZl8Z7FBeMUdsLrRSty5cqVqpuNhYlOQ31B/cDCQlx40AKByMhICQ8Pl4MHD6rXhgFVt7A1gHhP4+E+Eu9xD/Q5caXFmxMI+HAQQJ588kmd8/DQjMdVFE3hN954Q+eGvuLFi8tLL72kU1FdD+8ZqWCC8af+/fvrlLO2bdumLrgY70IXyoSghu4xxoQw2P/ll1/qM4HnSBcGswaYu3cLzMBgYDIhuy5o/mLACwUQ05kmBFFfxwPwPnnPDsWEK30gx49CGS5kuADgohbIhXlokWOtDMZkTFhHZa55Qflw07iI7QEEfzj6t26CbgsG59BsTSi4FwJX3ldeeUXnRPXtMXfv68Kv7t27q/t5Yls3giY8ujduGEPyhv46PExXFLNUaKFu3bpV59wLFdvuRWMY8EartGvXrjonMNCNwyJEb2i542KHIFezZk01bucWtgYQXDFRKbCYzC02bNigplix2i82qAhoTZhffYVm75o1a1Rf1TwwvYuxFl9H8uvUqSOvvfaaOjDbcvXqVXVgpgMFGwu23AbjHAicGOMyoaBjJiOu9zgmBI9GjRqpwe2Yq1cx3Y6VqXb3+5cvX64W/sXVKjXLBC4KdkmePLmabYsNujZY7du3b19bX4O/bA0geDPiWzn5MFcuK1BAUSnLlSunc+6FmSLcpzJlyhS1gtZXGBDG8nPMQpgH/nZUjNigQOLKGrMwoO+LG+XQ78XMA47Dhw+r9SveLSazyY0jUONIJvTJ0X1DawuvBy08DPjhRj9ftWjRQq15wd9p3k+EAzNZ+L12zoigcq5du1ZSp04dawsP5zE1vXHjRnVRsAsW45UpU0anopnBA4P9WKHcq1cvfcYFPC8uYDxXKKNChQqGpxLpHOtGjBhhnDlzRqfut2nTJsPTGjI8VxkjSZIkhueqZly8eFGfjbJlyxajUqVKxoULF4xx48YZ06dP12eieD5g/Z11s2bNUv+/eTRo0ECf8c/ChQvv+T21atXSZwLnm2++MSIiIoyvvvpK59zL08IyihQpoj5vHJ7Ap8/4Z+bMmYanW2x4WiWY4jM83Ud95n6e7qAxadIknbrfvHnzjPbt26v3MG3atIYngOsz0WbMmGF4AqRO3Q/lDuXPLp6LrFG5cmVVfj2BTL1Wt3D0eSB2svI8kJjQ+vAEEdVcxoImLG7CwjdTMDwhys2wJBv3nJgwzY1FfP5CCxGfjQmDit73Wnmz8jyQmNAdxWvFLEhs7HoeSDBI4qkQIVEjsFLRc3VTq0ytQizFjAmWZqPvjeXU3gUcBdHTQtEp8hdmNzB9bx4ZM2bUZ/yDJf7ev+dBU/EYwEYQeZjBZ3Q30cXBrQ64uTEmjHOh2xlb9yPUOTKNGywwdYa+Lu5/QEsEg5lEuLsYM4nBuMjPbgwgMXj6l2raDDNIbpo9osBBOUB58F4ISVEcfUd8vTeCiIKjvoTMtg4YRMXNRv7cko/7VjBY6ivcem7l/hYKHIx/YA1NXAOgsfG3XGAaHSut8ViAhGRnfUkoIRNAsP4Ag1n+wHoFPAfEV7gfgc3Y4ILKjcdI+MPfcoEujq+PbPBHMASQkKkNuI8E9xD4c2DlX2z5cR0MHsEHn1lsn+WDDn/LhR3BI1iwRhCRZQwgRGQZAwgRWcYAQkSWMYAQkWUMIERkGQMIEVnGAEJEljGAEJFlDCBEZBkDCBFZxgBCRJYxgBCRZQwgRGQZAwgRWcYAQkSWMYAQkWW2BxA8X/LkyZM6JWrPFQefokgUVLDVKzbgMqGuoM64le0BBA+nrVq1qgwbNkztgI7vnd4PlyhYYPuIPXv2qD14UV+GDh0qEyZM0Gfdx5EuDHYF69ixo9qEGbuKYe8VIopdgwYNZN68eaq+dO7cWerXr6/PuI8jAQS7rJubNHXv3p0PJyZ6AOzzixYIYBuRfPnyqe/dyJGajFYHoijelEKFCulcIooNLrDYYtX86maONQUQOAoUKMDWB5EPUF9QV1Bn3Myx2lynTh3uNUvkI4wT1q5dW6fcy7EAUqRIEbY+iHyEuoKxELdzpEafOnVKevbsKdu2bVOjy1wHQhQ3bMWJeoL6gq0tseezW9keQBYtWiTz589XAQTfh4WFycKFCwMeRM6ePYtVOnL58mWdQyRR5cFTLlT5CIALFy6o6VvUE9QXzGAifeXKFf0TLuOpyLZZvHixsWnTJp2KtmXLFmPBggU65bw1q1cbBfI+bzz7TA6j04cfGnfu3NFnKDFDOUB5QLlA+diyebM+44ybN28avXv31qloeF2elohOuYutu/P36tUrznUfWKFaoUIFnXLWnFmz5cb16zolUq9BfUmRIoVOUWJ17do1+X72dzolUrJ0acmdN49O2c8TKCRVqlTSrVs3nRPNtTv1qzBik379+hlXr17VqWjXr183+vbtq1POK1fm/9RVxjxO//23PkOJGcqBd7n4eto0fcYZqBcRERE6FS0yMtLo2bOnTrmLrWMgXbt2lYEDB9433jFo0CAJDw/XKeeNmzBe0qdPL8mTJ5cXSpaUVKlT6zOUmKEcoDygXKB8FC1WTJ9xRrJkyVRduXXrls6JcuPGDXXOjWztwsC6detk+fLlqlmGdSD9+/dX3ZeKFSvqnyAiE7oxnta5lC9fXsqVKyerV6+WLVu2uHZFqu0BxOTpzqjoilYJ14MQPRgeg7FhwwZ1oUUwcSvHAggRhR42BYjIMgYQIrKMAYSILGMAISLLGECIyDIGECKyjAGEiCxjACEiyxhAiMgyBhAiskjk/wGw8AR7YMNgXwAAAABJRU5ErkJggg==" style="max-width:100%;border-radius:8px;margin-top:10px;display:block;">`,
+    o: [
+      `\\(5\\)`,
+      `\\(6\\)`,
+      `\\(9\\)`,
+      `\\(11\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 76,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>\\(\\large e^{\\ j\\tfrac{2}{3}\\pi}\\) 와 같은 것은?`,
+    o: [
+      `\\(\\dfrac{1}{2}-j\\dfrac{\\sqrt3}{2}\\)`,
+      `\\(-\\dfrac{1}{2}-j\\dfrac{\\sqrt3}{2}\\)`,
+      `\\(-\\dfrac{1}{2}+j\\dfrac{\\sqrt3}{2}\\)`,
+      `\\(\\cos\\dfrac{2}{3}\\pi+\\sin\\dfrac{2}{3}\\pi\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 77,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>대칭 \\(5\\) 상 회로의 선간전압과 상전압의 위상차는?`,
+    o: [
+      `\\(27^{\\circ}\\)`,
+      `\\(36^{\\circ}\\)`,
+      `\\(54^{\\circ}\\)`,
+      `\\(72^{\\circ}\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 78,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>어떤 제어계의 출력이 \\(C(s)=\\dfrac{5}{s(s^{2}+s+2)}\\) 로 주어질 때 출력의 시간함수 \\(c(t)\\) 의 최종값은?`,
+    o: [
+      `\\(5\\)`,
+      `\\(2\\)`,
+      `\\(\\dfrac{2}{5}\\)`,
+      `\\(\\dfrac{5}{2}\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 79,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>전원이 \\(\\rm Y\\) 결선, 부하가 \\(\\Delta\\) 결선된 \\(3\\) 상 대칭회로가 있다. 전원의 상전압이 \\(220\\rm[V]\\) 이고 전원의 상전류가 \\(10\\rm[A]\\) 일 경우, 부하 한 상의 임피던스 \\([\\Omega]\\) 는?`,
+    o: [
+      `\\(22\\sqrt3\\)`,
+      `\\(22\\)`,
+      `\\(\\dfrac{22}{3}\\)`,
+      `\\(66\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 80,
+    subject: "회로이론",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[회로이론]</span><br>어떤 계에 임펄스 함수( \\(\\delta\\) 함수)가 입력으로 가해졌을 때 시간함수 \\(e^{-2t}\\) 가 출력으로 나타났다. 이 계의 전달함수는?`,
+    o: [
+      `\\(\\dfrac{1}{s+2}\\)`,
+      `\\(\\dfrac{1}{s-2}\\)`,
+      `\\(\\dfrac{2}{s+2}\\)`,
+      `\\(\\dfrac{2}{s-2}\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 81,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>풀용 수중조명등에 전기를 공급하기 위하여 \\(1\\) 차측 \\(120\\rm[V]\\) , \\(2\\) 차측 \\(30\\rm[V]\\) 의 절연변압기를 사용하였다. 절연변압기 \\(2\\) 차측 전로의 접지에 대한 설명으로 옳은 것은?`,
+    o: [
+      `접지를 하지 않는다.`,
+      `등전위본딩 접지를 한다.`,
+      `보호접지를 한다.`,
+      `겸용도체로 공통접지를 한다.`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 82,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>전격살충기의 시설방법으로 틀린 것은?`,
+    o: [
+      `전격격자와 식물과의 이격거리는 \\(30\\rm[cm]\\) 이상일 것`,
+      `전용개폐기를 가까운 곳에 쉽게 개폐할 수 있게 시설한다.`,
+      `전격격자가 지표상 \\(3.5\\rm[m]\\) 이상의 높이가 되도록 시설한다.`,
+      `전격격자와 다른 시설물 사이의 이격거리는 \\(50\\rm[cm]\\) 이상으로 한다.`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 83,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>고압 보안공사 시에 지지물로 \\(\\rm A\\) 종 철근콘크리트주를 사용할 경우 경간은 몇 \\(\\rm[m]\\) 이하이어야 하는가?`,
+    o: [
+      `50`,
+      `100`,
+      `150`,
+      `400`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 84,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>폭연성 분진 또는 화약류의 분말이 전기설비가 발화원이 되어 폭발할 우려가 있는 곳에 시설하는 저압 옥내배선의 공사방법으로 옳은 것은?`,
+    o: [
+      `금속관공사`,
+      `애자공사`,
+      `합성수지관공사`,
+      `캡타이어케이블공사`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 85,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>농사용 저압 가공전선로의 시설에 대한 설명으로 틀린 것은?`,
+    o: [
+      `전선로의 경간은 \\(30\\rm[m]\\) 이하일 것`,
+      `목주의 굵기는 말구 지름이 \\(9\\rm[cm]\\) 이상일 것`,
+      `저압 가공전선의 지표상 높이는 \\(5\\rm[m]\\) 이상일 것`,
+      `저압 가공전선은 지름 \\(2\\rm[mm]\\) 이상의 경동선일 것`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 86,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>수소 냉각식 발전기·조상기 또는 이에 부속하는 수소 냉각 장치의 시설 방법으로 틀린 것은?`,
+    o: [
+      `발전기안 또는 조상기안의 수소의 순도가 \\(70[\\%]\\) 이하로 저하한 경우에 경보장치를 시설할 것`,
+      `발전기 또는 조상기는 기밀구조의 것이고 또한 수소가 대기압에서 폭발하는 경우 생기는 압력에 견디는 강도를 가지는 것일 것`,
+      `발전기 안 또는 조상기 안의 수소의 압력을 계측하는 장치 및 그 압력이 현저히 변동할 경우에 이를 경보하는 장치를 시설할 것`,
+      `발전기축의 밀봉부에는 질소 가스를 봉입할 수 있는 장치와 누설할 수소가스를 안전하게 외부에 방출할 수 있는 장치를 설치할 것`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 87,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>\\(154\\rm[kV]\\) 가공전선을 사람이 쉽게 들어갈 수 없는 산지(山地)에 시설하는 경우 전선의 지표상 높이는 몇 \\(\\rm[m]\\) 이상으로 하여야 하는가?`,
+    o: [
+      `\\(5.0\\)`,
+      `\\(5.5\\)`,
+      `\\(6.0\\)`,
+      `\\(6.5\\)`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 88,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>가공전선로의 지지물에 취급자가 오르고 내리는 데 사용하는 발판 볼트 등은 지표상 몇 \\(\\rm[m]\\) 미만에 시설하여서는 아니 되는가?`,
+    o: [
+      `1.2`,
+      `1.5`,
+      `1.8`,
+      `2.0`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 89,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>\\(154\\rm[kV]\\) 가공전선로를 제 \\(1\\) 종 특고압 보안공사에 의하여 시설하는 경우 사용전선의 단면적은 몇 \\(\\rm[mm^{2}]\\) 이상의 경동연선이어야 하는가?`,
+    o: [
+      `\\(35\\)`,
+      `\\(50\\)`,
+      `\\(95\\)`,
+      `\\(150\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 90,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>조상기의 보호장치로서 내부 고장 시에 자동적으로 전로로부터 차단되는 장치를 설치하여야 하는 조상기 용량은 몇 \\(\\rm[kVA]\\) 이상인가?`,
+    o: [
+      `5,000`,
+      `1,500`,
+      `10,000`,
+      `15,000`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 91,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>전력계통의 운용에 관한 지시 및 급전조작을 하는 곳은?`,
+    o: [
+      `급전소`,
+      `개폐소`,
+      `변전소`,
+      `발전소`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 92,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>인가가 많이 연접되어 있는 장소에 시설하는 가공전선로의 구성재에 병종풍압하중을 적용할 수 없는 경우는?`,
+    o: [
+      `저압 또는 고압 가공전선로의 지지물`,
+      `저압 또는 고압 가공전선로의 가섭선`,
+      `사용전압이 \\(35\\rm[kV]\\) 이상의 전선에 특고압 가공전선로에 사용하는 케이블 및 지지물`,
+      `사용전압이 \\(35\\rm[kV]\\) 이하의 전선에 특고압 절연전선을 사용하는 특고압 가공전선로의 지지물`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 93,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>지선 시설에 관한 설명으로 틀린 것은?`,
+    o: [
+      `지선의 안전율은 2.5 이상이어야 한다.`,
+      `철탑은 지선을 사용하여 그 강도를 분담시켜야 한다.`,
+      `지선에 연선을 사용할 경우 소선 3가닥 이상의 연선이어야 한다.`,
+      `지선근가는 지선의 인장하중에 충분히 견디도록 시설하여야 한다.`
+    ],
+    ans: 2,
+    e: ``
+  },
+
+  {
+    n: 94,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>그룹 \\(2\\) 의 의료장소에 상용전원 공급이 중단될 경우 \\(15\\) 초 이내에 최소 몇 \\([\\%]\\) 의 조명에 비상전원을 공급하여야 하는가?`,
+    o: [
+      `\\(30\\)`,
+      `\\(40\\)`,
+      `\\(50\\)`,
+      `\\(60\\)`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 95,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>사용전압이 \\(22.9\\rm[kV]\\) 인 가공전선과 지지물 사이의 이격거리는 몇 \\(\\rm[cm]\\) 이상이어야 하는가?`,
+    o: [
+      `\\(5\\)`,
+      `\\(10\\)`,
+      `\\(15\\)`,
+      `\\(20\\)`
+    ],
+    ans: 4,
+    e: ``
+  },
+
+  {
+    n: 96,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>전선을 접속하는 경우 전선의 세기(인장하중)는 몇 \\([\\%]\\) 이상 감소되지 않아야 하는가?`,
+    o: [
+      `10`,
+      `15`,
+      `20`,
+      `25`
+    ],
+    ans: 3,
+    e: ``
+  },
+
+  {
+    n: 97,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>횡단보도교 위에 시설하는 경우 그 노면상 전력보안 가공통신선의 높이는 몇 \\(\\rm[m]\\) 이상인가?`,
+    o: [
+      `3`,
+      `4`,
+      `5`,
+      `6`
+    ],
+    ans: 1,
+    e: ``
+  },
+
+  {
+    n: 98,
+    subject: "전기설비기술기준",
+    q: `<span style="color:var(--tx3);font-size:.7rem;font-weight:700;">[전기설비기술기준]</span><br>금속몰드 배선공사에 대한 설명으로 틀린 것은?`,
+    o: [
+      `전선은 옥외용 비닐절연전선을 사용할 것`,
+      `금속몰드 안에는 전선에 접속점이 없도록 할 것`,
+      `황동제 또는 동제의 몰드는 폭이 \\(5\\rm[cm]\\) 이하, 두께 \\(0.5\\rm[mm]\\) 이상인 것일 것`,
+      `금속몰드의 사용전압이 \\(400\\rm[V]\\) 이하로 옥내의 건조한 장소로 전개된 장소 또는 점검할 수 있는 은폐장소에 한하여 시설할 수 있다.`
+    ],
+    ans: 1,
+    e: ``
+  }
+
+
+];
+
+/* ── 과목별 몰아풀기 / 학습모드 지원 (?subject=, ?mode=study) ── */
+const __params = new URLSearchParams(location.search);
+const SUBJECT_FILTER = __params.get('subject') || null;
+const STUDY_MODE = __params.get('mode') === 'study';
+if (SUBJECT_FILTER) { QS = QS.filter(q => q.subject === SUBJECT_FILTER); }
+window.addEventListener('DOMContentLoaded', () => {
+  const hd = document.querySelector('.hd-title');
+  if (hd && SUBJECT_FILTER) hd.textContent = hd.textContent + ' · ' + SUBJECT_FILTER + '만';
+  if (hd && STUDY_MODE) hd.textContent = hd.textContent + ' [학습모드]';
+});
+
+
+
+/* ══════════════════════════════════════════════════
+   주관식 문제 데이터  (SQS 배열)
+   ──────────────────────────────────────────────────
+   A형(빈칸): { type:'fill', id:'sqA1', title, sub, sent }
+   B형(공식): { type:'formula', id:'sqB1', title, hint, ans }
+   ══════════════════════════════════════════════════ */
+const SQS = [
+
+  /* ─────────── 여기에 주관식 추가 ─────────── */
+
+  /* 예시 (참고용 — 실제 사용 시 위에 새로 추가할 것)
+  {
+    type: 'fill',
+    id: 'sqA1',
+    title: '직류발전기의 종류 — 접속 방식',
+    sub: '빈칸에 알맞은 말을 입력하고 채점하기를 눌러보세요',
+    sent: `
+      ⊙ <strong style="color:var(--ac)">분권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="병렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">직권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="직렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">복권기</strong> : 직권계자권선과 분권계자권선이 전기자와
+      <input class="sq-inp" data-ans="직·병렬" placeholder="　　　"> 로 접속된 것이다.
+    `
+  },
+  {
+    type: 'formula',
+    id: 'sqB1',
+    title: '직류발전기 유기기전력 공식',
+    hint: 'E = ?',
+    ans: `
+      <div class="fb0" style="border-color:var(--ac2);text-align:center;">
+        <div class="fl">\\( E = \\dfrac{PZ\\phi N}{60a} \\;[\\text{V}] \\)</div>
+      </div>
+      <div style="margin-top:10px;line-height:2.0;font-size:.83rem;">
+        · <strong>P</strong> : 극수<br>
+        · <strong>Z</strong> : 총 도체수<br>
+        · <strong>φ</strong> : 1극당 자속 [Wb]<br>
+        · <strong>N</strong> : 회전수 [rpm]<br>
+        · <strong>a</strong> : 병렬 회로수
+      </div>
+    `
+  },
+  */
+
+];
+
+
+/* ═══════════════════════════════════════════════════
+   엔진 — 수정 불필요
+   ═══════════════════════════════════════════════════ */
+
+/* ── 상수 ── */
+const N = ['①','②','③','④'];
+const KATEX_OPTS = {
+  delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+  throwOnError:false
+};
+const STORE_KEY = 'egki_' + document.title.replace(/\s/g,'_');
+
+/* ── 상태 변수 ── */
+let wrongSet    = new Set();
+let okSet       = new Set();
+let bookmarkSet = new Set();
+let shufMap     = {};
+let selectedMap = {};
+let attemptMap  = {};  /* attemptMap[n] = {try, ok} */
+let randMode    = false;
+let randedOrder = null;  /* 섞인 문제 순서 저장 */
+let shufMode    = false;
+let bmMode      = false;
+let viewMode    = 'all';
+let weakPctActive = null;
+let lastSeenN   = null;
+
+function shuf(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+/* 시도 비율 → CSS 클래스 */
+function atCls(at){
+  if(!at||at.try===0) return 'tg-at-none';
+  const r=at.ok/at.try;
+  if(r<0.2)  return 'tg-at-zero';
+  if(r<0.5)  return 'tg-at-low';
+  if(r<0.8)  return 'tg-at-mid';
+  return 'tg-at-full';
+}
+function atHtml(at){
+  const cls=atCls(at);
+  const txt=at?`${at.ok}/${at.try}`:'-/-';
+  return `<span class="tg tg-at ${cls}">${txt}</span>`;
+}
+
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      wrongSet:[...wrongSet],
+      okSet:[...okSet],
+      selectedMap,
+      attemptMap,
+      bookmarkSet:[...bookmarkSet],
+      lastN: lastSeenN
+    }));
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    const validNs=new Set(QS.filter(q=>q.n!=null).map(q=>q.n));
+    wrongSet   = new Set((s.wrongSet||[]).filter(n=>validNs.has(n)));
+    okSet      = new Set((s.okSet||[]).filter(n=>validNs.has(n)));
+    bookmarkSet= new Set((s.bookmarkSet||[]).filter(n=>validNs.has(n)));
+    selectedMap= Object.fromEntries(Object.entries(s.selectedMap||{}).filter(([k])=>validNs.has(parseInt(k))));
+    const am=s.attemptMap||{};
+    Object.keys(am).filter(k=>validNs.has(parseInt(k))).forEach(k=>{ attemptMap[parseInt(k)]=am[k]; });
+    lastSeenN  = validNs.has(s.lastN)?s.lastN:null;
+  }catch(e){}
+}
+
+/* 통계 업데이트 */
+function upStat(){
+  const done=okSet.size+wrongSet.size;
+  document.getElementById('st-done').textContent=done;
+  document.getElementById('st-total').textContent=QS.length;
+}
+
+/* 전체 렌더 (DOM 재구성) */
+function render(){
+  let qs = randedOrder
+    ? randedOrder.map(n=>QS.find(q=>q.n===n)).filter(Boolean)
+    : QS.filter(q=>q.n!=null);
+  document.getElementById('main').innerHTML=qs.map(mkCard).join('');
+  renderMathInElement(document.getElementById('main'),KATEX_OPTS);
+  if(viewMode!=='all') applyViewFilter(viewMode, weakPctActive);
+  upStat();
+}
+
+/* ── 뷰 필터 ── */
+
+/* 순수 DOM show/hide — alert 없음, render()에서 내부 호출용 */
+function applyViewFilter(mode, weakPct){
+  document.querySelectorAll('.card').forEach(c=>{
+    const n=parseInt(c.dataset.n);
+    let show=true;
+    if(mode==='ok')   show=okSet.has(n);
+    if(mode==='ng')   show=wrongSet.has(n);
+    if(mode==='bm')   show=bookmarkSet.has(n);
+    if(mode==='weak'){
+      const at=attemptMap[n];
+      show=!!at&&at.try>0&&(at.ok/at.try*100)<=weakPct;
+    }
+    c.style.display=show?'':'none';
+  });
+  /* 오답 뷰: 카드를 초기화해 다시 풀 수 있게 */
+  if(mode==='ng'){
+    wrongSet.forEach(n=>{
+      const card=document.getElementById('q'+n);
+      if(!card) return;
+      card.querySelectorAll('.opt').forEach(o=>o.className='opt');
+      const res=document.getElementById(`q${n}_res`);
+      if(res) res.classList.remove('show');
+      card.className='card answered-ng';
+      const cn=card.querySelector('.cn');
+      if(cn) cn.className='cn ng';
+    });
+  }
+}
+
+/* 버튼 강조 업데이트 */
+function updateViewBtns(mode, weakPct){
+  ['btnAll','btnNg','btnWeak'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  if(mode==='all')        document.getElementById('btnAll').classList.add('on');
+  else if(mode==='ng')    document.getElementById('btnNg').classList.add('on');
+  else if(mode==='weak'){
+    document.getElementById('btnWeak').classList.add('on');
+    document.querySelector('#btnWeak .lbl').textContent=`≤${weakPct}%`;
+  }
+}
+
+/* 사용자 클릭 진입점 — 검증 + 상태 저장 + 필터 적용 */
+function setView(mode, weakPct){
+  document.getElementById('weakMenu').classList.remove('open');
+  /* 빈 상태 경고 */
+  if(mode==='ok'   && okSet.size===0)   {alert('아직 맞힌 문제가 없어요!');return;}
+  if(mode==='ng'   && wrongSet.size===0){alert('아직 틀린 문제가 없어요!');return;}
+  if(mode==='weak'){
+    const has=QS.some(q=>{const at=attemptMap[q.n];return at&&at.try>0&&(at.ok/at.try*100)<=weakPct;});
+    if(!has){alert(`정확률 ${weakPct}% 이하인 문제가 없어요! 먼저 풀어보세요 😊`);return;}
+  }
+  viewMode=mode;
+  weakPctActive=(mode==='weak')?weakPct:null;
+  updateViewBtns(mode, weakPct);
+  applyViewFilter(mode, weakPct);
+}
+
+/* 자주틀림 드롭다운 */
+function toggleWeakMenu(){
+  document.getElementById('weakMenu').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.weak-wrap')) document.getElementById('weakMenu').classList.remove('open');
+});
+
+/* ── 카드 생성 ── */
+function mkCard(q){
+  const id='q'+q.n;
+  const isOk=okSet.has(q.n),isNg=wrongSet.has(q.n);
+  const answered=STUDY_MODE||isOk||isNg;
+  const tags=``;
+  const at=attemptMap[q.n];
+  const atTag=atHtml(at);
+
+  let opts=[...q.o],dispAns=q.ans;
+  if(shufMode){
+    if(!shufMap[id]){const sh=shuf([0,1,2,3]);shufMap[id]={order:sh,newAns:sh.indexOf(q.ans-1)+1};}
+    opts=shufMap[id].order.map(i=>q.o[i]);dispAns=shufMap[id].newAns;
+  }
+
+  const savedSel=selectedMap[q.n]?.sel??null;
+
+  const optHtml=opts.map((o,i)=>{
+    const pos=i+1;
+    let cls='opt';
+    if(answered){
+      cls+=' lk';
+      if(pos===dispAns) cls+=' cor';
+      if(savedSel!==null && pos===savedSel && savedSel!==dispAns) cls+=' wrg';
+    }
+    return `<div class="${cls}" id="${id}_p${pos}" onclick="sel('${id}',${pos},${dispAns})">
+      <span class="on">${N[i]}</span><span>${o}</span>
+    </div>`;
+  }).join('');
+
+  const resShow=answered?'show':'';
+  const aeHtml=q.ae?`
+    <div class="expl ae-expl">
+      <div class="ae-label">✦ 추가 해설 (AI)</div>
+      ${q.ae}
+    </div>`:'';
+
+  const cnCls=isOk?'cn ok':isNg?'cn ng':'cn';
+  const cardCls=`card${isOk?' answered-ok':isNg?' answered-ng':''}`;
+  const bmCls=bookmarkSet.has(q.n)?'bm-icon on':'bm-icon';
+  return `<div class="${cardCls}" id="${id}" data-n="${q.n}">
+  <div class="ch">
+    <div class="${cnCls}">${q.n}</div>
+    <div class="ct">
+      <div class="tags">${tags}${atTag}</div>
+      <div class="qt">${q.q}</div>
+    </div>
+    <button class="${bmCls}" onclick="toggleBM(event,${q.n})" title="북마크">⭐</button>
+  </div>
+  <div class="opts" id="${id}_opts">${optHtml}</div>
+  <div class="res-bar ${resShow}" id="${id}_res">
+    <div class="ansbar">
+      <span class="albl">정답</span>
+      <span class="aval">${N[dispAns-1]} ${opts[dispAns-1]}</span>
+      <button class="rtbtn" onclick="reset('${id}')">↺ 다시풀기</button>
+    </div>
+    <div class="expl">${q.e}</div>
+    ${aeHtml}
+  </div>
+</div>`;
+}
+
+/* 보기 선택 */
+function sel(id,n,dispAns){
+  const os=document.querySelectorAll(`#${id}_opts .opt`);
+  if(os[0].classList.contains('lk'))return;
+  os.forEach(o=>o.classList.add('lk'));
+  const qn=parseInt(id.replace('q',''));
+  const isCorrect=n===dispAns;
+
+  /* 마지막 푼 문제 기록 */
+  lastSeenN=qn;
+
+  /* 시도 기록 */
+  if(!attemptMap[qn]) attemptMap[qn]={try:0,ok:0};
+  attemptMap[qn].try++;
+  if(isCorrect) attemptMap[qn].ok++;
+  /* 카드 상단 시도 표시 갱신 */
+  const atEl=document.querySelector(`#q${qn} .tg-at`);
+  if(atEl){
+    const at=attemptMap[qn];
+    atEl.textContent=`${at.ok}/${at.try}`;
+    atEl.className=`tg tg-at ${atCls(at)}`;
+  }
+
+  /* 선택 저장 */
+  selectedMap[qn]={sel:n,dispAns};
+
+  if(isCorrect){
+    document.getElementById(`${id}_p${n}`).classList.add('cor');
+    okSet.add(qn);wrongSet.delete(qn);
+    document.getElementById(id).className='card answered-ok';
+    document.querySelector(`#${id} .cn`).className='cn ok';
+  } else {
+    document.getElementById(`${id}_p${n}`).classList.add('wrg');
+    document.getElementById(`${id}_p${dispAns}`).classList.add('cor');
+    wrongSet.add(qn);okSet.delete(qn);
+    document.getElementById(id).className='card answered-ng';
+    document.querySelector(`#${id} .cn`).className='cn ng';
+  }
+
+  const res=document.getElementById(`${id}_res`);
+  res.classList.add('show');
+  renderMathInElement(res, KATEX_OPTS);
+
+  upStat();
+  saveState();
+}
+
+function reset(id){
+  const n=parseInt(id.replace('q',''));
+  /* 상태 초기화 */
+  wrongSet.delete(n); okSet.delete(n); delete selectedMap[n];
+  if(shufMode) delete shufMap[id];
+  /* DOM 초기화 */
+  document.querySelectorAll(`#${id}_opts .opt`).forEach(o=>o.className='opt');
+  document.getElementById(`${id}_res`).classList.remove('show');
+  document.getElementById(id).className='card';
+  document.querySelector(`#${id} .cn`).className='cn';
+  document.getElementById(id).style.display='';
+  upStat();
+  saveState();
+  /* 오답 뷰에서 오답이 0개가 되면 전체 뷰로 전환 */
+  if(viewMode==='ng' && wrongSet.size===0) setView('all');
+}
+
+function resetAll(){
+  wrongSet.clear(); okSet.clear();
+  shufMap={}; selectedMap={}; randedOrder=null; shufMode=false;
+  /* attemptMap·bookmarkSet 유지 */
+  viewMode='all'; weakPctActive=null; lastSeenN=null; bmMode=false;
+  /* 버튼 초기화 */
+  document.getElementById('btnBM').classList.remove('on');
+  document.querySelector('#btnWeak .lbl').textContent='자주틀림';
+  updateViewBtns('all');
+  render(); upStat(); saveState();
+}
+
+function toggleMenu(){
+  document.getElementById('menuPanel').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
+}
+
+function toggleBM(e,n){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  if(bookmarkSet.has(n)){bookmarkSet.delete(n);btn.classList.remove('on');}
+  else{bookmarkSet.add(n);btn.classList.add('on');}
+  btn.blur();
+  saveState();
+  if(viewMode==='bm') setView('bm');
+}
+
+function toggleBookmark(b){
+  bmMode=!bmMode;
+  b.classList.toggle('on', bmMode);
+  if(bmMode){
+    if(bookmarkSet.size===0){
+      alert('북마크한 문제가 없어요! 문제 옆 ★을 눌러 추가하세요.');
+      bmMode=false; b.classList.remove('on'); return;
+    }
+    viewMode='bm'; applyViewFilter('bm');
+    updateViewBtns('bm');
+  } else {
+    viewMode='all'; applyViewFilter('all');
+    updateViewBtns('all');
+  }
+}
+
+function toggleFormulaSheet(){
+  const page=document.getElementById('formulaPage');
+  const isOpen=page.classList.toggle('open');
+  /* 메인 페이지 스크롤 잠금 */
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(isOpen) renderFormulaSheet();
+}
+
+function renderFormulaSheet(){
+  const body=document.getElementById('fsBody');
+  const items=QS.filter(q=>q.formula);
+  if(!items.length){
+    body.innerHTML='<div class="fc-empty">등록된 공식이 없어요.<br>QS 데이터에 formula 필드를 추가하세요.</div>';
+    return;
+  }
+  body.innerHTML=items.map(q=>`
+    <div class="fc">
+      <div class="fc-title">Q${q.n}. ${q.q.replace(/<[^>]*>/g,'').substring(0,40)}${q.q.length>40?'…':''}</div>
+      <div class="fc-body">${q.formula}</div>
+    </div>
+  `).join('');
+  renderMathInElement(body, KATEX_OPTS);
+}
+
+/* 순서섞기 — 섞인 순서를 유지 */
+function doRand(){
+  randedOrder = shuf(QS.filter(q=>q.n!=null).map(q=>q.n));
+  render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+/* 보기섞기 — 순서는 그대로, 보기 배치만 새로 섞기 */
+function doShuf(){
+  shufMap={}; shufMode=true; render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+
+/* ── 주관식 렌더 ── */
+function renderSQ(){
+  const wrap=document.getElementById('sq-wrap');
+  if(!SQS.length){wrap.style.display='none';return;}
+  wrap.innerHTML=`<div class="sq-divider"><span>📝 주관식</span></div>`+SQS.map(s=>{
+    if(s.type==='fill'){
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">${s.sub||'빈칸을 채워보세요'}</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-sent">${s.sent}</div>
+    <div class="sq-btns">
+      <button class="sq-btn-check" onclick="sqCheck('${s.id}')">✓ 채점하기</button>
+      <button class="sq-btn-sub" onclick="sqShowAll('${s.id}')">정답 보기</button>
+      <button class="sq-btn-sub" onclick="sqReset('${s.id}')">↺ 다시풀기</button>
+    </div>
+    <div class="sq-score" id="${s.id}_score"></div>
+  </div>
+</div>`;
+    } else {
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">공식을 떠올린 후 정답을 확인하세요</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-formula-box">
+      <span style="color:var(--tx3);font-size:.78rem;display:block;margin-bottom:6px;">공식을 써보세요</span>
+      <span style="color:var(--ac2);font-size:1.05rem;font-style:italic;">${s.hint}</span>
+    </div>
+    <button class="sq-show-btn" onclick="sqToggle('${s.id}',this)">🔍 정답 보기</button>
+    <div class="sq-ans-box" id="${s.id}_ans">${s.ans}</div>
+  </div>
+</div>`;
+    }
+  }).join('');
+  /* 번호 순서대로 주N 표시 */
+  wrap.querySelectorAll('.sq-num').forEach((el,i)=>el.textContent='주'+(i+1));
+  renderMathInElement(wrap, KATEX_OPTS);
+}
+
+function sqCheck(id){
+  const sc=document.getElementById(`${id}_score`);
+  const inps=sc.closest('.sq-body').querySelectorAll('.sq-inp');
+  let ok=0;
+  inps.forEach(inp=>{
+    inp.classList.remove('cor','wrg');
+    if(inp.value.trim()===inp.dataset.ans){inp.classList.add('cor');ok++;}
+    else inp.classList.add('wrg');
+  });
+  sc.className='sq-score '+(ok===inps.length?'ok':'ng');
+  sc.textContent=ok===inps.length?'🎉 모두 정답!':`${ok} / ${inps.length} 정답 — 틀린 칸을 확인해보세요`;
+}
+function sqShowAll(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.remove('wrg');inp.classList.add('cor');});
+  sc.className='sq-score ok';sc.textContent='정답을 확인했습니다 ✓';
+}
+function sqReset(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value='';inp.classList.remove('cor','wrg');});
+  sc.className='sq-score';sc.textContent='';
+}
+function sqToggle(id,btn){
+  const box=document.getElementById(`${id}_ans`);
+  const showing=box.classList.toggle('show');
+  btn.textContent=showing?'🙈 정답 숨기기':'🔍 정답 보기';
+  if(showing) renderMathInElement(box, KATEX_OPTS);
+}
+
+/* 터치 기기 :active 고착 방지 — touchend 후 0.1초 뒤 blur */
+document.addEventListener('touchend', e=>{
+  const btn=e.target.closest('button,.stat-btn');
+  if(btn) setTimeout(()=>btn.blur(), 100);
+}, {passive:true});
+
+/* 초기화 */
+loadState();
+render();
+renderSQ();
+
+/* 마지막 푼 문제로 스크롤 */
+if(lastSeenN){
+  requestAnimationFrame(()=>{
+    const el=document.getElementById('q'+lastSeenN);
+    if(el) el.scrollIntoView({behavior:'instant',block:'center'});
+  });
+}
+
+/* 맨 위로 버튼 — 화면 높이 2배 이상 스크롤 시 표시 */
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('topBtn');
+  btn.classList.toggle('visible', window.scrollY > 300);
+},{passive:true});
+</script>
+</body>
+</html>
