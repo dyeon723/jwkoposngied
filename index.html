@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전기산업기사 기출문제</title>
+<style>
+  :root{--bg:#0e1116;--card:#161b22;--line:#2a3038;--tx:#e6edf3;--tx2:#9da7b3;--ac:#4f9dff;--ac2:#7ee787;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Pretendard,sans-serif;}
+  .wrap{max-width:720px;margin:0 auto;padding:24px 16px 80px;}
+  h1{font-size:1.4rem;text-align:center;margin:12px 0 24px;}
+  .src-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+  .src-btn{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 10px;text-align:center;cursor:pointer;font-size:1.05rem;font-weight:700;color:var(--tx);}
+  .src-btn.active{border-color:var(--ac);box-shadow:0 0 0 2px rgba(79,157,255,.25) inset;}
+  .src-btn .sub{display:block;margin-top:6px;font-size:.75rem;font-weight:400;color:var(--tx2);}
+  .year-group{margin-bottom:18px;}
+  .year-title{font-size:.85rem;color:var(--tx2);font-weight:700;margin:14px 0 8px;padding-left:2px;}
+  .round-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+  .round-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+  .round-name{font-weight:700;font-size:.95rem;}
+  .round-count{font-size:.75rem;color:var(--tx2);}
+  .round-body{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+  .round-body.open{display:block;}
+  .mode-row{display:flex;flex-direction:column;gap:8px;}
+  .mode-btn{display:block;width:100%;text-align:left;background:#1c232c;border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--tx);text-decoration:none;font-size:.85rem;}
+  .mode-btn b{display:block;font-size:.9rem;margin-bottom:2px;}
+  .mode-btn .d{color:var(--tx2);font-size:.75rem;}
+  .subj-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .subj-chip{background:#1c232c;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:.78rem;color:var(--tx);text-decoration:none;}
+  .subj-chip:active{background:var(--ac);color:#fff;}
+  .empty{text-align:center;color:var(--tx2);padding:40px 0;}
+  .pool-box{background:var(--card);border:1px solid var(--ac);border-radius:14px;padding:16px;margin-bottom:24px;}
+  .pool-title{font-weight:700;font-size:1rem;margin-bottom:4px;}
+  .pool-sub{color:var(--tx2);font-size:.78rem;margin-bottom:14px;}
+  .pool-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+  .pool-row label{font-size:.8rem;color:var(--tx2);}
+  .pool-row select{background:#1c232c;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:6px 10px;font-size:.85rem;}
+  .pool-subj{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  .pool-subj-btn{background:#1c232c;border:1px solid var(--line);border-radius:20px;padding:8px 14px;font-size:.85rem;color:var(--tx);cursor:pointer;}
+  .pool-subj-btn.active{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:700;}
+  .pool-go{display:block;width:100%;text-align:center;background:var(--ac);color:#fff;border:none;border-radius:10px;padding:12px;font-size:.95rem;font-weight:700;text-decoration:none;}
+  .pool-go.disabled{opacity:.4;pointer-events:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>전기산업기사 기출문제</h1>
+  <div class="src-grid" id="srcGrid"></div>
+  <div id="poolSection"></div>
+  <div id="roundList"></div>
+</div>
+<script>
+const MANIFEST = {"맞추다": [{"folder": "2013년 1회차", "title": "2013년도 1회차", "file": "맞추다/2013년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 98}, {"folder": "2013년 2회차", "title": "2013년도 2회차", "file": "맞추다/2013년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2013년 3회차", "title": "2013년도 3회차", "file": "맞추다/2013년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2014년 1회차", "title": "2014년도 1회차", "file": "맞추다/2014년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 98}, {"folder": "2014년 2회차", "title": "2014년도 2회차", "file": "맞추다/2014년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2014년 3회차", "title": "2014년도 3회차", "file": "맞추다/2014년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 94}, {"folder": "2015년 1회차", "title": "2015년도 1회차", "file": "맞추다/2015년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 95}, {"folder": "2015년 2회차", "title": "2015년도 2회차", "file": "맞추다/2015년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 95}, {"folder": "2015년 3회차", "title": "2015년도 3회차", "file": "맞추다/2015년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 94}, {"folder": "2016년 1회차", "title": "2016년도 1회차", "file": "맞추다/2016년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 97}, {"folder": "2016년 2회차", "title": "2016년도 2회차", "file": "맞추다/2016년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 99}, {"folder": "2016년 3회차", "title": "2016년도 3회차", "file": "맞추다/2016년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 95}, {"folder": "2017년 1회차", "title": "2017년도 1회차", "file": "맞추다/2017년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 98}, {"folder": "2017년 2회차", "title": "2017년도 2회차", "file": "맞추다/2017년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 95}, {"folder": "2017년 3회차", "title": "2017년도 3회차", "file": "맞추다/2017년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 97}, {"folder": "2018년 1회차", "title": "2018년도 1회차", "file": "맞추다/2018년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 97}, {"folder": "2018년 2회차", "title": "2018년도 2회차", "file": "맞추다/2018년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 94}, {"folder": "2018년 3회차", "title": "2018년도 3회차", "file": "맞추다/2018년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 98}, {"folder": "2019년 1회차", "title": "2019년도 1회차", "file": "맞추다/2019년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2019년 2회차", "title": "2019년도 2회차", "file": "맞추다/2019년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 97}, {"folder": "2019년 3회차", "title": "2019년도 3회차", "file": "맞추다/2019년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 98}, {"folder": "2020년 1, 2회차", "title": "2020년도 1, 2회차", "file": "맞추다/2020년 1, 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2020년 3회차", "title": "2020년도 3회차", "file": "맞추다/2020년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 99}, {"folder": "2020년 4회차", "title": "2020년도 4회차", "file": "맞추다/2020년 4회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 96}, {"folder": "2021년 1회차", "title": "2021년도 1회차", "file": "맞추다/2021년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2021년 2회차", "title": "2021년도 2회차", "file": "맞추다/2021년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2021년 3회차", "title": "2021년도 3회차", "file": "맞추다/2021년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2022년 1회차", "title": "2022년도 1회차", "file": "맞추다/2022년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2022년 2회차", "title": "2022년도 2회차", "file": "맞추다/2022년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2022년 3회차", "title": "2022년도 3회차", "file": "맞추다/2022년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2023년 1회차", "title": "2023년도 1회차", "file": "맞추다/2023년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2023년 2회차", "title": "2023년도 2회차", "file": "맞추다/2023년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2023년 3회차", "title": "2023년도 3회차", "file": "맞추다/2023년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2024년 1회차", "title": "2024년도 1회차", "file": "맞추다/2024년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2024년 2회차", "title": "2024년도 2회차", "file": "맞추다/2024년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2024년 3회차", "title": "2024년도 3회차", "file": "맞추다/2024년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2025년 1회차", "title": "2025년도 1회차", "file": "맞추다/2025년 1회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2025년 2회차", "title": "2025년도 2회차", "file": "맞추다/2025년 2회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}, {"folder": "2025년 3회차", "title": "2025년도 3회차", "file": "맞추다/2025년 3회차.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준"], "count": 100}], "최강CBT": [{"folder": "전기산업기사_2002년03월10일", "title": "전기산업기사 2002년03월10일", "file": "최강CBT/전기산업기사_2002년03월10일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2002년05월26일", "title": "전기산업기사 2002년05월26일", "file": "최강CBT/전기산업기사_2002년05월26일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2002년08월11일", "title": "전기산업기사 2002년08월11일", "file": "최강CBT/전기산업기사_2002년08월11일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2003년03월16일", "title": "전기산업기사 2003년03월16일", "file": "최강CBT/전기산업기사_2003년03월16일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2003년05월25일", "title": "전기산업기사 2003년05월25일", "file": "최강CBT/전기산업기사_2003년05월25일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2003년08월31일", "title": "전기산업기사 2003년08월31일", "file": "최강CBT/전기산업기사_2003년08월31일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2004년03월07일", "title": "전기산업기사 2004년03월07일", "file": "최강CBT/전기산업기사_2004년03월07일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2004년05월23일", "title": "전기산업기사 2004년05월23일", "file": "최강CBT/전기산업기사_2004년05월23일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2004년08월08일", "title": "전기산업기사 2004년08월08일", "file": "최강CBT/전기산업기사_2004년08월08일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2005년03월06일", "title": "전기산업기사 2005년03월06일", "file": "최강CBT/전기산업기사_2005년03월06일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2005년05월29일", "title": "전기산업기사 2005년05월29일", "file": "최강CBT/전기산업기사_2005년05월29일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2005년08월07일", "title": "전기산업기사 2005년08월07일", "file": "최강CBT/전기산업기사_2005년08월07일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2006년03월05일", "title": "전기산업기사 2006년03월05일", "file": "최강CBT/전기산업기사_2006년03월05일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2006년05월14일", "title": "전기산업기사 2006년05월14일", "file": "최강CBT/전기산업기사_2006년05월14일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2006년08월16일", "title": "전기산업기사 2006년08월16일", "file": "최강CBT/전기산업기사_2006년08월16일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2007년03월04일", "title": "전기산업기사 2007년03월04일", "file": "최강CBT/전기산업기사_2007년03월04일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2007년05월13일", "title": "전기산업기사 2007년05월13일", "file": "최강CBT/전기산업기사_2007년05월13일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2007년08월05일", "title": "전기산업기사 2007년08월05일", "file": "최강CBT/전기산업기사_2007년08월05일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2008년03월02일", "title": "전기산업기사 2008년03월02일", "file": "최강CBT/전기산업기사_2008년03월02일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2008년05월11일", "title": "전기산업기사 2008년05월11일", "file": "최강CBT/전기산업기사_2008년05월11일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2008년07월27일", "title": "전기산업기사 2008년07월27일", "file": "최강CBT/전기산업기사_2008년07월27일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2009년03월01일", "title": "전기산업기사 2009년03월01일", "file": "최강CBT/전기산업기사_2009년03월01일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2009년05월10일", "title": "전기산업기사 2009년05월10일", "file": "최강CBT/전기산업기사_2009년05월10일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2009년07월26일", "title": "전기산업기사 2009년07월26일", "file": "최강CBT/전기산업기사_2009년07월26일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2010년03월07일", "title": "전기산업기사 2010년03월07일", "file": "최강CBT/전기산업기사_2010년03월07일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2010년05월09일", "title": "전기산업기사 2010년05월09일", "file": "최강CBT/전기산업기사_2010년05월09일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2010년07월25일", "title": "전기산업기사 2010년07월25일", "file": "최강CBT/전기산업기사_2010년07월25일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2011년03월20일", "title": "전기산업기사 2011년03월20일", "file": "최강CBT/전기산업기사_2011년03월20일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2011년06월12일", "title": "전기산업기사 2011년06월12일", "file": "최강CBT/전기산업기사_2011년06월12일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2011년08월21일", "title": "전기산업기사 2011년08월21일", "file": "최강CBT/전기산업기사_2011년08월21일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2012년03월04일", "title": "전기산업기사 2012년03월04일", "file": "최강CBT/전기산업기사_2012년03월04일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2012년05월20일", "title": "전기산업기사 2012년05월20일", "file": "최강CBT/전기산업기사_2012년05월20일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2012년08월26일", "title": "전기산업기사 2012년08월26일", "file": "최강CBT/전기산업기사_2012년08월26일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2013년03월10일", "title": "전기산업기사 2013년03월10일", "file": "최강CBT/전기산업기사_2013년03월10일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2013년06월02일", "title": "전기산업기사 2013년06월02일", "file": "최강CBT/전기산업기사_2013년06월02일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2013년08월18일", "title": "전기산업기사 2013년08월18일", "file": "최강CBT/전기산업기사_2013년08월18일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2014년03월02일", "title": "전기산업기사 2014년03월02일", "file": "최강CBT/전기산업기사_2014년03월02일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2014년05월25일", "title": "전기산업기사 2014년05월25일", "file": "최강CBT/전기산업기사_2014년05월25일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2014년08월17일", "title": "전기산업기사 2014년08월17일", "file": "최강CBT/전기산업기사_2014년08월17일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2015년03월08일", "title": "전기산업기사 2015년03월08일", "file": "최강CBT/전기산업기사_2015년03월08일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2015년05월31일", "title": "전기산업기사 2015년05월31일", "file": "최강CBT/전기산업기사_2015년05월31일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2015년08월16일", "title": "전기산업기사 2015년08월16일", "file": "최강CBT/전기산업기사_2015년08월16일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2016년03월06일", "title": "전기산업기사 2016년03월06일", "file": "최강CBT/전기산업기사_2016년03월06일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2016년05월08일", "title": "전기산업기사 2016년05월08일", "file": "최강CBT/전기산업기사_2016년05월08일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2016년08월21일", "title": "전기산업기사 2016년08월21일", "file": "최강CBT/전기산업기사_2016년08월21일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2017년03월05일", "title": "전기산업기사 2017년03월05일", "file": "최강CBT/전기산업기사_2017년03월05일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2017년05월07일", "title": "전기산업기사 2017년05월07일", "file": "최강CBT/전기산업기사_2017년05월07일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2017년08월26일", "title": "전기산업기사 2017년08월26일", "file": "최강CBT/전기산업기사_2017년08월26일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2018년03월04일", "title": "전기산업기사 2018년03월04일", "file": "최강CBT/전기산업기사_2018년03월04일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2018년04월28일", "title": "전기산업기사 2018년04월28일", "file": "최강CBT/전기산업기사_2018년04월28일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2018년08월19일", "title": "전기산업기사 2018년08월19일", "file": "최강CBT/전기산업기사_2018년08월19일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2019년03월03일", "title": "전기산업기사 2019년03월03일", "file": "최강CBT/전기산업기사_2019년03월03일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2019년04월27일", "title": "전기산업기사 2019년04월27일", "file": "최강CBT/전기산업기사_2019년04월27일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2019년08월04일", "title": "전기산업기사 2019년08월04일", "file": "최강CBT/전기산업기사_2019년08월04일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2020년06월06일", "title": "전기산업기사 2020년06월06일", "file": "최강CBT/전기산업기사_2020년06월06일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}, {"folder": "전기산업기사_2020년08월22일", "title": "전기산업기사 2020년08월22일", "file": "최강CBT/전기산업기사_2020년08월22일.html", "subjects": ["전기자기학", "전력공학", "전기기기", "회로이론", "전기설비기술기준 및 판단 기준"], "count": 100}]};
+const SOURCES = Object.keys(MANIFEST);
+let currentSource = SOURCES[0] || null;
+let poolSubject = null;
+
+function getYearRange(rounds){
+  const years = rounds.map(r=>{
+    const m = r.title.match(/(\d{4})/);
+    return m ? parseInt(m[1],10) : null;
+  }).filter(y=>y);
+  return { min: Math.min(...years), max: Math.max(...years) };
+}
+
+function getAllSubjects(rounds){
+  const set = new Set();
+  rounds.forEach(r=>r.subjects.forEach(s=>set.add(s)));
+  return [...set];
+}
+
+function renderPoolSection(){
+  const el = document.getElementById('poolSection');
+  if(!currentSource || !MANIFEST[currentSource] || MANIFEST[currentSource].length===0){
+    el.innerHTML = '';
+    return;
+  }
+  const rounds = MANIFEST[currentSource];
+  const { min, max } = getYearRange(rounds);
+  const subjects = getAllSubjects(rounds);
+  if(!poolSubject || !subjects.includes(poolSubject)) poolSubject = subjects[0] || null;
+
+  let yearOpts = '';
+  for(let y=max; y>=min; y--) yearOpts += `<option value="${y}">${y}</option>`;
+
+  el.innerHTML = `
+    <div class="pool-box">
+      <div class="pool-title">연도 범위로 모아풀기</div>
+      <div class="pool-sub">기간을 정하고 과목을 고르면, 그 안의 모든 회차에서 해당 과목 문제만 모아서 풉니다.</div>
+      <div class="pool-row">
+        <label>시작</label>
+        <select id="poolFrom">${yearOpts}</select>
+        <label>~ 끝</label>
+        <select id="poolTo">${yearOpts}</select>
+      </div>
+      <div class="pool-subj">
+        ${subjects.map(s=>`<div class="pool-subj-btn ${s===poolSubject?'active':''}" onclick="selectPoolSubject('${s}')">${s}</div>`).join('')}
+      </div>
+      <a class="pool-go" id="poolGoBtn" href="#">모아풀기 시작</a>
+    </div>`;
+
+  document.getElementById('poolTo').value = String(max);
+  document.getElementById('poolFrom').value = String(min);
+  updatePoolLink();
+  document.getElementById('poolFrom').onchange = updatePoolLink;
+  document.getElementById('poolTo').onchange = updatePoolLink;
+}
+
+function selectPoolSubject(s){
+  poolSubject = s;
+  renderPoolSection();
+}
+
+function updatePoolLink(){
+  const from = document.getElementById('poolFrom').value;
+  const to = document.getElementById('poolTo').value;
+  const btn = document.getElementById('poolGoBtn');
+  if(!poolSubject){ btn.classList.add('disabled'); return; }
+  const url = `pool.html?source=${encodeURIComponent(currentSource)}&subject=${encodeURIComponent(poolSubject)}&from=${from}&to=${to}`;
+  btn.href = url;
+  btn.classList.remove('disabled');
+}
+
+function groupByYear(rounds){
+  const groups = {};
+  rounds.forEach(r=>{
+    const m = r.title.match(/(\d{4})/);
+    const y = m ? m[1] : '기타';
+    (groups[y] = groups[y] || []).push(r);
+  });
+  return Object.keys(groups).sort((a,b)=>b.localeCompare(a)).map(y=>({year:y, rounds:groups[y]}));
+}
+
+function renderSrcGrid(){
+  const el = document.getElementById('srcGrid');
+  el.innerHTML = SOURCES.map(s=>`
+    <div class="src-btn ${s===currentSource?'active':''}" onclick="selectSource('${s}')">
+      ${s}
+      <span class="sub">${MANIFEST[s].length}개 회차</span>
+    </div>`).join('');
+}
+
+function selectSource(s){
+  currentSource = s;
+  poolSubject = null;
+  renderSrcGrid();
+  renderPoolSection();
+  renderRoundList();
+}
+
+function toggleRound(id){
+  const body = document.getElementById(id);
+  body.classList.toggle('open');
+}
+
+function renderRoundList(){
+  const el = document.getElementById('roundList');
+  if(!currentSource || !MANIFEST[currentSource] || MANIFEST[currentSource].length===0){
+    el.innerHTML = '<div class="empty">표시할 회차가 없습니다.</div>';
+    return;
+  }
+  const groups = groupByYear(MANIFEST[currentSource]);
+  el.innerHTML = groups.map(g=>`
+    <div class="year-group">
+      <div class="year-title">${g.year}년</div>
+      ${g.rounds.map((r,idx)=>{
+        const bodyId = `body_${currentSource}_${g.year}_${idx}`.replace(/[^a-zA-Z0-9_]/g,'_');
+        const file = r.file;
+        const subjChips = r.subjects.map(s=>
+          `<a class="subj-chip" href="${encodeURI(file)}?subject=${encodeURIComponent(s)}">${s}</a>`
+        ).join('');
+        return `
+        <div class="round-card">
+          <div class="round-head" onclick="toggleRound('${bodyId}')">
+            <span class="round-name">${r.title}</span>
+            <span class="round-count">${r.count}문제 ▾</span>
+          </div>
+          <div class="round-body" id="${bodyId}">
+            <div class="mode-row">
+              <a class="mode-btn" href="${encodeURI(file)}">
+                <b>전체 문제 풀기</b><span class="d">회차 전체를 순서대로</span>
+              </a>
+              <a class="mode-btn" href="${encodeURI(file)}?mode=study">
+                <b>학습모드</b><span class="d">정답·해설이 처음부터 보임</span>
+              </a>
+            </div>
+            ${subjChips ? `<div class="year-title" style="margin-top:12px;">과목별로 몰아풀기</div><div class="subj-list">${subjChips}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
+renderSrcGrid();
+renderPoolSection();
+renderRoundList();
+</script>
+</body>
+</html>
